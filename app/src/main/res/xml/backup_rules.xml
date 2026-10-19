@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and older backup; same scope as data_extraction_rules.xml. -->
+<full-backup-content>
+    <include domain="database" path="browser.db" />
+    <include domain="file" path="androidx.appcompat.app.AppCompatDelegate.application_locales_record_file" />
+</full-backup-content>

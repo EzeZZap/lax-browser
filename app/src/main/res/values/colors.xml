@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the Compose palette's surface (ui/theme/Color.kt). -->
+    <color name="brand_surface">#FFFCF9FF</color>
+    <!-- Home screen search widget: surfaceContainerHigh, onSurfaceVariant, and primary. -->
+    <color name="widget_background">#FFEBE7F3</color>
+    <color name="widget_text">#FF4A4558</color>
+    <color name="widget_accent">#FF6A4FD8</color>
+</resources>

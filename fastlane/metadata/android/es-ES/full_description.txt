@@ -1,0 +1,19 @@
+<p>Lax es un navegador web basado en GeckoView de Mozilla. Las pestañas se muestran en una barra lateral en lugar de una fila superior, y se agrupan en espacios. Cada espacio tiene su propio contenedor, así que las cookies y los inicios de sesión de un espacio no se comparten con los demás.</p>
+
+<p><b>Funciones</b></p>
+<ul>
+<li>Barra lateral de pestañas con esenciales (visibles en todos los espacios), pestañas fijadas, carpetas y pestañas normales</li>
+<li>Espacios con contenedores separados</li>
+<li>Elección del espacio en el que se abren los enlaces de otras aplicaciones</li>
+<li>Descarga automática de pestañas que no se usan</li>
+<li>Vista dividida y vista previa de enlaces</li>
+<li>Pestañas privadas, protección mejorada contra el rastreo, modo solo HTTPS y Global Privacy Control</li>
+<li>Complementos de Firefox de addons.mozilla.org</li>
+<li>Inicios de sesión guardados y cifrados en el dispositivo; también es compatible con los servicios de autocompletar de Android</li>
+<li>Marcadores con importación/exportación HTML, historial, descargas, vista de lectura, traducción, búsqueda en la página y zoom por sitio</li>
+<li>Aplicaciones web instalables y Custom Tabs</li>
+<li>Diseño para tabletas con la barra lateral fija</li>
+<li>Inglés y español</li>
+</ul>
+
+<p>Lax no incluye telemetría ni anuncios.</p>

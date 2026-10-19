@@ -1,0 +1,16 @@
+*.iml
+.gradle
+local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Android Studio settings are per machine; shared run presets live in /.run.
+/.idea/
+
+# Release signing: the keystore and its passwords must never be committed.
+keystore.properties
+*.jks
+*.keystore

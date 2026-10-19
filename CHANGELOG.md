@@ -1,0 +1,42 @@
+# Changelog
+
+## 0.1.0
+
+Initial release.
+
+### Tabs and Spaces
+
+- Vertical tab sidebar with Essentials, pinned tabs, folders and regular tabs
+- Sidebar can be placed on the left or right, and is docked on wide screens
+- Spaces with separate containers, emoji or color icons and per-Space theme color
+- Setting for which Space links from other apps open in, and an "Open in Lax…" share target
+- Pinned tabs and Essentials keep their starting page
+- Automatic tab unloading after a configurable time
+- Split view and link previews
+- Tab search across Spaces
+- Recently closed tabs are kept across restarts
+
+### Privacy and security
+
+- Private tabs, with an optional lock behind the screen lock
+- Enhanced Tracking Protection, HTTPS-only mode and Global Privacy Control
+- Per-site permissions and site data clearing
+- Saved logins stored encrypted on the device, with a screen lock prompt to view passwords
+- Import and export of saved logins as CSV (Firefox, Chrome, Edge, Brave, Bitwarden)
+- Password generator
+- Support for Android autofill services
+
+### Other
+
+- Firefox add-ons from addons.mozilla.org
+- Bookmarks with folders and HTML import/export
+- History, new tab page shortcuts and local backups, optionally with saved logins encrypted by a password
+- Downloads continue in the background, with progress in a notification
+- Error pages for offline, unreachable and insecure sites
+- Reader view, translation, find in page, per-site zoom, desktop mode and print to PDF
+- Installable web apps and Custom Tabs support
+- Option to open links in installed apps
+- Search bar widget for the home screen
+- First-run setup for layout, Spaces, Essentials, search and add-ons
+- Update checks and installs for builds from GitHub
+- English and Spanish translations

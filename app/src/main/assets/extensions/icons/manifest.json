@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Lax page helper",
+  "version": "1.2",
+  "description": "Reports the icons declared by pages, applies per-site zoom, and says \"Add to Lax\" on addons.mozilla.org.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "icons@laxbrowser.javzzap.com"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["zoom.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["icons.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://addons.mozilla.org/*"],
+      "js": ["amo.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "permissions": ["nativeMessaging", "nativeMessagingFromContent", "geckoViewAddons", "mozillaAddons"]
+}

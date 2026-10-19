@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Lax app icon, master artwork. 108x108 is the Android adaptive icon canvas: launchers show
+  roughly the middle 72x72 and crop it to their own shape, so the mark stays inside the central
+  66x66 safe zone. The Android layers in app/src/main/res/drawable/ic_launcher_*.xml use the
+  same coordinates.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C4A6FB" />
+      <stop offset="0.5" stop-color="#A3BDE8" />
+      <stop offset="1" stop-color="#66E8B8" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.2" stdDeviation="1.2" flood-color="#3B2F63" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background layer -->
+  <rect width="108" height="108" fill="url(#background)" />
+
+  <!-- Foreground layer: an "L" that is also the tab sidebar -->
+  <g filter="url(#shadow)">
+    <path fill="#FFFFFF"
+      d="M46,30 H50.5 A6,6 0 0 1 56.5,36 V65 A3,3 0 0 0 59.5,68 H66 A3,3 0 0 1 69,71 V75 A3,3 0 0 1 66,78 H46 A6,6 0 0 1 40,72 V36 A6,6 0 0 1 46,30 Z" />
+  </g>
+  <!-- Tab rows -->
+  <g fill="#B5AEC9">
+    <rect x="44.5" y="51.7" width="6.5" height="2" rx="1" />
+    <rect x="44.5" y="57.3" width="6.5" height="2" rx="1" />
+    <rect x="44.5" y="62.9" width="6.5" height="2" rx="1" />
+  </g>
+  <!-- Space color dot -->
+  <circle cx="51.2" cy="39.4" r="2.5" fill="#8F7CF6" />
+</svg>

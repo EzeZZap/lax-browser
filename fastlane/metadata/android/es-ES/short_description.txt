@@ -1,0 +1,1 @@
+Navegador GeckoView con pestañas laterales y espacios con contenedores propios

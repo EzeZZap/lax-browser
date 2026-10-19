@@ -1,0 +1,1024 @@
+<resources>
+    <string name="app_name" translatable="false">Lax</string>
+    <string name="default_space_name">Personal</string>
+
+    <!-- Common actions -->
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="create">Create</string>
+    <string name="rename">Rename</string>
+    <string name="delete">Delete</string>
+    <string name="delete_ellipsis">Delete…</string>
+    <string name="remove">Remove</string>
+    <string name="remove_ellipsis">Remove…</string>
+    <string name="move">Move…</string>
+    <string name="move_action">Move</string>
+    <string name="move_here">Move here</string>
+    <string name="change">Change</string>
+    <string name="ok">OK</string>
+    <string name="close">Close</string>
+    <string name="back">Back</string>
+    <string name="name">Name</string>
+    <string name="color">Color</string>
+    <string name="color_n">Color %1$d</string>
+    <string name="action_open">Open</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_reopen">Reopen</string>
+    <string name="action_switch">Switch</string>
+    <string name="options_for">Options for %1$s</string>
+    <string name="move_up">Move up</string>
+    <string name="move_down">Move down</string>
+    <string name="move_left">Move left</string>
+    <string name="move_right">Move right</string>
+    <string name="move_item_up">Move %1$s up</string>
+    <string name="move_item_down">Move %1$s down</string>
+    <string name="link_title">Title</string>
+    <string name="link_address">Address</string>
+    <string name="error_invalid_address">Enter a valid web address</string>
+    <string name="error_not_saved">This address could not be saved</string>
+
+    <!-- Accessibility fragments, joined with cd_separator -->
+    <string name="cd_separator">", "</string>
+    <string name="cd_pinned">pinned</string>
+    <string name="cd_unloaded">unloaded</string>
+    <string name="cd_container_missing">container missing</string>
+
+    <!-- Sidebar -->
+    <string name="essentials">Essentials</string>
+    <string name="essentials_hint">Essentials follow you into every Space. Add one from any tab\'s menu.</string>
+    <string name="essential_cd">Essential: %1$s</string>
+    <string name="essential_options">Essential options</string>
+    <string name="unload_keep_essential">Unload (keep in Essentials)</string>
+    <string name="remove_from_essentials">Remove from Essentials…</string>
+    <string name="url_bar_hint">Search or enter address</string>
+    <string name="clear_address">Clear address</string>
+    <string name="pinned">Pinned</string>
+    <string name="pinned_empty">Pinned · nothing yet</string>
+    <string name="new_tab">New tab</string>
+    <string name="switch_to_tab">Switch to tab</string>
+    <string name="unloaded_host">Unloaded · %1$s</string>
+    <string name="container_missing">Container missing</string>
+    <string name="close_tab_cd">Close tab %1$s</string>
+    <string name="pin_to_space">Pin to this Space</string>
+    <string name="unpin">Unpin</string>
+    <string name="unload_keep_tab">Unload (keep tab)</string>
+    <string name="add_to_essentials">Add to Essentials</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="move_to_space">Move to Space…</string>
+    <string name="close_tab">Close tab</string>
+    <string name="close_pinned_tab">Close pinned tab…</string>
+    <string name="swipe_unload">Unload</string>
+    <string name="swipe_close">Close</string>
+    <string name="space_container_label">%1$s · container: %2$s</string>
+    <string name="missing_container">missing container</string>
+    <string name="switch_to_space">Switch to Space</string>
+    <string name="space_cd">Space %1$s</string>
+    <string name="new_space">New Space</string>
+    <string name="manage_spaces_cd">Manage Spaces and containers</string>
+
+    <!-- Toolbar and browser menu -->
+    <string name="open_sidebar">Open sidebar</string>
+    <string name="edit_address">Edit address</string>
+    <string name="address_cd">Address: %1$s</string>
+    <string name="address_new_tab">new tab</string>
+    <string name="secure_connection">Secure connection</string>
+    <string name="stop_loading">Stop loading</string>
+    <string name="reload">Reload</string>
+    <string name="browser_menu">Browser menu</string>
+    <string name="menu_back">Back</string>
+    <string name="menu_forward">Forward</string>
+    <string name="menu_reopen_closed_tab">Reopen closed tab</string>
+    <string name="menu_edit_bookmark">Edit bookmark</string>
+    <string name="menu_share">Share…</string>
+    <string name="menu_copy_link">Copy link</string>
+    <string name="menu_find_in_page">Find in page</string>
+    <string name="menu_desktop_site">Desktop site</string>
+    <string name="menu_install_app">Install app…</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_web_apps">Installed web apps</string>
+    <string name="menu_spaces">Spaces &amp; containers</string>
+    <string name="menu_settings">Settings</string>
+    <string name="share_link">Share link</string>
+
+    <!-- Find in page -->
+    <string name="find_hint">Find in page</string>
+    <string name="find_count">%1$d/%2$d</string>
+    <string name="find_previous">Previous match</string>
+    <string name="find_next">Next match</string>
+    <string name="find_close">Close find in page</string>
+
+    <!-- Page context menu -->
+    <string name="ctx_open_new_tab">Open in new tab</string>
+    <string name="ctx_open_background">Open in background tab</string>
+    <string name="ctx_copy_link">Copy link address</string>
+    <string name="ctx_share_link">Share link</string>
+    <string name="ctx_open_image">Open image in new tab</string>
+    <string name="ctx_copy_image">Copy image address</string>
+
+    <!-- Web content states -->
+    <string name="container_missing_title">This tab\'s container is missing</string>
+    <string name="container_missing_body">Assign a container to this Space in Spaces &amp; containers to load it.</string>
+    <string name="tab_crashed_title">This tab stopped working</string>
+    <string name="tab_crashed_body">The page\'s content process crashed.</string>
+    <string name="tab_unloaded_body">This tab is unloaded. Its place in your list is kept.</string>
+    <string name="release_to_go_back">Release to go back</string>
+    <string name="release_to_go_forward">Release to go forward</string>
+    <string name="release_to_refresh">Release to refresh</string>
+
+    <!-- Browser dialogs -->
+    <string name="close_pinned_title">Close pinned tab?</string>
+    <string name="close_pinned_message">“%1$s” will be removed from this Space\'s pinned tabs. To free memory but keep it, use Unload instead.</string>
+    <string name="remove_essential_title">Remove from Essentials?</string>
+    <string name="remove_essential_message">“%1$s” will be removed from Essentials in every Space.</string>
+
+    <!-- Snackbar messages -->
+    <string name="msg_tab_closed">Tab closed</string>
+    <string name="msg_cannot_reopen">This tab can\'t be reopened because its Space or container changed</string>
+    <string name="msg_tab_unloaded">Tab unloaded. It stays in your list.</string>
+    <string name="msg_added_to_essentials">Added to Essentials</string>
+    <string name="msg_bookmark_added">Bookmark added</string>
+    <string name="msg_already_bookmarked">Already bookmarked</string>
+    <string name="msg_bookmark_deleted">Bookmark deleted</string>
+    <string name="msg_folder_deleted">Folder deleted</string>
+    <string name="msg_space_deleted">%1$s deleted</string>
+    <string name="msg_space_container_changed">%1$s now uses a different container</string>
+    <string name="msg_container_deleted">%1$s and its site data were deleted</string>
+    <string name="msg_moved_to_space">Moved to %1$s</string>
+    <string name="msg_shortcut_removed">Shortcut removed</string>
+    <string name="msg_shortcut_added">Added to the new tab page</string>
+    <string name="menu_add_ntp_shortcut">Add to new tab page</string>
+    <string name="menu_remove_ntp_shortcut">Remove from new tab page</string>
+    <string name="msg_link_copied">Link copied</string>
+    <string name="msg_opened_background">Opened in a background tab</string>
+    <string name="msg_install_confirm">Confirm on your home screen to add %1$s</string>
+    <string name="msg_launcher_declined">Your home screen app declined the request</string>
+    <string name="msg_launcher_unsupported">Your home screen app does not support adding web apps</string>
+    <string name="msg_icon_failed">The app icon could not be loaded, so this app cannot be installed</string>
+    <string name="msg_web_app_removed">%1$s was removed. Its home screen icon is now disabled.</string>
+
+    <!-- Rejected operations -->
+    <string name="reject_not_found">That item no longer exists</string>
+    <string name="reject_invalid_url">Enter a valid web address</string>
+    <string name="reject_invalid_name">Enter a name</string>
+    <string name="reject_last_space">You need at least one Space</string>
+    <string name="reject_container_in_use">This container is still in use</string>
+    <string name="reject_container_missing">This Space\'s container is missing. Assign one in Spaces &amp; containers.</string>
+    <string name="reject_duplicate">That address is already saved</string>
+    <string name="reject_not_allowed">That action isn\'t available here</string>
+    <string name="reject_no_active_space">No Space is selected</string>
+
+    <!-- Web app installability -->
+    <string name="pwa_no_manifest">This site doesn\'t offer an installable app</string>
+    <string name="pwa_insecure">Only secure (HTTPS) sites can be installed</string>
+    <string name="pwa_no_name">This site\'s app manifest has no name</string>
+    <string name="pwa_display_mode">This site isn\'t set up to run as an app</string>
+    <string name="pwa_no_icon">This site\'s app manifest has no suitable icon</string>
+    <string name="pwa_cross_origin">This site\'s app manifest points to another site</string>
+    <string name="pwa_prefers_native">This site prefers its native app</string>
+
+    <!-- New tab page -->
+    <string name="ntp_space">New tab in %1$s</string>
+    <string name="shortcuts">Shortcuts</string>
+    <string name="shortcut_cd">Shortcut: %1$s</string>
+    <string name="open_shortcut">Open shortcut</string>
+    <string name="shortcut_options">Shortcut options</string>
+    <string name="add_shortcut">Add shortcut</string>
+    <string name="edit_shortcut">Edit shortcut</string>
+
+    <!-- Bookmarks -->
+    <string name="bookmarks">Bookmarks</string>
+    <string name="bookmarks_empty">Nothing saved yet. Tap “Bookmark” in the browser menu to keep a page for later.</string>
+    <string name="bookmarks_hint_space">Bookmarks open in the current Space (%1$s) and its container.</string>
+    <string name="folder_empty">This folder is empty</string>
+    <string name="bookmark_cd">Bookmark: %1$s</string>
+    <string name="folder_cd">Folder: %1$s</string>
+    <string name="open_bookmark">Open bookmark</string>
+    <string name="open_folder">Open folder</string>
+    <string name="edit_bookmark">Edit bookmark</string>
+    <string name="new_folder">New folder</string>
+    <string name="folder_name">Folder name</string>
+    <string name="rename_folder">Rename folder</string>
+    <string name="move_to_folder">Move to folder</string>
+    <string name="choose_folder">Choose folder</string>
+    <string name="folder_label">Folder: %1$s</string>
+    <string name="delete_bookmark_title">Delete bookmark?</string>
+    <string name="delete_bookmark_message">“%1$s” will be removed from your bookmarks. Open tabs are not affected.</string>
+    <string name="delete_folder_title">Delete “%1$s”?</string>
+    <string name="delete_folder_message">The folder and everything in it will be deleted: %1$s and %2$s.</string>
+    <plurals name="subfolders_count">
+        <item quantity="one">%d subfolder</item>
+        <item quantity="other">%d subfolders</item>
+    </plurals>
+    <plurals name="bookmarks_count">
+        <item quantity="one">%d bookmark</item>
+        <item quantity="other">%d bookmarks</item>
+    </plurals>
+
+    <!-- Private browsing -->
+    <string name="private_browsing">Private browsing</string>
+    <string name="new_private_tab">New private tab</string>
+    <string name="exit_private_browsing">Exit private</string>
+    <string name="close_all_private_tabs">Close all</string>
+    <string name="close_all_private_title">Close all private tabs?</string>
+    <plurals name="close_all_private_message">
+        <item quantity="one">%d private tab will be closed and its cookies, site data, and page history will be erased.</item>
+        <item quantity="other">%d private tabs will be closed and their cookies, site data, and page history will be erased.</item>
+    </plurals>
+    <string name="msg_private_tabs_closed">Private tabs closed</string>
+    <string name="private_ntp_explanation">Private tabs don\'t save history. Their cookies and site data are erased when you close them.</string>
+    <string name="settings_cat_private_summary">Screenshots and recent apps preview</string>
+    <string name="settings_private_block_screenshots">Block screenshots</string>
+    <string name="settings_private_block_screenshots_summary">Prevent screenshots and screen recordings while private browsing is open.</string>
+    <string name="settings_private_hide_in_recents">Hide in recent apps</string>
+    <string name="settings_private_hide_in_recents_summary">Show a blank preview in the recent apps screen while private browsing is open.</string>
+
+    <!-- History -->
+    <string name="menu_history">History</string>
+    <string name="history_search">Search history</string>
+    <string name="history_empty">Your trail starts here. Pages you visit will show up in this list.</string>
+    <string name="history_no_results">No pages match your search.</string>
+    <string name="history_today">Today</string>
+    <string name="history_yesterday">Yesterday</string>
+    <string name="history_host_time">%1$s · %2$s</string>
+    <string name="clear_history">Clear history</string>
+    <string name="clear_history_title">Clear browsing history</string>
+    <string name="clear_history_last_hour">Last hour</string>
+    <string name="clear_history_today">Today</string>
+    <string name="clear_history_last_7_days">Last 7 days</string>
+    <string name="clear_history_all">All time</string>
+    <string name="clear_history_note">Open tabs, bookmarks, and site data such as logins are not affected.</string>
+    <string name="clear">Clear</string>
+    <string name="msg_history_cleared">History cleared</string>
+
+    <!-- Spaces and containers -->
+    <string name="spaces">Spaces</string>
+    <string name="containers">Containers</string>
+    <string name="containers_explanation">A container keeps its own cookies, logins, and site storage. Each Space uses exactly one container.</string>
+    <string name="container">Container</string>
+    <string name="container_sharing_hint">Spaces that share a container share cookies and logins.</string>
+    <string name="new_container">New container</string>
+    <string name="new_container_separate">New container (separate logins and site data)</string>
+    <string name="container_for_space">Container for %1$s</string>
+    <string name="change_container_warning">%1$s in this Space will reload in the selected container. Cookies and site data stay in %2$s and are not copied.</string>
+    <string name="move_tab_to_space">Move tab to Space</string>
+    <string name="move_tab_container_warning">%1$s uses a different container, so the tab will reload there without its history.</string>
+    <string name="rename_space">Rename Space</string>
+    <string name="space_color">Space color</string>
+    <string name="space_current">%1$s (current)</string>
+    <string name="container_label">Container: %1$s</string>
+    <string name="container_missing_assign">Container missing — assign one</string>
+    <string name="change_color">Change color</string>
+    <string name="change_container">Change container…</string>
+    <string name="delete_space">Delete Space</string>
+    <string name="delete_space_title">Delete %1$s?</string>
+    <string name="delete_space_message">%1$s, including %2$s, will be closed and removed. %3$s and its site data are kept.</string>
+    <plurals name="pinned_count">
+        <item quantity="one">%d pinned</item>
+        <item quantity="other">%d pinned</item>
+    </plurals>
+    <string name="rename_container">Rename container</string>
+    <string name="container_unused">Not used by any Space</string>
+    <string name="container_used_by">Used by %1$s</string>
+    <string name="delete_container_title">Delete %1$s?</string>
+    <string name="delete_container_message">This permanently erases the cookies, logins, and site storage kept in this container.</string>
+    <string name="delete_container_confirm">Delete and erase data</string>
+    <string name="container_in_use_title">%1$s is in use</string>
+    <string name="container_in_use_message">Assign another container to these first, or remove them:</string>
+    <string name="usage_spaces">Spaces: %1$s</string>
+    <string name="usage_web_apps">Installed apps: %1$s</string>
+    <plurals name="tabs_count">
+        <item quantity="one">%d tab</item>
+        <item quantity="other">%d tabs</item>
+    </plurals>
+    <plurals name="usage_essentials">
+        <item quantity="one">%d Essential</item>
+        <item quantity="other">%d Essentials</item>
+    </plurals>
+
+    <!-- Installed web apps -->
+    <string name="web_apps_explanation">Installed web apps open in their own window, using the container of the Space they were installed from.</string>
+    <string name="web_apps_launcher_unsupported">Your home screen app does not support adding web app icons.</string>
+    <string name="web_apps_empty">No web apps installed. Open an installable site and choose “Install app” from the menu.</string>
+    <string name="web_app_origin_container">%1$s · %2$s</string>
+    <string name="web_app_on_home_screen">On home screen</string>
+    <string name="web_app_not_on_home_screen">Not on home screen</string>
+    <string name="web_app_repin">Add to home screen again</string>
+    <string name="remove_web_app_title">Remove %1$s?</string>
+    <string name="remove_web_app_message">The app is removed from Lax and its home screen icon stops working. Its site data is kept.</string>
+    <string name="web_app_disabled_message">This web app was removed</string>
+    <string name="app_icon">App icon</string>
+    <string name="install">Install</string>
+    <string name="install_title">Install %1$s?</string>
+    <string name="install_explanation">Adds a home screen icon that opens this site in its own window, using the “%1$s” container.</string>
+    <string name="web_app_error_removed">This web app was removed from Lax.</string>
+    <string name="web_app_error_container">The container this app used was deleted. Remove the app and install it again.</string>
+    <string name="web_app_error_closed">The app closed itself.</string>
+    <string name="web_app_error_crashed">This app stopped working.</string>
+    <string name="web_app_error_killed">This app was closed to free memory.</string>
+    <string name="web_app_return">Return to app</string>
+    <string name="web_app_open_in_browser">Open in browser</string>
+
+    <!-- Settings -->
+    <string name="settings_search_engine">Search engine</string>
+    <string name="settings_search_engine_summary">Used when what you type in the address bar is not a web address.</string>
+    <string name="settings_search_custom">Custom</string>
+    <string name="settings_search_custom_label">Custom search address</string>
+    <string name="settings_search_custom_help" formatted="false">Use %s where the search terms go.</string>
+    <string name="settings_search_custom_error" formatted="false">Enter an http(s) address that contains %s</string>
+    <string name="settings_search_custom_use">Use custom search</string>
+    <string name="settings_toolbar_top">At the top</string>
+    <string name="settings_toolbar_bottom">At the bottom</string>
+    <string name="settings_hide_toolbar">Hide toolbar while scrolling</string>
+    <string name="settings_hide_toolbar_summary">Scroll down to hide it and the system navigation bar, scroll up to bring them back.</string>
+    <string name="settings_pull_to_refresh">Pull to refresh</string>
+    <string name="settings_pull_to_refresh_summary">Pull down at the top of a page to reload it.</string>
+    <string name="settings_websites">Websites</string>
+    <string name="settings_appearance">Website appearance</string>
+    <string name="settings_appearance_system">Follow device theme</string>
+    <string name="settings_appearance_light">Light</string>
+    <string name="settings_appearance_dark">Dark</string>
+    <string name="settings_text_size">Text size: %1$d%%</string>
+    <string name="settings_privacy">Privacy &amp; security</string>
+    <string name="settings_tracking_protection">Enhanced tracking protection</string>
+    <string name="settings_tp_standard">Standard</string>
+    <string name="settings_tp_standard_summary">Blocks known trackers without breaking sites.</string>
+    <string name="settings_tp_strict">Strict</string>
+    <string name="settings_tp_strict_summary">Blocks more trackers. Some sites may not work.</string>
+    <string name="settings_tp_off">Off</string>
+    <string name="settings_tp_off_summary">No tracker blocking.</string>
+    <string name="settings_https_only">HTTPS-only mode</string>
+    <string name="settings_https_only_summary">Upgrades connections to HTTPS and warns before loading insecure pages.</string>
+    <string name="settings_cat_search">Search</string>
+    <string name="settings_cat_search_summary">Search engine: %1$s</string>
+    <string name="settings_cat_toolbar">Toolbar &amp; gestures</string>
+    <string name="settings_cat_toolbar_summary">Position, buttons, sidebar side, gestures</string>
+    <string name="settings_cat_websites_summary">Appearance and text size</string>
+    <string name="settings_cat_privacy_summary">Tracking protection and HTTPS-only mode</string>
+    <string name="settings_cat_spaces_summary">Spaces and the containers that separate their logins</string>
+    <string name="settings_cat_bookmarks_summary">Saved pages and folders</string>
+    <string name="settings_cat_web_apps_summary">Web apps added to your home screen</string>
+    <string name="settings_cat_history_summary">Pages you visited, searchable and easy to clear</string>
+    <string name="settings_browsing_data">Browsing data</string>
+    <string name="settings_clear_history_summary">Delete visited pages from the last hour, today, the last 7 days, or all time</string>
+    <string name="settings_toolbar_position">Position</string>
+    <string name="settings_gestures">Gestures</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_about_update_available">Version %1$s · Update available: %2$s</string>
+    <string name="about_update_current">You have version %1$s</string>
+    <string name="about_update_action">Update</string>
+    <string name="whats_new_title">What\'s new in Lax %1$s</string>
+    <string name="whats_new_ok">Got it</string>
+    <string name="whats_new_all">All changes</string>
+    <string name="changelog_title">What\'s new</string>
+    <string name="changelog_summary">Changes in each version of Lax</string>
+    <string name="changelog_version">Lax %1$s</string>
+    <string name="changelog_installed">Installed version</string>
+    <string name="changelog_unavailable">The list of changes couldn\'t be loaded.</string>
+    <string name="done">Done</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+
+    <!-- Language. Language names are written in their own language and not translated. -->
+    <string name="settings_language">Language</string>
+    <string name="settings_language_system">System default</string>
+    <string name="settings_language_note">Websites are also asked to show pages in this language when they can.</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_spanish" translatable="false">Español</string>
+
+    <!-- Extensions -->
+    <string name="menu_extensions">Extensions</string>
+    <string name="extensions_title">Extensions</string>
+    <string name="settings_cat_extensions_summary">Firefox add-ons that customize your browsing</string>
+    <string name="extensions_empty">No extensions yet. Add-ons from addons.mozilla.org work in Lax.</string>
+    <string name="extensions_store_title">Firefox Add-ons</string>
+    <string name="extensions_store_body">Find add-ons on addons.mozilla.org and tap “Add to Lax” to install them.</string>
+    <string name="extensions_store_button">Browse extensions</string>
+    <string name="extension_by">By %1$s</string>
+    <string name="extension_version">Version %1$s</string>
+    <string name="extension_disabled_by_system">Disabled because it is blocked, unsigned, or not compatible</string>
+    <string name="extension_runs_in_private">Runs in private browsing</string>
+    <string name="extension_settings">Extension settings</string>
+    <string name="extension_allow_private">Allow in private browsing</string>
+    <string name="extension_permissions">Permissions</string>
+    <string name="extension_view_listing">View on addons.mozilla.org</string>
+    <string name="extension_remove_title">Remove extension?</string>
+    <string name="extension_remove_message">%1$s and its data will be removed from Lax.</string>
+    <string name="extension_install_title">Add %1$s?</string>
+    <string name="extension_update_title">%1$s requests new permissions</string>
+    <string name="extension_optional_title">%1$s requests additional permissions</string>
+    <string name="extension_install_note">Only add extensions you trust. Extensions can see and change what you do in the browser.</string>
+    <string name="extension_permissions_intro">It can:</string>
+    <string name="extension_no_permissions">This extension doesn\'t request any special permissions.</string>
+    <string name="extension_data_collection_intro">The developer says this extension collects:</string>
+    <string name="msg_extension_downloading">Downloading extension…</string>
+    <string name="msg_extension_installed">%1$s was added</string>
+    <string name="msg_extension_removed">%1$s was removed</string>
+    <string name="msg_extension_install_failed">The extension couldn\'t be added</string>
+    <string name="msg_extension_blocked">This extension is blocked because it may be harmful</string>
+    <string name="msg_extension_incompatible">This extension doesn\'t work with this browser version</string>
+    <string name="msg_extension_unsigned">This extension isn\'t signed by Mozilla, so it can\'t be added</string>
+
+    <!-- Extension permission warnings (based on Firefox's wording) -->
+    <string name="ext_perm_all_urls">Access your data for all websites</string>
+    <string name="ext_perm_site">Access your data for %1$s</string>
+    <string name="ext_perm_bookmarks">Read and modify bookmarks</string>
+    <string name="ext_perm_browser_settings">Read and modify browser settings</string>
+    <string name="ext_perm_browsing_data">Clear recent browsing history, cookies, and related data</string>
+    <string name="ext_perm_clipboard_read">Get data from the clipboard</string>
+    <string name="ext_perm_clipboard_write">Input data to the clipboard</string>
+    <string name="ext_perm_block_content">Block content on any page</string>
+    <string name="ext_perm_downloads">Download files and read and modify the browser\'s download history</string>
+    <string name="ext_perm_downloads_open">Open files downloaded to your device</string>
+    <string name="ext_perm_find">Read the text of all open tabs</string>
+    <string name="ext_perm_geolocation">Access your location</string>
+    <string name="ext_perm_history">Access browsing history</string>
+    <string name="ext_perm_management">Monitor extension usage and manage themes</string>
+    <string name="ext_perm_native_messaging">Exchange messages with programs other than Lax</string>
+    <string name="ext_perm_notifications">Display notifications to you</string>
+    <string name="ext_perm_privacy">Read and modify privacy settings</string>
+    <string name="ext_perm_proxy">Control browser proxy settings</string>
+    <string name="ext_perm_sessions">Access recently closed tabs</string>
+    <string name="ext_perm_tabs">Access browser tabs</string>
+    <string name="ext_perm_tab_hide">Hide and show browser tabs</string>
+    <string name="ext_perm_web_navigation">Access browser activity during navigation</string>
+
+    <!-- Data an extension's developer declares it collects -->
+    <string name="ext_data_authentication">Authentication information</string>
+    <string name="ext_data_bookmarks">Bookmarks</string>
+    <string name="ext_data_browsing_activity">Browsing activity</string>
+    <string name="ext_data_financial">Financial and payment information</string>
+    <string name="ext_data_health">Health information</string>
+    <string name="ext_data_location">Location</string>
+    <string name="ext_data_communications">Personal communications</string>
+    <string name="ext_data_personal">Personally identifying information</string>
+    <string name="ext_data_search_terms">Search terms</string>
+    <string name="ext_data_technical">Technical and interaction data</string>
+    <string name="ext_data_website_activity">Website activity</string>
+    <string name="ext_data_website_content">Website content</string>
+
+    <!-- Notification channels and system media controls -->
+    <string name="channel_site_notifications">Website notifications</string>
+    <string name="channel_downloads">Downloads</string>
+    <string name="channel_media">Media playback</string>
+    <string name="download_complete">Download complete</string>
+    <string name="media_playing">Playing media</string>
+    <string name="media_private_title">Private tab media</string>
+    <string name="media_play">Play</string>
+    <string name="media_pause">Pause</string>
+    <string name="media_next">Next</string>
+    <string name="media_previous">Previous</string>
+
+    <!-- Web page dialogs -->
+    <string name="block">Block</string>
+    <string name="choose_color">Choose a color</string>
+    <string name="prompt_leave_title">Leave this page?</string>
+    <string name="prompt_leave_message">Changes you made may not be saved.</string>
+    <string name="prompt_leave">Leave</string>
+    <string name="prompt_stay">Stay</string>
+    <string name="prompt_repost_title">Resend data?</string>
+    <string name="prompt_repost_message">This page needs to send information you entered again, such as a form. This can repeat an action like a purchase.</string>
+    <string name="prompt_resend">Resend</string>
+    <string name="prompt_popup_title">Pop-up blocked</string>
+    <string name="prompt_redirect_title">Redirect blocked</string>
+    <string name="prompt_blocked_target">The site tried to open %1$s</string>
+    <string name="prompt_auth_title">Sign in</string>
+    <string name="prompt_auth_title_host">Sign in to %1$s</string>
+    <string name="prompt_auth_insecure">Your username and password will be sent over an unencrypted connection.</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_sign_in">Sign in</string>
+
+    <!-- Site permission requests: "%1$s wants to %2$s." -->
+    <string name="permission_title">Site permission</string>
+    <string name="permission_request">%1$s wants to %2$s.</string>
+    <string name="permission_storage_access">Allow %1$s to use its cookies and site data on %2$s?</string>
+    <string name="permission_private_note">In private browsing, this choice is forgotten when you close all private tabs.</string>
+    <string name="permission_location">know your location</string>
+    <string name="permission_notifications">send you notifications</string>
+    <string name="permission_camera">use your camera</string>
+    <string name="permission_microphone">use your microphone</string>
+    <string name="permission_camera_microphone">use your camera and microphone</string>
+    <string name="permission_drm">play DRM-protected content</string>
+    <string name="permission_autoplay_audible">play media with sound automatically</string>
+    <string name="permission_autoplay_inaudible">play muted media automatically</string>
+    <string name="permission_persistent_storage">keep its data on this device</string>
+    <string name="permission_storage_access_short">use its cookies on other sites</string>
+    <string name="permission_local_network">access devices on your local network</string>
+    <string name="permission_local_device">access apps and services on this device</string>
+    <string name="camera_front">Front camera</string>
+    <string name="camera_back">Back camera</string>
+
+    <!-- Site permissions screen -->
+    <string name="site_permissions_title">Site permissions</string>
+    <string name="site_permissions_empty">Sites you allow or block will appear here.</string>
+    <string name="site_permissions_summary">Location, notifications, and more for each site</string>
+    <string name="site_perm_location">Location</string>
+    <string name="site_perm_notifications">Notifications</string>
+    <string name="site_perm_drm">DRM-protected content</string>
+    <string name="site_perm_autoplay_audible">Autoplay with sound</string>
+    <string name="site_perm_autoplay_inaudible">Muted autoplay</string>
+    <string name="site_perm_persistent_storage">Persistent storage</string>
+    <string name="site_perm_storage_access">Cross-site cookies</string>
+    <string name="site_perm_local_network">Local network devices</string>
+    <string name="site_perm_local_device">Apps on this device</string>
+    <string name="site_perm_camera">Camera</string>
+    <string name="site_perm_microphone">Microphone</string>
+    <string name="site_perm_allowed">Allowed</string>
+    <string name="site_perm_blocked">Blocked</string>
+    <string name="site_perm_forget">Ask again</string>
+    <string name="site_clear_data">Clear cookies and site data</string>
+    <string name="site_in_container">%1$s · %2$s</string>
+
+    <!-- Pickers -->
+    <string name="color_picker_cd">Color picker. Drag to change saturation and brightness.</string>
+    <string name="color_hex">Hex color</string>
+    <string name="share_open_in">Open in Lax…</string>
+    <string name="ctx_open_in">Open in…</string>
+    <string name="open_link_in_title">Open link in…</string>
+    <string name="open_link_in_container">Container: %1$s</string>
+    <string name="open_link_in_current">Current Space</string>
+    <string name="open_link_in_private">Private tab</string>
+    <string name="settings_external_links">Links from other apps</string>
+    <string name="settings_external_links_summary">Where links from other apps open</string>
+    <string name="settings_links_active">The current Space</string>
+    <string name="settings_links_ask">Ask every time</string>
+    <string name="settings_links_space">Always in %1$s</string>
+    <string name="choose_emoji">Choose an emoji</string>
+    <string name="emoji_search_hint">Search emoji (e.g. heart, work)</string>
+    <string name="emoji_search_none">No emoji found. Try another word, or type an emoji.</string>
+    <string name="clear_search">Clear search</string>
+    <string name="use_color_dot">Use color instead</string>
+
+    <!-- Sidebar: suggestions, folders, split view, pinned pages, Spaces -->
+    <string name="voice_search">Voice search</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="suggestion_tab_in_space">Switch to tab in %1$s</string>
+    <string name="previous_space">Previous Space</string>
+    <string name="next_space">Next Space</string>
+    <string name="new_tab_folder">New folder</string>
+    <string name="expand_folder">Expand folder</string>
+    <string name="collapse_folder">Collapse folder</string>
+    <string name="ungroup_folder">Remove folder (keep tabs)</string>
+    <string name="folder_choose_title">Move to folder</string>
+    <string name="folder_none">No folder</string>
+    <string name="new_folder_ellipsis">New folder…</string>
+    <string name="reset_pinned_tab">Go back to pinned page</string>
+    <string name="replace_pinned_url">Pin current page</string>
+    <string name="edit_pinned_url">Edit pinned page…</string>
+    <string name="edit_pinned_url_title">Pinned page</string>
+    <string name="msg_pinned_page_saved">Pinned page saved</string>
+    <string name="open_in_split_view">Open in split view</string>
+    <string name="in_split_view">In split view</string>
+    <string name="cd_in_split_view">in split view</string>
+    <string name="split_choose_title">Show next to this tab</string>
+    <string name="split_no_tabs">Open another tab in this Space first.</string>
+    <string name="split_focus_cd">Focus this side of split view</string>
+    <string name="close_split_view">Close split view</string>
+    <string name="space_icon_emoji">Use an emoji…</string>
+
+    <!-- Browser menu and page tools -->
+    <string name="menu_downloads">Downloads</string>
+    <string name="menu_recently_closed">Recently closed tabs</string>
+    <string name="menu_reader_view">Reader view</string>
+    <string name="menu_translate">Translate page…</string>
+    <string name="menu_show_original">Show original</string>
+    <string name="menu_print">Print or save as PDF…</string>
+    <string name="menu_add_to_home">Add to home screen</string>
+    <string name="menu_site_permissions">Site permissions</string>
+    <string name="menu_split_view">Split view…</string>
+    <string name="open_in_lax">Open in Lax</string>
+    <string name="process_text_search">Search with Lax</string>
+    <string name="recently_closed_empty">Nothing closed recently. Tabs you close wait here for a while.</string>
+    <string name="msg_print_failed">This page couldn\'t be printed</string>
+    <string name="msg_browsing_data_cleared">Browsing data cleared</string>
+    <string name="msg_site_data_cleared">Cookies and site data of %1$s cleared</string>
+
+    <!-- Page context menu additions -->
+    <string name="ctx_glance">Preview with Glance</string>
+    <string name="ctx_open_split">Open in split view</string>
+    <string name="ctx_download_link">Download link</string>
+    <string name="ctx_save_image">Save image</string>
+
+    <!-- Glance -->
+    <string name="glance_open_tab">Open as tab</string>
+    <string name="glance_close">Close preview</string>
+
+    <!-- Translation -->
+    <string name="translate_title">Translate page</string>
+    <string name="translate_from">From</string>
+    <string name="translate_to">To</string>
+    <string name="translate_action">Translate</string>
+    <string name="translate_unsupported">Translation isn\'t available on this device.</string>
+    <string name="translating">Translating…</string>
+    <string name="msg_translation_failed">This page couldn\'t be translated</string>
+
+    <!-- Downloads -->
+    <string name="downloads_empty">No downloads yet. Files you save will land here.</string>
+    <string name="download_failed">Failed</string>
+    <string name="download_cancelled">Canceled</string>
+    <string name="download_cancel">Cancel download</string>
+    <string name="download_remove">Remove from list</string>
+    <string name="download_delete_file">Delete file</string>
+    <string name="msg_download_started">Downloading %1$s…</string>
+    <string name="msg_download_failed">Couldn\'t download %1$s</string>
+    <string name="msg_download_complete">%1$s downloaded</string>
+    <string name="msg_no_app_to_open">No app can open this file</string>
+    <string name="settings_cat_downloads_summary">Files you downloaded</string>
+
+    <!-- Settings additions -->
+    <string name="settings_search_suggestions">Show search suggestions</string>
+    <string name="settings_search_suggestions_summary">Sends what you type to your search engine to get suggestions. Never in private browsing.</string>
+    <string name="settings_gpc">Tell websites not to sell or share my data</string>
+    <string name="settings_gpc_summary">Sends the Global Privacy Control signal to websites.</string>
+    <string name="settings_autoplay">Autoplay</string>
+    <string name="settings_autoplay_block_audible">Block audio only</string>
+    <string name="settings_autoplay_block_all">Block audio and video</string>
+    <string name="settings_autoplay_allow">Allow audio and video</string>
+    <string name="settings_autoplay_summary">Changing this resets each site\'s autoplay choice.</string>
+    <string name="settings_clear_data">Clear browsing data</string>
+    <string name="settings_clear_data_summary">History, cookies and site data, cached files, and site permissions</string>
+    <string name="clear_data_history">Browsing history</string>
+    <string name="clear_data_cookies">Cookies and site data</string>
+    <string name="clear_data_cookies_summary">Signs you out of most sites, in every container.</string>
+    <string name="clear_data_cache">Cached images and files</string>
+    <string name="clear_data_permissions">Site permissions</string>
+
+    <!-- Extensions additions -->
+    <string name="extension_pin">Show in menu</string>
+    <string name="extensions_enabled">Enabled</string>
+    <string name="extensions_disabled">Disabled</string>
+    <!-- Tabs: automatic unloading and overview -->
+    <string name="settings_cat_tabs">Tabs</string>
+    <string name="settings_auto_unload">Unload inactive tabs</string>
+    <string name="settings_auto_unload_summary">Unloaded tabs stay in your list and reload when you open them. Tabs playing media are never unloaded.</string>
+    <string name="auto_unload_off">Never</string>
+    <plurals name="auto_unload_minutes">
+        <item quantity="one">After %d minute</item>
+        <item quantity="other">After %d minutes</item>
+    </plurals>
+    <plurals name="auto_unload_hours">
+        <item quantity="one">After %d hour</item>
+        <item quantity="other">After %d hours</item>
+    </plurals>
+    <string name="tab_search_title">Open tabs</string>
+    <string name="tab_search_all_spaces">All Spaces</string>
+    <string name="tab_search_none_in_space">No matching tabs in %1$s.</string>
+    <string name="tab_search_no_results">No tabs match your search.</string>
+
+    <!-- Toolbar layout -->
+    <string name="settings_toolbar_layout">Buttons and sidebar</string>
+    <string name="settings_toolbar_button">Toolbar button</string>
+    <string name="settings_swap_toolbar_buttons">Swap sidebar and menu buttons</string>
+    <string name="settings_swap_toolbar_buttons_summary">Put the menu button on the left and the sidebar button on the right</string>
+    <string name="settings_sidebar_right">Sidebar on the right</string>
+    <string name="settings_sidebar_right_summary">Slide the sidebar in from the right edge (on wide screens, keep it on the right)</string>
+    <string name="toolbar_action_home">Home (new tab page)</string>
+    <string name="toolbar_action_bookmark">Bookmark this page</string>
+    <string name="toolbar_action_none">None (hide the button)</string>
+
+    <!-- Open links in apps -->
+    <string name="app_link_title">Open in %1$s?</string>
+    <string name="app_link_body">This link can open in the %1$s app.</string>
+    <string name="app_link_body_private">This link can open in the %1$s app. Opening it there leaves private browsing.</string>
+    <string name="app_link_remember">Don\'t ask again for %1$s</string>
+    <string name="app_link_open">Open</string>
+    <string name="settings_app_links">Open links in apps</string>
+    <string name="settings_app_links_ask">Ask first</string>
+    <string name="settings_app_links_always">Always</string>
+    <string name="settings_app_links_never">Never</string>
+    <string name="settings_app_links_forget">Forget app choices</string>
+    <plurals name="settings_app_links_remembered">
+        <item quantity="one">%d app remembered with “Don\'t ask again”</item>
+        <item quantity="other">%d apps remembered with “Don\'t ask again”</item>
+    </plurals>
+    <string name="support_coffee">Buy me a coffee!</string>
+    <string name="support_coffee_summary">Support Lax\'s development on Ko-fi</string>
+
+    <!-- Saved logins -->
+    <string name="login_save_title">Save login for %1$s?</string>
+    <string name="login_update_title">Update login for %1$s?</string>
+    <string name="login_save_note">Saved logins are encrypted on this device and filled in next time you sign in.</string>
+    <string name="login_update">Update</string>
+    <string name="login_never">Never</string>
+    <string name="login_not_now">Not now</string>
+    <string name="login_select_title">Sign in to %1$s as</string>
+    <string name="login_no_username">(no username)</string>
+    <string name="logins_title">Saved logins</string>
+    <string name="logins_summary">Passwords saved in Lax, encrypted on this device</string>
+    <string name="logins_save_toggle">Save and fill logins</string>
+    <string name="logins_save_toggle_summary">Offer to save logins and fill them in</string>
+    <string name="logins_need_lock">Set a screen lock on this device to view or copy saved passwords.</string>
+    <string name="logins_search">Search logins</string>
+    <string name="logins_empty">No saved logins yet. When you sign in to a site, Lax offers to save the login.</string>
+    <string name="logins_no_match">No logins match your search.</string>
+    <string name="logins_never_saved">Never saved</string>
+    <string name="logins_allow_saving">Allow saving for %1$s</string>
+    <string name="logins_delete_all">Delete all logins</string>
+    <string name="logins_delete_all_message">Every saved login will be deleted from this device. This can\'t be undone.</string>
+    <string name="logins_auth_title">Confirm it\'s you</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_copy_username">Copy username</string>
+    <string name="login_copy_password">Copy password</string>
+    <string name="login_show_password">Show password</string>
+    <string name="login_delete_title">Delete login?</string>
+    <string name="login_delete_message">The saved login for %1$s will be deleted from this device.</string>
+    <string name="msg_login_deleted">Login deleted</string>
+    <string name="msg_logins_deleted">All logins deleted</string>
+    <string name="msg_password_copied">Password copied</string>
+    <string name="msg_username_copied">Username copied</string>
+
+    <!-- Error pages -->
+    <string name="error_not_found_title">Can\'t find this site</string>
+    <string name="error_not_found_body">Check the address for typos. If it\'s right, the site may be down, or your network may be blocking it.</string>
+    <string name="error_offline_title">You\'re offline</string>
+    <string name="error_offline_body">Connect to Wi-Fi or mobile data, then try again.</string>
+    <string name="error_connection_title">Can\'t connect</string>
+    <string name="error_connection_body">The site didn\'t respond or refused the connection. It may be down for a moment.</string>
+    <string name="error_timeout_title">The site took too long</string>
+    <string name="error_timeout_body">The server didn\'t answer in time. Check your connection and try again.</string>
+    <string name="error_insecure_title">This connection isn\'t secure</string>
+    <string name="error_insecure_body">Lax didn\'t open this page because its security certificate can\'t be trusted. Someone could be trying to pose as the site.</string>
+    <string name="error_https_only_title">Secure version not available</string>
+    <string name="error_https_only_body">HTTPS-only mode is on, and this site doesn\'t offer a secure connection. You can turn HTTPS-only mode off in Settings → Privacy.</string>
+    <string name="error_harmful_title">Deceptive or harmful site</string>
+    <string name="error_harmful_body">This site has been reported for phishing or harmful software, so Lax blocked it to protect you.</string>
+    <string name="error_invalid_title">Invalid address</string>
+    <string name="error_invalid_body">This address can\'t be opened. Check it for mistakes.</string>
+    <string name="error_crashed_title">This page crashed</string>
+    <string name="error_crashed_body">Something went wrong while showing this page. Try loading it again.</string>
+    <string name="error_other_title">Can\'t open this page</string>
+    <string name="error_other_body">Something went wrong while loading this page.</string>
+    <string name="error_try_again">Try again</string>
+    <string name="error_go_back">Go back</string>
+
+    <!-- Downloads in the background -->
+    <string name="download_in_progress">Downloading…</string>
+    <string name="download_private_title">Private download</string>
+    <string name="download_tab_progress">%1$s of %2$s</string>
+    <string name="download_tab_background">You can close this; the download continues and appears in Downloads.</string>
+    <string name="download_tab_done">Saved to your Downloads folder.</string>
+    <string name="download_tab_failed">The download failed. The link may have expired; try opening it again.</string>
+    <string name="download_tab_open">Open</string>
+    <string name="download_no_app">No app can open this file.</string>
+    <string name="download_cancel_all">Cancel all</string>
+    <plurals name="downloads_in_progress">
+        <item quantity="one">Downloading %d file</item>
+        <item quantity="other">Downloading %d files</item>
+    </plurals>
+
+    <!-- Theme and brand -->
+    <string name="settings_cat_theme">Theme</string>
+    <string name="settings_cat_theme_summary">Lax colors, Space tint, wallpaper colors</string>
+    <string name="settings_colors">Colors</string>
+    <string name="settings_space_accent">Tint with the Space color</string>
+    <string name="settings_space_accent_summary">Buttons, selections, and the loading bar take the active Space\'s color</string>
+    <string name="settings_wallpaper_colors">Use wallpaper colors</string>
+    <string name="settings_wallpaper_colors_summary">Use your wallpaper\'s colors instead of Lax\'s lavender and mint</string>
+    <string name="settings_theme_dark_note">Lax follows your system\'s light or dark mode.</string>
+    <string name="about_tagline">Web browser for Android</string>
+    <string name="about_engine">Based on Mozilla GeckoView</string>
+    <string name="shortcuts_empty">Add the sites you visit most for one-tap access.</string>
+
+    <!-- Default browser -->
+    <string name="default_browser_title">Make Lax your default browser</string>
+    <string name="default_browser_body">Links you open in other apps will open in Lax.</string>
+    <string name="default_browser_action">Set as default browser</string>
+
+    <!-- Site zoom and Space rules -->
+    <string name="menu_zoom">Zoom</string>
+    <string name="zoom_in">Zoom in</string>
+    <string name="zoom_out">Zoom out</string>
+    <string name="site_zoom_value">%1$d%%</string>
+    <string name="menu_always_open_in_space">Always open this site in…</string>
+    <string name="site_opens_in">Opens in %1$s</string>
+    <string name="site_any_space">Any Space</string>
+    <string name="site_space_title">Always open %1$s in</string>
+    <string name="site_space_explanation">This site and its subdomains open in the chosen Space.</string>
+    <string name="msg_site_rule_saved">This site will open in %1$s</string>
+    <string name="site_rules_title">Site zoom and Space rules</string>
+    <string name="site_rules_summary">Zoom levels and the Space each site opens in</string>
+    <string name="site_rules_explanation">Set a site\'s zoom or Space from the browser menu.</string>
+    <string name="site_rules_empty">No site settings yet.</string>
+    <string name="site_rule_remove">Remove settings for %1$s</string>
+
+    <!-- Bookmark files and backups -->
+    <string name="settings_cat_data">Data and backup</string>
+    <string name="settings_cat_data_summary">Import and export bookmarks, back up Lax</string>
+    <string name="bookmarks_import">Import bookmarks</string>
+    <string name="bookmarks_import_summary">From an HTML bookmark file exported by another browser</string>
+    <string name="bookmarks_export">Export bookmarks</string>
+    <string name="bookmarks_export_summary">As an HTML file other browsers can import</string>
+    <string name="imported_bookmarks_folder">Imported bookmarks</string>
+    <string name="backup_header">Backup</string>
+    <string name="backup_export">Back up Lax</string>
+    <string name="backup_export_summary">Save Spaces, tabs, bookmarks, shortcuts, site settings, and preferences to a file</string>
+    <string name="backup_restore">Restore from backup</string>
+    <string name="backup_restore_summary">Replace current data with a backup file</string>
+    <string name="backup_note">Backups don\'t include history, downloads, installed web apps, or cookies.</string>
+    <string name="backup_restore_title">Restore this backup?</string>
+    <string name="backup_restore_message">Your current Spaces, tabs, bookmarks, shortcuts, and settings will be replaced by the ones in the backup. Open pages will close.</string>
+    <string name="backup_restore_confirm">Replace and restore</string>
+    <string name="msg_bookmarks_exported">Bookmarks exported</string>
+    <string name="msg_bookmarks_imported">Imported %1$d bookmarks (%2$d already saved)</string>
+    <string name="msg_bookmarks_import_empty">No bookmarks were found in that file</string>
+    <string name="msg_backup_saved">Backup saved</string>
+    <string name="msg_backup_restored">Backup restored</string>
+    <string name="msg_backup_invalid">That file is not a Lax backup</string>
+    <string name="msg_file_failed">The file could not be read or written</string>
+
+    <!-- About: updates, licenses, crash logs -->
+    <string name="updates_header">Updates</string>
+    <string name="updates_auto">Check for updates automatically</string>
+    <string name="updates_auto_summary">Once a day, asks GitHub whether a newer release exists. Nothing about you is sent.</string>
+    <string name="updates_check_now">Check for updates now</string>
+    <string name="updates_check_now_summary">Look for a newer release on GitHub</string>
+    <string name="update_available_title">Lax %1$s is available</string>
+    <string name="update_available_body">A newer version of Lax has been released.</string>
+    <string name="update_install">Install</string>
+    <string name="update_downloading_title">Downloading Lax %1$s</string>
+    <string name="update_ready_title">Lax %1$s is ready to install</string>
+    <string name="update_ready_body">Tap Install to open the system installer.</string>
+    <string name="update_permission_title">Allow Lax to install updates</string>
+    <string name="update_permission_body">Turn on “Allow from this source” for Lax, then come back.</string>
+    <string name="update_permission_open">Open settings</string>
+    <string name="update_installing_title">Installing Lax %1$s</string>
+    <string name="update_installing_body">Confirm the update in the system installer. Lax closes while it updates.</string>
+    <string name="update_failed_title">Update failed</string>
+    <string name="update_failed_download">The update couldn\'t be downloaded. Check your connection and try again, or get it from the release page.</string>
+    <string name="update_failed_verify">The downloaded file isn\'t a newer Lax signed by the same developer, so it wasn\'t installed.</string>
+    <string name="update_failed_install">The system installer couldn\'t install the update. You can get it from the release page instead.</string>
+    <string name="update_open_page">View release</string>
+    <string name="update_later">Later</string>
+    <string name="update_skip">Skip this version</string>
+    <string name="msg_up_to_date">Lax is up to date</string>
+    <string name="msg_update_check_failed">Couldn\'t check for updates</string>
+    <string name="about_more">More</string>
+    <string name="licenses_title">Open-source licenses</string>
+    <string name="licenses_summary">The components Lax is built with</string>
+    <string name="licenses_explanation">Lax uses these open-source components. Tap one to read its license.</string>
+    <string name="crash_logs_title">Crash logs</string>
+    <string name="crash_logs_summary">Saved on this device only; tap one to share it</string>
+    <string name="crash_logs_empty">No crashes recorded. Smooth sailing.</string>
+    <string name="crash_report_subject">Lax crash report</string>
+    <string name="msg_crashed_last_time">Lax closed unexpectedly last time</string>
+    <string name="action_share">Share</string>
+
+    <!-- First-run onboarding -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_start">Start browsing</string>
+    <string name="onboarding_sidebar_title">Your tabs live in the sidebar</string>
+    <string name="onboarding_sidebar_body">Tap the menu button or the address to open it. Essentials stay at the top in every Space, then the address bar, your pinned tabs, and your open tabs.</string>
+    <string name="onboarding_spaces_title">Spaces keep things apart</string>
+    <string name="onboarding_spaces_body">Make a Space for work, one for personal browsing, and so on. Each Space has its own container, so logins and cookies stay separate.</string>
+    <string name="onboarding_tabs_title">Pin, unload, and split</string>
+    <string name="onboarding_tabs_body">Pinned tabs and Essentials remember their page. Unload a tab to free memory without closing it, and open two tabs side by side with split view.</string>
+    <string name="onboarding_privacy_title">Private by default</string>
+    <string name="onboarding_privacy_body">Tracking protection is on, private tabs leave no history, and Firefox extensions from addons.mozilla.org work here too.</string>
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_layout_title">Make it comfortable</string>
+    <string name="onboarding_layout_body">Choose where things go. You can change all of this later in Settings.</string>
+    <string name="onboarding_toolbar">Address toolbar</string>
+    <string name="onboarding_sidebar_side">Sidebar</string>
+    <string name="onboarding_sidebar_left">On the left</string>
+    <string name="onboarding_sidebar_right">On the right</string>
+    <string name="onboarding_unload_title">Put inactive tabs to sleep after</string>
+    <string name="onboarding_unload_15">15 min</string>
+    <string name="onboarding_unload_30">30 min</string>
+    <string name="onboarding_unload_60">1 hour</string>
+    <string name="onboarding_unload_never">Never</string>
+    <string name="onboarding_unload_note">Sleeping tabs stay in the sidebar and reload when you open them. This saves memory and battery.</string>
+    <string name="onboarding_space_title">Add a second Space</string>
+    <string name="onboarding_space_body">Your first Space is “%1$s”. Add one more for another part of your life. Each Space gets its own container, so logins and cookies stay separate.</string>
+    <string name="onboarding_space_none">Not now</string>
+    <string name="onboarding_space_none_desc">Just “%1$s” for now</string>
+    <string name="onboarding_space_later">You can create, rename, and recolor Spaces anytime from the sidebar.</string>
+    <string name="preset_space_work">Work</string>
+    <string name="preset_space_work_desc">Email, calendars, and work accounts</string>
+    <string name="preset_space_school">School</string>
+    <string name="preset_space_school_desc">Classes, research, and school accounts</string>
+    <string name="preset_space_projects">Projects</string>
+    <string name="preset_space_projects_desc">Side projects, hobbies, and tools</string>
+    <string name="preset_space_gaming">Gaming</string>
+    <string name="preset_space_gaming_desc">Games, streams, and communities</string>
+    <string name="preset_space_shopping">Shopping</string>
+    <string name="preset_space_shopping_desc">Stores and deliveries, kept apart from everything else</string>
+    <string name="onboarding_essentials_title">Pick your Essentials</string>
+    <string name="onboarding_essentials_body">Essentials sit at the top of the sidebar in every Space, one tap away.</string>
+    <string name="onboarding_essentials_later">You can add more later from the sidebar.</string>
+    <plurals name="onboarding_essentials_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
+    <string name="onboarding_search_title">Search and privacy</string>
+    <string name="onboarding_search_body">Pick how you search and how strict Lax should be with trackers.</string>
+    <string name="onboarding_extensions_title">Recommended extensions</string>
+    <string name="onboarding_extensions_body">Firefox add-ons work in Lax. Here are a few favorites.</string>
+    <string name="onboarding_extensions_more">Find more anytime in Settings → Extensions.</string>
+    <string name="onboarding_finish_title">You\'re all set</string>
+    <string name="onboarding_finish_body">Here\'s what Lax will set up when you start:</string>
+    <string name="onboarding_finish_space">A “%1$s” Space with its own container</string>
+    <plurals name="onboarding_finish_essentials">
+        <item quantity="one">%d Essential in the sidebar</item>
+        <item quantity="other">%d Essentials in the sidebar</item>
+    </plurals>
+    <string name="onboarding_finish_layout">Toolbar %1$s, sidebar %2$s</string>
+    <string name="onboarding_import">Import bookmarks</string>
+    <string name="onboarding_import_summary">Coming from Chrome, Firefox, or Edge? Export your bookmarks there as an HTML file, then import it here.</string>
+    <string name="onboarding_import_none">No bookmarks were found in that file.</string>
+    <plurals name="onboarding_imported">
+        <item quantity="one">Imported %d bookmark.</item>
+        <item quantity="other">Imported %d bookmarks.</item>
+    </plurals>
+    <string name="extensions_recommended">Recommended</string>
+    <string name="rec_ext_details">Details for %1$s</string>
+    <string name="rec_ext_added">Added</string>
+    <string name="rec_ext_ublock">Blocks ads and trackers without slowing pages down</string>
+    <string name="rec_ext_bitwarden">Open-source password manager</string>
+    <string name="rec_ext_dark_reader">Dark mode for every website</string>
+    <string name="rec_ext_consent">Answers cookie banners for you</string>
+    <string name="rec_ext_sponsorblock">Skips sponsored segments in YouTube videos</string>
+    <string name="rec_ext_privacy_badger">Learns to block invisible trackers</string>
+
+    <string name="more_options">More options</string>
+
+    <!-- Importing and exporting logins -->
+    <string name="logins_import">Import from a file</string>
+    <string name="logins_export">Export to a file</string>
+    <string name="logins_export_title">Export saved logins?</string>
+    <string name="logins_export_message">The file isn\'t encrypted: anyone who opens it can read your usernames and passwords.</string>
+    <string name="logins_export_confirm">Export</string>
+    <string name="logins_export_auth_title">Export saved logins</string>
+    <string name="logins_imported_title">Logins imported</string>
+    <plurals name="logins_imported_count">
+        <item quantity="one">Added %d login.</item>
+        <item quantity="other">Added %d logins.</item>
+    </plurals>
+    <plurals name="logins_already_saved_count">
+        <item quantity="one">%d was already saved and was left as it is.</item>
+        <item quantity="other">%d were already saved and were left as they are.</item>
+    </plurals>
+    <string name="logins_imported_delete_hint">The file you imported isn\'t encrypted. Delete it if you don\'t need it anymore.</string>
+    <string name="logins_imported_delete_file">Delete file</string>
+    <string name="logins_imported_keep_file">Keep</string>
+    <string name="msg_logins_import_empty">No logins found in that file</string>
+    <string name="msg_import_file_deleted">File deleted</string>
+    <string name="msg_import_file_not_deleted">Couldn\'t delete the file. Delete it from your files app.</string>
+    <string name="msg_logins_exported">Logins exported</string>
+    <string name="onboarding_import_logins">Import passwords</string>
+    <string name="onboarding_import_logins_summary">Export your passwords as a CSV file from Firefox, Chrome, or your password manager, then pick it here.</string>
+
+    <!-- Password generator -->
+    <string name="password_generator_title">Generate password</string>
+    <string name="password_generator_new">New password</string>
+    <string name="password_generator_length">Length: %1$d</string>
+    <string name="password_generator_digits">Numbers</string>
+    <string name="password_generator_symbols">Symbols</string>
+    <string name="password_generator_copy">Copy</string>
+    <string name="login_generated_title">Use a strong password?</string>
+    <string name="login_generated_body">Lax made a strong password for %1$s. After you sign up, you can save it.</string>
+    <string name="login_generated_use">Use strong password</string>
+
+    <!-- Logins in backups -->
+    <string name="backup_include_logins">Include saved logins</string>
+    <string name="backup_include_logins_summary">Encrypted with a password you choose</string>
+    <string name="backup_logins_auth_title">Back up saved logins</string>
+    <string name="backup_password">Backup password</string>
+    <plurals name="backup_password_hint">
+        <item quantity="one">At least %d character</item>
+        <item quantity="other">At least %d characters</item>
+    </plurals>
+    <string name="backup_password_confirm">Confirm password</string>
+    <string name="backup_password_mismatch">Passwords don\'t match</string>
+    <string name="backup_password_warning">You\'ll need this password to restore the logins. Lax can\'t recover it if you forget it.</string>
+    <string name="restore_logins_title">Restore saved logins</string>
+    <plurals name="restore_logins_body">
+        <item quantity="one">This backup has %d saved login. Enter the backup password to restore it.</item>
+        <item quantity="other">This backup has %d saved logins. Enter the backup password to restore them.</item>
+    </plurals>
+    <string name="restore_logins_body_unknown">This backup has saved logins. Enter the backup password to restore them.</string>
+    <string name="restore_logins_wrong_password">Wrong password</string>
+    <string name="restore_logins_confirm">Restore</string>
+    <string name="restore_logins_skip">Skip logins</string>
+    <string name="msg_logins_restored">Logins restored: %1$d</string>
+    <string name="msg_logins_restore_damaged">The logins in this backup couldn\'t be read</string>
+
+    <!-- Private tabs lock -->
+    <string name="settings_private_lock">Lock private tabs</string>
+    <string name="settings_private_lock_summary">Ask for your fingerprint, face, or screen lock when you come back to private tabs after leaving Lax</string>
+    <string name="settings_private_lock_unavailable">Set a screen lock on this device to use this</string>
+    <string name="private_lock_title">Private tabs are locked</string>
+    <string name="private_lock_body">Unlock with your fingerprint, face, or screen lock to see your private tabs.</string>
+    <string name="private_lock_unlock">Unlock</string>
+    <string name="private_lock_leave">Leave private browsing</string>
+    <string name="private_lock_auth_title">Unlock private tabs</string>
+
+    <!-- Home screen widget -->
+    <string name="widget_search_label">Lax search</string>
+    <string name="widget_search_description">Opens a new tab ready for typing, or a private tab</string>
+    <string name="widget_search_hint">Search or type address</string>
+    <string name="widget_private_tab">New private tab</string>
+</resources>

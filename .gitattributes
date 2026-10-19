@@ -1,0 +1,10 @@
+# Normalize text files in the repository; scripts keep the line endings their shells need.
+* text=auto
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+
+*.png binary
+*.webp binary
+*.jar binary
+*.ttf binary

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Files shared with other apps through FileProvider: downloads (Android 9 and older) and PDFs to print. -->
+<paths>
+    <external-files-path name="downloads" path="Download/" />
+    <files-path name="internal_downloads" path="downloads/" />
+    <cache-path name="print" path="print/" />
+</paths>

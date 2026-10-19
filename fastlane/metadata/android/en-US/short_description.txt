@@ -1,0 +1,1 @@
+GeckoView browser with a tab sidebar and Spaces with separate containers

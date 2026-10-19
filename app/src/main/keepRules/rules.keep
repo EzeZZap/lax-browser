@@ -1,0 +1,32 @@
+# R8 keep rules for release builds. AGP passes every file in src/main/keepRules to R8, together
+# with the default Android rules and the rules that libraries ship.
+#
+# The aim is to shrink the libraries (AndroidX, Compose, Kotlin) while leaving code that is found
+# by name untouched. Release APKs are started on an emulator in CI before they are published
+# (.github/scripts/smoke-test.sh), because a missing rule only shows up when the app runs.
+
+# GeckoView calls its Java classes from native code and looks many of them up by name.
+-keep class org.mozilla.** { *; }
+-keep interface org.mozilla.** { *; }
+-dontwarn org.mozilla.**
+
+# Lax's own code is small. Keeping it whole avoids surprises with names used at runtime: Room's
+# generated database, view models, manifest components, broadcast receivers, and intent extras.
+-keep class com.javzzap.laxbrowser.** { *; }
+
+# The Main dispatcher is found through META-INF/services; a renamed factory means
+# "Module with the Main dispatcher is missing" on the first coroutine.
+-keep class kotlinx.coroutines.android.AndroidDispatcherFactory { *; }
+-keep class kotlinx.coroutines.android.AndroidExceptionPreHandler { *; }
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler
+
+# Fragments (the screen lock prompt) are re-created by class name after process death.
+-keep class * extends androidx.fragment.app.Fragment { <init>(); }
+
+# QR scanner activity and its camera classes, started from Lax by class.
+-keep class com.journeyapps.barcodescanner.** { *; }
+
+# Readable line numbers in crash logs; build/outputs/mapping/<variant>/mapping.txt maps the rest.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile

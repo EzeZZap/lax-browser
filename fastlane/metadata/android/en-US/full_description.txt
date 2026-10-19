@@ -1,0 +1,19 @@
+<p>Lax is a web browser based on Mozilla's GeckoView. Tabs are kept in a sidebar instead of a tab strip, and are grouped into Spaces. Each Space has its own container, so cookies and logins in one Space are not shared with the others.</p>
+
+<p><b>Features</b></p>
+<ul>
+<li>Vertical tab sidebar with Essentials (shown in every Space), pinned tabs, folders and regular tabs</li>
+<li>Spaces with separate containers</li>
+<li>Choose which Space links from other apps open in</li>
+<li>Automatic unloading of unused tabs</li>
+<li>Split view and link previews</li>
+<li>Private tabs, Enhanced Tracking Protection, HTTPS-only mode and Global Privacy Control</li>
+<li>Firefox add-ons from addons.mozilla.org</li>
+<li>Saved logins, stored encrypted on the device; Android autofill services are also supported</li>
+<li>Bookmarks with HTML import/export, history, downloads, reader view, translation, find in page and per-site zoom</li>
+<li>Installable web apps and Custom Tabs</li>
+<li>Tablet layout with a docked sidebar</li>
+<li>English and Spanish</li>
+</ul>
+
+<p>Lax does not include telemetry or ads.</p>

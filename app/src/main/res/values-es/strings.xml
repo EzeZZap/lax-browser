@@ -1,0 +1,1038 @@
+<resources>
+    <string name="default_space_name">Personal</string>
+
+    <!-- Common actions -->
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="add">Añadir</string>
+    <string name="create">Crear</string>
+    <string name="rename">Cambiar nombre</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_ellipsis">Eliminar…</string>
+    <string name="remove">Quitar</string>
+    <string name="remove_ellipsis">Quitar…</string>
+    <string name="move">Mover…</string>
+    <string name="move_action">Mover</string>
+    <string name="move_here">Mover aquí</string>
+    <string name="change">Cambiar</string>
+    <string name="ok">Aceptar</string>
+    <string name="close">Cerrar</string>
+    <string name="back">Atrás</string>
+    <string name="name">Nombre</string>
+    <string name="color">Color</string>
+    <string name="color_n">Color %1$d</string>
+    <string name="action_open">Abrir</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_reopen">Reabrir</string>
+    <string name="action_switch">Cambiar</string>
+    <string name="options_for">Opciones de %1$s</string>
+    <string name="move_up">Subir</string>
+    <string name="move_down">Bajar</string>
+    <string name="move_left">Mover a la izquierda</string>
+    <string name="move_right">Mover a la derecha</string>
+    <string name="move_item_up">Subir %1$s</string>
+    <string name="move_item_down">Bajar %1$s</string>
+    <string name="link_title">Título</string>
+    <string name="link_address">Dirección</string>
+    <string name="error_invalid_address">Introduce una dirección web válida</string>
+    <string name="error_not_saved">No se ha podido guardar esta dirección</string>
+
+    <!-- Accessibility fragments, joined with cd_separator -->
+    <string name="cd_separator">", "</string>
+    <string name="cd_pinned">fijada</string>
+    <string name="cd_unloaded">descargada</string>
+    <string name="cd_container_missing">falta el contenedor</string>
+
+    <!-- Sidebar -->
+    <string name="essentials">Esenciales</string>
+    <string name="essentials_hint">Las pestañas esenciales te acompañan en todos los espacios. Añade una desde el menú de cualquier pestaña.</string>
+    <string name="essential_cd">Esencial: %1$s</string>
+    <string name="essential_options">Opciones de la pestaña esencial</string>
+    <string name="unload_keep_essential">Descargar (mantener en Esenciales)</string>
+    <string name="remove_from_essentials">Quitar de Esenciales…</string>
+    <string name="url_bar_hint">Busca o escribe una dirección</string>
+    <string name="clear_address">Borrar dirección</string>
+    <string name="pinned">Fijadas</string>
+    <string name="pinned_empty">Fijadas · nada todavía</string>
+    <string name="new_tab">Nueva pestaña</string>
+    <string name="switch_to_tab">Cambiar a la pestaña</string>
+    <string name="unloaded_host">Descargada · %1$s</string>
+    <string name="container_missing">Falta el contenedor</string>
+    <string name="close_tab_cd">Cerrar pestaña %1$s</string>
+    <string name="pin_to_space">Fijar en este espacio</string>
+    <string name="unpin">Dejar de fijar</string>
+    <string name="unload_keep_tab">Descargar (mantener pestaña)</string>
+    <string name="add_to_essentials">Añadir a Esenciales</string>
+    <string name="bookmark">Marcador</string>
+    <string name="move_to_space">Mover a otro espacio…</string>
+    <string name="close_tab">Cerrar pestaña</string>
+    <string name="close_pinned_tab">Cerrar pestaña fijada…</string>
+    <string name="swipe_unload">Descargar</string>
+    <string name="swipe_close">Cerrar</string>
+    <string name="space_container_label">%1$s · contenedor: %2$s</string>
+    <string name="missing_container">falta el contenedor</string>
+    <string name="switch_to_space">Cambiar de espacio</string>
+    <string name="space_cd">Espacio %1$s</string>
+    <string name="new_space">Nuevo espacio</string>
+    <string name="manage_spaces_cd">Gestionar espacios y contenedores</string>
+
+    <!-- Toolbar and browser menu -->
+    <string name="open_sidebar">Abrir barra lateral</string>
+    <string name="edit_address">Editar dirección</string>
+    <string name="address_cd">Dirección: %1$s</string>
+    <string name="address_new_tab">nueva pestaña</string>
+    <string name="secure_connection">Conexión segura</string>
+    <string name="stop_loading">Detener carga</string>
+    <string name="reload">Recargar</string>
+    <string name="browser_menu">Menú del navegador</string>
+    <string name="menu_back">Atrás</string>
+    <string name="menu_forward">Adelante</string>
+    <string name="menu_reopen_closed_tab">Reabrir pestaña cerrada</string>
+    <string name="menu_edit_bookmark">Editar marcador</string>
+    <string name="menu_share">Compartir…</string>
+    <string name="menu_copy_link">Copiar enlace</string>
+    <string name="menu_find_in_page">Buscar en la página</string>
+    <string name="menu_desktop_site">Versión de escritorio</string>
+    <string name="menu_install_app">Instalar aplicación…</string>
+    <string name="menu_bookmarks">Marcadores</string>
+    <string name="menu_web_apps">Aplicaciones web instaladas</string>
+    <string name="menu_spaces">Espacios y contenedores</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="share_link">Compartir enlace</string>
+
+    <!-- Find in page -->
+    <string name="find_hint">Buscar en la página</string>
+    <string name="find_count">%1$d/%2$d</string>
+    <string name="find_previous">Coincidencia anterior</string>
+    <string name="find_next">Coincidencia siguiente</string>
+    <string name="find_close">Cerrar búsqueda en la página</string>
+
+    <!-- Page context menu -->
+    <string name="ctx_open_new_tab">Abrir en una pestaña nueva</string>
+    <string name="ctx_open_background">Abrir en segundo plano</string>
+    <string name="ctx_copy_link">Copiar dirección del enlace</string>
+    <string name="ctx_share_link">Compartir enlace</string>
+    <string name="ctx_open_image">Abrir imagen en una pestaña nueva</string>
+    <string name="ctx_copy_image">Copiar dirección de la imagen</string>
+
+    <!-- Web content states -->
+    <string name="container_missing_title">Falta el contenedor de esta pestaña</string>
+    <string name="container_missing_body">Asigna un contenedor a este espacio en Espacios y contenedores para cargarla.</string>
+    <string name="tab_crashed_title">Esta pestaña ha dejado de funcionar</string>
+    <string name="tab_crashed_body">El proceso de contenido de la página se ha bloqueado.</string>
+    <string name="tab_unloaded_body">Esta pestaña está descargada. Conserva su lugar en la lista.</string>
+    <string name="release_to_go_back">Suelta para ir atrás</string>
+    <string name="release_to_go_forward">Suelta para ir adelante</string>
+    <string name="release_to_refresh">Suelta para recargar</string>
+
+    <!-- Browser dialogs -->
+    <string name="close_pinned_title">¿Cerrar la pestaña fijada?</string>
+    <string name="close_pinned_message">“%1$s” se quitará de las pestañas fijadas de este espacio. Para liberar memoria sin perderla, usa Descargar.</string>
+    <string name="remove_essential_title">¿Quitar de Esenciales?</string>
+    <string name="remove_essential_message">“%1$s” se quitará de Esenciales en todos los espacios.</string>
+
+    <!-- Snackbar messages -->
+    <string name="msg_tab_closed">Pestaña cerrada</string>
+    <string name="msg_cannot_reopen">No se puede reabrir esta pestaña porque su espacio o su contenedor han cambiado</string>
+    <string name="msg_tab_unloaded">Pestaña descargada. Sigue en tu lista.</string>
+    <string name="msg_added_to_essentials">Añadida a Esenciales</string>
+    <string name="msg_bookmark_added">Marcador añadido</string>
+    <string name="msg_already_bookmarked">Ya está en marcadores</string>
+    <string name="msg_bookmark_deleted">Marcador eliminado</string>
+    <string name="msg_folder_deleted">Carpeta eliminada</string>
+    <string name="msg_space_deleted">%1$s eliminado</string>
+    <string name="msg_space_container_changed">%1$s usa ahora otro contenedor</string>
+    <string name="msg_container_deleted">Se han eliminado %1$s y sus datos de sitios</string>
+    <string name="msg_moved_to_space">Movida a %1$s</string>
+    <string name="msg_shortcut_removed">Acceso directo quitado</string>
+    <string name="msg_shortcut_added">Añadido a la página de nueva pestaña</string>
+    <string name="menu_add_ntp_shortcut">Añadir a la página de nueva pestaña</string>
+    <string name="menu_remove_ntp_shortcut">Quitar de la página de nueva pestaña</string>
+    <string name="msg_link_copied">Enlace copiado</string>
+    <string name="msg_opened_background">Abierta en una pestaña en segundo plano</string>
+    <string name="msg_install_confirm">Confirma en la pantalla de inicio para añadir %1$s</string>
+    <string name="msg_launcher_declined">Tu aplicación de pantalla de inicio ha rechazado la solicitud</string>
+    <string name="msg_launcher_unsupported">Tu aplicación de pantalla de inicio no permite añadir aplicaciones web</string>
+    <string name="msg_icon_failed">No se ha podido cargar el icono de la aplicación, así que no se puede instalar</string>
+    <string name="msg_web_app_removed">Se ha quitado %1$s. Su icono en la pantalla de inicio está desactivado.</string>
+
+    <!-- Rejected operations -->
+    <string name="reject_not_found">Ese elemento ya no existe</string>
+    <string name="reject_invalid_url">Introduce una dirección web válida</string>
+    <string name="reject_invalid_name">Introduce un nombre</string>
+    <string name="reject_last_space">Necesitas al menos un espacio</string>
+    <string name="reject_container_in_use">Este contenedor todavía está en uso</string>
+    <string name="reject_container_missing">Falta el contenedor de este espacio. Asigna uno en Espacios y contenedores.</string>
+    <string name="reject_duplicate">Esa dirección ya está guardada</string>
+    <string name="reject_not_allowed">Esa acción no está disponible aquí</string>
+    <string name="reject_no_active_space">No hay ningún espacio seleccionado</string>
+
+    <!-- Web app installability -->
+    <string name="pwa_no_manifest">Este sitio no ofrece una aplicación instalable</string>
+    <string name="pwa_insecure">Solo se pueden instalar sitios seguros (HTTPS)</string>
+    <string name="pwa_no_name">El manifiesto de la aplicación de este sitio no tiene nombre</string>
+    <string name="pwa_display_mode">Este sitio no está preparado para funcionar como aplicación</string>
+    <string name="pwa_no_icon">El manifiesto de la aplicación de este sitio no tiene un icono adecuado</string>
+    <string name="pwa_cross_origin">El manifiesto de la aplicación de este sitio apunta a otro sitio</string>
+    <string name="pwa_prefers_native">Este sitio prefiere su aplicación nativa</string>
+
+    <!-- New tab page -->
+    <string name="ntp_space">Nueva pestaña en %1$s</string>
+    <string name="shortcuts">Accesos directos</string>
+    <string name="shortcut_cd">Acceso directo: %1$s</string>
+    <string name="open_shortcut">Abrir acceso directo</string>
+    <string name="shortcut_options">Opciones del acceso directo</string>
+    <string name="add_shortcut">Añadir acceso directo</string>
+    <string name="edit_shortcut">Editar acceso directo</string>
+
+    <!-- Bookmarks -->
+    <string name="bookmarks">Marcadores</string>
+    <string name="bookmarks_empty">Aún no has guardado nada. Toca “Marcador” en el menú del navegador para guardar una página para después.</string>
+    <string name="bookmarks_hint_space">Los marcadores se abren en el espacio actual (%1$s) y en su contenedor.</string>
+    <string name="folder_empty">Esta carpeta está vacía</string>
+    <string name="bookmark_cd">Marcador: %1$s</string>
+    <string name="folder_cd">Carpeta: %1$s</string>
+    <string name="open_bookmark">Abrir marcador</string>
+    <string name="open_folder">Abrir carpeta</string>
+    <string name="edit_bookmark">Editar marcador</string>
+    <string name="new_folder">Nueva carpeta</string>
+    <string name="folder_name">Nombre de la carpeta</string>
+    <string name="rename_folder">Cambiar nombre de la carpeta</string>
+    <string name="move_to_folder">Mover a una carpeta</string>
+    <string name="choose_folder">Elegir carpeta</string>
+    <string name="folder_label">Carpeta: %1$s</string>
+    <string name="delete_bookmark_title">¿Eliminar el marcador?</string>
+    <string name="delete_bookmark_message">“%1$s” se quitará de tus marcadores. Las pestañas abiertas no se verán afectadas.</string>
+    <string name="delete_folder_title">¿Eliminar “%1$s”?</string>
+    <string name="delete_folder_message">Se eliminarán la carpeta y todo su contenido: %1$s y %2$s.</string>
+    <plurals name="subfolders_count">
+        <item quantity="one">%d subcarpeta</item>
+        <item quantity="many">%d subcarpetas</item>
+        <item quantity="other">%d subcarpetas</item>
+    </plurals>
+    <plurals name="bookmarks_count">
+        <item quantity="one">%d marcador</item>
+        <item quantity="many">%d marcadores</item>
+        <item quantity="other">%d marcadores</item>
+    </plurals>
+
+    <!-- Private browsing -->
+    <string name="private_browsing">Navegación privada</string>
+    <string name="new_private_tab">Nueva pestaña privada</string>
+    <string name="exit_private_browsing">Salir de privada</string>
+    <string name="close_all_private_tabs">Cerrar todas</string>
+    <string name="close_all_private_title">¿Cerrar todas las pestañas privadas?</string>
+    <plurals name="close_all_private_message">
+        <item quantity="one">Se cerrará %d pestaña privada y se borrarán sus cookies, datos de sitios e historial de páginas.</item>
+        <item quantity="many">Se cerrarán %d pestañas privadas y se borrarán sus cookies, datos de sitios e historial de páginas.</item>
+        <item quantity="other">Se cerrarán %d pestañas privadas y se borrarán sus cookies, datos de sitios e historial de páginas.</item>
+    </plurals>
+    <string name="msg_private_tabs_closed">Pestañas privadas cerradas</string>
+    <string name="private_ntp_explanation">Las pestañas privadas no guardan historial. Sus cookies y datos de sitios se borran al cerrarlas.</string>
+    <string name="settings_cat_private_summary">Capturas de pantalla y vista previa en aplicaciones recientes</string>
+    <string name="settings_private_block_screenshots">Bloquear capturas de pantalla</string>
+    <string name="settings_private_block_screenshots_summary">Impide capturas y grabaciones de pantalla mientras la navegación privada está abierta.</string>
+    <string name="settings_private_hide_in_recents">Ocultar en aplicaciones recientes</string>
+    <string name="settings_private_hide_in_recents_summary">Muestra una vista previa en blanco en la pantalla de aplicaciones recientes mientras la navegación privada está abierta.</string>
+
+    <!-- History -->
+    <string name="menu_history">Historial</string>
+    <string name="history_search">Buscar en el historial</string>
+    <string name="history_empty">Tu recorrido empieza aquí. Las páginas que visites aparecerán en esta lista.</string>
+    <string name="history_no_results">Ninguna página coincide con tu búsqueda.</string>
+    <string name="history_today">Hoy</string>
+    <string name="history_yesterday">Ayer</string>
+    <string name="history_host_time">%1$s · %2$s</string>
+    <string name="clear_history">Borrar historial</string>
+    <string name="clear_history_title">Borrar historial de navegación</string>
+    <string name="clear_history_last_hour">Última hora</string>
+    <string name="clear_history_today">Hoy</string>
+    <string name="clear_history_last_7_days">Últimos 7 días</string>
+    <string name="clear_history_all">Todo</string>
+    <string name="clear_history_note">No afecta a las pestañas abiertas, a los marcadores ni a los datos de sitios, como los inicios de sesión.</string>
+    <string name="clear">Borrar</string>
+    <string name="msg_history_cleared">Historial borrado</string>
+
+    <!-- Spaces and containers -->
+    <string name="spaces">Espacios</string>
+    <string name="containers">Contenedores</string>
+    <string name="containers_explanation">Un contenedor guarda sus propias cookies, inicios de sesión y almacenamiento de sitios. Cada espacio usa exactamente un contenedor.</string>
+    <string name="container">Contenedor</string>
+    <string name="container_sharing_hint">Los espacios que comparten contenedor comparten cookies e inicios de sesión.</string>
+    <string name="new_container">Nuevo contenedor</string>
+    <string name="new_container_separate">Nuevo contenedor (inicios de sesión y datos de sitios separados)</string>
+    <string name="container_for_space">Contenedor de %1$s</string>
+    <string name="change_container_warning">%1$s de este espacio se recargarán en el contenedor seleccionado. Las cookies y los datos de sitios se quedan en %2$s y no se copian.</string>
+    <string name="move_tab_to_space">Mover pestaña a otro espacio</string>
+    <string name="move_tab_container_warning">%1$s usa otro contenedor, así que la pestaña se recargará allí sin su historial.</string>
+    <string name="rename_space">Cambiar nombre del espacio</string>
+    <string name="space_color">Color del espacio</string>
+    <string name="space_current">%1$s (actual)</string>
+    <string name="container_label">Contenedor: %1$s</string>
+    <string name="container_missing_assign">Falta el contenedor: asigna uno</string>
+    <string name="change_color">Cambiar color</string>
+    <string name="change_container">Cambiar contenedor…</string>
+    <string name="delete_space">Eliminar espacio</string>
+    <string name="delete_space_title">¿Eliminar %1$s?</string>
+    <string name="delete_space_message">Se cerrarán y eliminarán %1$s, incluidas %2$s. Se conservan %3$s y sus datos de sitios.</string>
+    <plurals name="pinned_count">
+        <item quantity="one">%d fijada</item>
+        <item quantity="many">%d fijadas</item>
+        <item quantity="other">%d fijadas</item>
+    </plurals>
+    <string name="rename_container">Cambiar nombre del contenedor</string>
+    <string name="container_unused">No lo usa ningún espacio</string>
+    <string name="container_used_by">Lo usa %1$s</string>
+    <string name="delete_container_title">¿Eliminar %1$s?</string>
+    <string name="delete_container_message">Esto borra para siempre las cookies, los inicios de sesión y el almacenamiento de sitios guardados en este contenedor.</string>
+    <string name="delete_container_confirm">Eliminar y borrar datos</string>
+    <string name="container_in_use_title">%1$s está en uso</string>
+    <string name="container_in_use_message">Primero asigna otro contenedor a estos elementos o quítalos:</string>
+    <string name="usage_spaces">Espacios: %1$s</string>
+    <string name="usage_web_apps">Aplicaciones instaladas: %1$s</string>
+    <plurals name="tabs_count">
+        <item quantity="one">%d pestaña</item>
+        <item quantity="many">%d pestañas</item>
+        <item quantity="other">%d pestañas</item>
+    </plurals>
+    <plurals name="usage_essentials">
+        <item quantity="one">%d esencial</item>
+        <item quantity="many">%d esenciales</item>
+        <item quantity="other">%d esenciales</item>
+    </plurals>
+
+    <!-- Installed web apps -->
+    <string name="web_apps_explanation">Las aplicaciones web instaladas se abren en su propia ventana y usan el contenedor del espacio desde el que se instalaron.</string>
+    <string name="web_apps_launcher_unsupported">Tu aplicación de pantalla de inicio no permite añadir iconos de aplicaciones web.</string>
+    <string name="web_apps_empty">No hay aplicaciones web instaladas. Abre un sitio instalable y elige “Instalar aplicación” en el menú.</string>
+    <string name="web_app_origin_container">%1$s · %2$s</string>
+    <string name="web_app_on_home_screen">En la pantalla de inicio</string>
+    <string name="web_app_not_on_home_screen">No está en la pantalla de inicio</string>
+    <string name="web_app_repin">Volver a añadir a la pantalla de inicio</string>
+    <string name="remove_web_app_title">¿Quitar %1$s?</string>
+    <string name="remove_web_app_message">La aplicación se quita de Lax y su icono de la pantalla de inicio deja de funcionar. Sus datos de sitios se conservan.</string>
+    <string name="web_app_disabled_message">Esta aplicación web se ha quitado</string>
+    <string name="app_icon">Icono de la aplicación</string>
+    <string name="install">Instalar</string>
+    <string name="install_title">¿Instalar %1$s?</string>
+    <string name="install_explanation">Añade un icono a la pantalla de inicio que abre este sitio en su propia ventana, con el contenedor “%1$s”.</string>
+    <string name="web_app_error_removed">Esta aplicación web se ha quitado de Lax.</string>
+    <string name="web_app_error_container">Se ha eliminado el contenedor que usaba esta aplicación. Quita la aplicación y vuelve a instalarla.</string>
+    <string name="web_app_error_closed">La aplicación se ha cerrado.</string>
+    <string name="web_app_error_crashed">Esta aplicación ha dejado de funcionar.</string>
+    <string name="web_app_error_killed">Esta aplicación se ha cerrado para liberar memoria.</string>
+    <string name="web_app_return">Volver a la aplicación</string>
+    <string name="web_app_open_in_browser">Abrir en el navegador</string>
+
+    <!-- Settings -->
+    <string name="settings_search_engine">Buscador</string>
+    <string name="settings_search_engine_summary">Se usa cuando lo que escribes en la barra de direcciones no es una dirección web.</string>
+    <string name="settings_search_custom">Personalizado</string>
+    <string name="settings_search_custom_label">Dirección de búsqueda personalizada</string>
+    <string name="settings_search_custom_help" formatted="false">Usa %s donde van los términos de búsqueda.</string>
+    <string name="settings_search_custom_error" formatted="false">Introduce una dirección http(s) que contenga %s</string>
+    <string name="settings_search_custom_use">Usar búsqueda personalizada</string>
+    <string name="settings_toolbar_top">Arriba</string>
+    <string name="settings_toolbar_bottom">Abajo</string>
+    <string name="settings_hide_toolbar">Ocultar la barra al desplazarte</string>
+    <string name="settings_hide_toolbar_summary">Desplázate hacia abajo para ocultarla junto con la barra de navegación del sistema, y hacia arriba para mostrarlas.</string>
+    <string name="settings_pull_to_refresh">Deslizar para recargar</string>
+    <string name="settings_pull_to_refresh_summary">Desliza hacia abajo en la parte superior de una página para recargarla.</string>
+    <string name="settings_websites">Sitios web</string>
+    <string name="settings_appearance">Apariencia de los sitios web</string>
+    <string name="settings_appearance_system">Seguir el tema del dispositivo</string>
+    <string name="settings_appearance_light">Claro</string>
+    <string name="settings_appearance_dark">Oscuro</string>
+    <string name="settings_text_size">Tamaño del texto: %1$d %%</string>
+    <string name="settings_privacy">Privacidad y seguridad</string>
+    <string name="settings_tracking_protection">Protección mejorada contra el rastreo</string>
+    <string name="settings_tp_standard">Estándar</string>
+    <string name="settings_tp_standard_summary">Bloquea rastreadores conocidos sin romper los sitios.</string>
+    <string name="settings_tp_strict">Estricta</string>
+    <string name="settings_tp_strict_summary">Bloquea más rastreadores. Puede que algunos sitios no funcionen.</string>
+    <string name="settings_tp_off">Desactivada</string>
+    <string name="settings_tp_off_summary">No se bloquean rastreadores.</string>
+    <string name="settings_https_only">Modo solo HTTPS</string>
+    <string name="settings_https_only_summary">Cambia las conexiones a HTTPS y avisa antes de cargar páginas no seguras.</string>
+    <string name="settings_cat_search">Búsqueda</string>
+    <string name="settings_cat_search_summary">Buscador: %1$s</string>
+    <string name="settings_cat_toolbar">Barra de herramientas y gestos</string>
+    <string name="settings_cat_toolbar_summary">Posición, botones, lado de la barra lateral, gestos</string>
+    <string name="settings_cat_websites_summary">Apariencia y tamaño del texto</string>
+    <string name="settings_cat_privacy_summary">Protección contra el rastreo y modo solo HTTPS</string>
+    <string name="settings_cat_spaces_summary">Espacios y los contenedores que separan sus inicios de sesión</string>
+    <string name="settings_cat_bookmarks_summary">Páginas guardadas y carpetas</string>
+    <string name="settings_cat_web_apps_summary">Aplicaciones web añadidas a tu pantalla de inicio</string>
+    <string name="settings_cat_history_summary">Páginas que has visitado, con búsqueda y fáciles de borrar</string>
+    <string name="settings_browsing_data">Datos de navegación</string>
+    <string name="settings_clear_history_summary">Elimina las páginas visitadas en la última hora, hoy, los últimos 7 días o desde siempre</string>
+    <string name="settings_toolbar_position">Posición</string>
+    <string name="settings_gestures">Gestos</string>
+    <string name="settings_about">Acerca de</string>
+    <string name="settings_version">Versión %1$s</string>
+    <string name="settings_about_update_available">Versión %1$s · Actualización disponible: %2$s</string>
+    <string name="about_update_current">Tienes la versión %1$s</string>
+    <string name="about_update_action">Actualizar</string>
+    <string name="whats_new_title">Novedades de Lax %1$s</string>
+    <string name="whats_new_ok">Entendido</string>
+    <string name="whats_new_all">Todos los cambios</string>
+    <string name="changelog_title">Novedades</string>
+    <string name="changelog_summary">Los cambios de cada versión de Lax</string>
+    <string name="changelog_version">Lax %1$s</string>
+    <string name="changelog_installed">Versión instalada</string>
+    <string name="changelog_unavailable">No se pudo cargar la lista de cambios.</string>
+    <string name="done">Hecho</string>
+    <string name="allow">Permitir</string>
+    <string name="deny">Denegar</string>
+
+    <!-- Language -->
+    <string name="settings_language">Idioma</string>
+    <string name="settings_language_system">Predeterminado del sistema</string>
+    <string name="settings_language_note">También se pide a los sitios web que muestren sus páginas en este idioma cuando sea posible.</string>
+
+    <!-- Extensions -->
+    <string name="menu_extensions">Extensiones</string>
+    <string name="extensions_title">Extensiones</string>
+    <string name="settings_cat_extensions_summary">Complementos de Firefox para personalizar tu navegación</string>
+    <string name="extensions_empty">Aún no hay extensiones. Los complementos de addons.mozilla.org funcionan en Lax.</string>
+    <string name="extensions_store_title">Complementos de Firefox</string>
+    <string name="extensions_store_body">Busca complementos en addons.mozilla.org y toca “Añadir a Lax” para instalarlos.</string>
+    <string name="extensions_store_button">Explorar extensiones</string>
+    <string name="extension_by">De %1$s</string>
+    <string name="extension_version">Versión %1$s</string>
+    <string name="extension_disabled_by_system">Desactivada porque está bloqueada, no está firmada o no es compatible</string>
+    <string name="extension_runs_in_private">Funciona en navegación privada</string>
+    <string name="extension_settings">Ajustes de la extensión</string>
+    <string name="extension_allow_private">Permitir en navegación privada</string>
+    <string name="extension_permissions">Permisos</string>
+    <string name="extension_view_listing">Ver en addons.mozilla.org</string>
+    <string name="extension_remove_title">¿Quitar la extensión?</string>
+    <string name="extension_remove_message">%1$s y sus datos se quitarán de Lax.</string>
+    <string name="extension_install_title">¿Añadir %1$s?</string>
+    <string name="extension_update_title">%1$s solicita permisos nuevos</string>
+    <string name="extension_optional_title">%1$s solicita permisos adicionales</string>
+    <string name="extension_install_note">Añade solo extensiones de confianza. Las extensiones pueden ver y cambiar lo que haces en el navegador.</string>
+    <string name="extension_permissions_intro">Podrá:</string>
+    <string name="extension_no_permissions">Esta extensión no solicita permisos especiales.</string>
+    <string name="extension_data_collection_intro">Según su desarrollador, esta extensión recopila:</string>
+    <string name="msg_extension_downloading">Descargando extensión…</string>
+    <string name="msg_extension_installed">Se ha añadido %1$s</string>
+    <string name="msg_extension_removed">Se ha quitado %1$s</string>
+    <string name="msg_extension_install_failed">No se ha podido añadir la extensión</string>
+    <string name="msg_extension_blocked">Esta extensión está bloqueada porque puede ser dañina</string>
+    <string name="msg_extension_incompatible">Esta extensión no funciona con esta versión del navegador</string>
+    <string name="msg_extension_unsigned">Esta extensión no está firmada por Mozilla, así que no se puede añadir</string>
+
+    <!-- Extension permission warnings -->
+    <string name="ext_perm_all_urls">Acceder a tus datos de todos los sitios web</string>
+    <string name="ext_perm_site">Acceder a tus datos de %1$s</string>
+    <string name="ext_perm_bookmarks">Leer y modificar marcadores</string>
+    <string name="ext_perm_browser_settings">Leer y modificar los ajustes del navegador</string>
+    <string name="ext_perm_browsing_data">Borrar el historial de navegación reciente, las cookies y los datos relacionados</string>
+    <string name="ext_perm_clipboard_read">Obtener datos del portapapeles</string>
+    <string name="ext_perm_clipboard_write">Introducir datos en el portapapeles</string>
+    <string name="ext_perm_block_content">Bloquear contenido en cualquier página</string>
+    <string name="ext_perm_downloads">Descargar archivos y leer y modificar el historial de descargas del navegador</string>
+    <string name="ext_perm_downloads_open">Abrir archivos descargados en tu dispositivo</string>
+    <string name="ext_perm_find">Leer el texto de todas las pestañas abiertas</string>
+    <string name="ext_perm_geolocation">Acceder a tu ubicación</string>
+    <string name="ext_perm_history">Acceder al historial de navegación</string>
+    <string name="ext_perm_management">Supervisar el uso de extensiones y gestionar temas</string>
+    <string name="ext_perm_native_messaging">Intercambiar mensajes con programas distintos de Lax</string>
+    <string name="ext_perm_notifications">Mostrarte notificaciones</string>
+    <string name="ext_perm_privacy">Leer y modificar los ajustes de privacidad</string>
+    <string name="ext_perm_proxy">Controlar los ajustes de proxy del navegador</string>
+    <string name="ext_perm_sessions">Acceder a las pestañas cerradas recientemente</string>
+    <string name="ext_perm_tabs">Acceder a las pestañas del navegador</string>
+    <string name="ext_perm_tab_hide">Ocultar y mostrar pestañas del navegador</string>
+    <string name="ext_perm_web_navigation">Acceder a la actividad del navegador durante la navegación</string>
+
+    <!-- Data an extension's developer declares it collects -->
+    <string name="ext_data_authentication">Información de autenticación</string>
+    <string name="ext_data_bookmarks">Marcadores</string>
+    <string name="ext_data_browsing_activity">Actividad de navegación</string>
+    <string name="ext_data_financial">Información financiera y de pago</string>
+    <string name="ext_data_health">Información de salud</string>
+    <string name="ext_data_location">Ubicación</string>
+    <string name="ext_data_communications">Comunicaciones personales</string>
+    <string name="ext_data_personal">Información de identificación personal</string>
+    <string name="ext_data_search_terms">Términos de búsqueda</string>
+    <string name="ext_data_technical">Datos técnicos y de interacción</string>
+    <string name="ext_data_website_activity">Actividad en sitios web</string>
+    <string name="ext_data_website_content">Contenido de sitios web</string>
+
+    <!-- Notification channels and system media controls -->
+    <string name="channel_site_notifications">Notificaciones de sitios web</string>
+    <string name="channel_downloads">Descargas</string>
+    <string name="channel_media">Reproducción multimedia</string>
+    <string name="download_complete">Descarga completada</string>
+    <string name="media_playing">Reproduciendo contenido</string>
+    <string name="media_private_title">Contenido de una pestaña privada</string>
+    <string name="media_play">Reproducir</string>
+    <string name="media_pause">Pausar</string>
+    <string name="media_next">Siguiente</string>
+    <string name="media_previous">Anterior</string>
+
+    <!-- Web page dialogs -->
+    <string name="block">Bloquear</string>
+    <string name="choose_color">Elige un color</string>
+    <string name="prompt_leave_title">¿Salir de esta página?</string>
+    <string name="prompt_leave_message">Es posible que no se guarden los cambios que hayas hecho.</string>
+    <string name="prompt_leave">Salir</string>
+    <string name="prompt_stay">Quedarse</string>
+    <string name="prompt_repost_title">¿Volver a enviar los datos?</string>
+    <string name="prompt_repost_message">Esta página necesita volver a enviar información que introdujiste, como un formulario. Esto puede repetir una acción, como una compra.</string>
+    <string name="prompt_resend">Volver a enviar</string>
+    <string name="prompt_popup_title">Ventana emergente bloqueada</string>
+    <string name="prompt_redirect_title">Redirección bloqueada</string>
+    <string name="prompt_blocked_target">El sitio intentó abrir %1$s</string>
+    <string name="prompt_auth_title">Iniciar sesión</string>
+    <string name="prompt_auth_title_host">Iniciar sesión en %1$s</string>
+    <string name="prompt_auth_insecure">Tu nombre de usuario y tu contraseña se enviarán a través de una conexión sin cifrar.</string>
+    <string name="prompt_username">Nombre de usuario</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="prompt_sign_in">Iniciar sesión</string>
+
+    <!-- Site permission requests: "%1$s quiere %2$s." -->
+    <string name="permission_title">Permiso del sitio</string>
+    <string name="permission_request">%1$s quiere %2$s.</string>
+    <string name="permission_storage_access">¿Permitir que %1$s use sus cookies y datos de sitios en %2$s?</string>
+    <string name="permission_private_note">En la navegación privada, esta decisión se olvida al cerrar todas las pestañas privadas.</string>
+    <string name="permission_location">conocer tu ubicación</string>
+    <string name="permission_notifications">enviarte notificaciones</string>
+    <string name="permission_camera">usar tu cámara</string>
+    <string name="permission_microphone">usar tu micrófono</string>
+    <string name="permission_camera_microphone">usar tu cámara y tu micrófono</string>
+    <string name="permission_drm">reproducir contenido protegido con DRM</string>
+    <string name="permission_autoplay_audible">reproducir contenido con sonido automáticamente</string>
+    <string name="permission_autoplay_inaudible">reproducir contenido silenciado automáticamente</string>
+    <string name="permission_persistent_storage">guardar sus datos en este dispositivo</string>
+    <string name="permission_storage_access_short">usar sus cookies en otros sitios</string>
+    <string name="permission_local_network">acceder a dispositivos de tu red local</string>
+    <string name="permission_local_device">acceder a aplicaciones y servicios de este dispositivo</string>
+    <string name="camera_front">Cámara frontal</string>
+    <string name="camera_back">Cámara trasera</string>
+
+    <!-- Site permissions screen -->
+    <string name="site_permissions_title">Permisos de sitios</string>
+    <string name="site_permissions_empty">Los sitios que permitas o bloquees aparecerán aquí.</string>
+    <string name="site_permissions_summary">Ubicación, notificaciones y más para cada sitio</string>
+    <string name="site_perm_location">Ubicación</string>
+    <string name="site_perm_notifications">Notificaciones</string>
+    <string name="site_perm_drm">Contenido protegido con DRM</string>
+    <string name="site_perm_autoplay_audible">Reproducción automática con sonido</string>
+    <string name="site_perm_autoplay_inaudible">Reproducción automática silenciada</string>
+    <string name="site_perm_persistent_storage">Almacenamiento persistente</string>
+    <string name="site_perm_storage_access">Cookies entre sitios</string>
+    <string name="site_perm_local_network">Dispositivos de la red local</string>
+    <string name="site_perm_local_device">Aplicaciones de este dispositivo</string>
+    <string name="site_perm_camera">Cámara</string>
+    <string name="site_perm_microphone">Micrófono</string>
+    <string name="site_perm_allowed">Permitido</string>
+    <string name="site_perm_blocked">Bloqueado</string>
+    <string name="site_perm_forget">Volver a preguntar</string>
+    <string name="site_clear_data">Borrar cookies y datos del sitio</string>
+    <string name="site_in_container">%1$s · %2$s</string>
+
+    <!-- Pickers -->
+    <string name="color_picker_cd">Selector de color. Arrastra para cambiar la saturación y el brillo.</string>
+    <string name="color_hex">Color hexadecimal</string>
+    <string name="share_open_in">Abrir en Lax…</string>
+    <string name="ctx_open_in">Abrir en…</string>
+    <string name="open_link_in_title">Abrir enlace en…</string>
+    <string name="open_link_in_container">Contenedor: %1$s</string>
+    <string name="open_link_in_current">Espacio actual</string>
+    <string name="open_link_in_private">Pestaña privada</string>
+    <string name="settings_external_links">Enlaces de otras aplicaciones</string>
+    <string name="settings_external_links_summary">Dónde se abren los enlaces de otras apps</string>
+    <string name="settings_links_active">El espacio actual</string>
+    <string name="settings_links_ask">Preguntar cada vez</string>
+    <string name="settings_links_space">Siempre en %1$s</string>
+    <string name="choose_emoji">Elige un emoji</string>
+    <string name="emoji_search_hint">Buscar emoji (p. ej., corazón, trabajo)</string>
+    <string name="emoji_search_none">No se encontró ningún emoji. Prueba otra palabra (los nombres están en inglés) o escribe un emoji.</string>
+    <string name="clear_search">Borrar búsqueda</string>
+    <string name="use_color_dot">Usar un color</string>
+
+    <!-- Sidebar: suggestions, folders, split view, pinned pages, Spaces -->
+    <string name="voice_search">Búsqueda por voz</string>
+    <string name="scan_qr_code">Escanear código QR</string>
+    <string name="suggestion_tab_in_space">Cambiar a la pestaña en %1$s</string>
+    <string name="previous_space">Espacio anterior</string>
+    <string name="next_space">Espacio siguiente</string>
+    <string name="new_tab_folder">Nueva carpeta</string>
+    <string name="expand_folder">Expandir carpeta</string>
+    <string name="collapse_folder">Contraer carpeta</string>
+    <string name="ungroup_folder">Quitar carpeta (mantener pestañas)</string>
+    <string name="folder_choose_title">Mover a una carpeta</string>
+    <string name="folder_none">Sin carpeta</string>
+    <string name="new_folder_ellipsis">Nueva carpeta…</string>
+    <string name="reset_pinned_tab">Volver a la página fijada</string>
+    <string name="replace_pinned_url">Fijar la página actual</string>
+    <string name="edit_pinned_url">Editar la página fijada…</string>
+    <string name="edit_pinned_url_title">Página fijada</string>
+    <string name="msg_pinned_page_saved">Página fijada guardada</string>
+    <string name="open_in_split_view">Abrir en vista dividida</string>
+    <string name="in_split_view">En vista dividida</string>
+    <string name="cd_in_split_view">en vista dividida</string>
+    <string name="split_choose_title">Mostrar junto a esta pestaña</string>
+    <string name="split_no_tabs">Primero abre otra pestaña en este espacio.</string>
+    <string name="split_focus_cd">Enfocar este lado de la vista dividida</string>
+    <string name="close_split_view">Cerrar vista dividida</string>
+    <string name="space_icon_emoji">Usar un emoji…</string>
+
+    <!-- Browser menu and page tools -->
+    <string name="menu_downloads">Descargas</string>
+    <string name="menu_recently_closed">Pestañas cerradas recientemente</string>
+    <string name="menu_reader_view">Vista de lectura</string>
+    <string name="menu_translate">Traducir página…</string>
+    <string name="menu_show_original">Mostrar original</string>
+    <string name="menu_print">Imprimir o guardar como PDF…</string>
+    <string name="menu_add_to_home">Añadir a la pantalla de inicio</string>
+    <string name="menu_site_permissions">Permisos de sitios</string>
+    <string name="menu_split_view">Vista dividida…</string>
+    <string name="open_in_lax">Abrir en Lax</string>
+    <string name="process_text_search">Buscar con Lax</string>
+    <string name="recently_closed_empty">No has cerrado nada recientemente. Las pestañas que cierres esperan aquí un rato.</string>
+    <string name="msg_print_failed">No se ha podido imprimir esta página</string>
+    <string name="msg_browsing_data_cleared">Datos de navegación borrados</string>
+    <string name="msg_site_data_cleared">Se han borrado las cookies y los datos de %1$s</string>
+
+    <!-- Page context menu additions -->
+    <string name="ctx_glance">Vista previa con Glance</string>
+    <string name="ctx_open_split">Abrir en vista dividida</string>
+    <string name="ctx_download_link">Descargar enlace</string>
+    <string name="ctx_save_image">Guardar imagen</string>
+
+    <!-- Glance -->
+    <string name="glance_open_tab">Abrir como pestaña</string>
+    <string name="glance_close">Cerrar vista previa</string>
+
+    <!-- Translation -->
+    <string name="translate_title">Traducir página</string>
+    <string name="translate_from">De</string>
+    <string name="translate_to">A</string>
+    <string name="translate_action">Traducir</string>
+    <string name="translate_unsupported">La traducción no está disponible en este dispositivo.</string>
+    <string name="translating">Traduciendo…</string>
+    <string name="msg_translation_failed">No se ha podido traducir esta página</string>
+
+    <!-- Downloads -->
+    <string name="downloads_empty">Aún no hay descargas. Los archivos que guardes aparecerán aquí.</string>
+    <string name="download_failed">Error</string>
+    <string name="download_cancelled">Cancelada</string>
+    <string name="download_cancel">Cancelar descarga</string>
+    <string name="download_remove">Quitar de la lista</string>
+    <string name="download_delete_file">Eliminar archivo</string>
+    <string name="msg_download_started">Descargando %1$s…</string>
+    <string name="msg_download_failed">No se ha podido descargar %1$s</string>
+    <string name="msg_download_complete">%1$s descargado</string>
+    <string name="msg_no_app_to_open">Ninguna aplicación puede abrir este archivo</string>
+    <string name="settings_cat_downloads_summary">Archivos que has descargado</string>
+
+    <!-- Settings additions -->
+    <string name="settings_search_suggestions">Mostrar sugerencias de búsqueda</string>
+    <string name="settings_search_suggestions_summary">Envía lo que escribes a tu buscador para obtener sugerencias. Nunca en la navegación privada.</string>
+    <string name="settings_gpc">Pedir a los sitios que no vendan ni compartan mis datos</string>
+    <string name="settings_gpc_summary">Envía la señal Global Privacy Control a los sitios web.</string>
+    <string name="settings_autoplay">Reproducción automática</string>
+    <string name="settings_autoplay_block_audible">Bloquear solo el audio</string>
+    <string name="settings_autoplay_block_all">Bloquear audio y vídeo</string>
+    <string name="settings_autoplay_allow">Permitir audio y vídeo</string>
+    <string name="settings_autoplay_summary">Al cambiar esto se restablece la decisión de cada sitio sobre la reproducción automática.</string>
+    <string name="settings_clear_data">Borrar datos de navegación</string>
+    <string name="settings_clear_data_summary">Historial, cookies y datos de sitios, archivos en caché y permisos de sitios</string>
+    <string name="clear_data_history">Historial de navegación</string>
+    <string name="clear_data_cookies">Cookies y datos de sitios</string>
+    <string name="clear_data_cookies_summary">Cierra tu sesión en la mayoría de los sitios, en todos los contenedores.</string>
+    <string name="clear_data_cache">Imágenes y archivos en caché</string>
+    <string name="clear_data_permissions">Permisos de sitios</string>
+
+    <!-- Extensions additions -->
+    <string name="extension_pin">Mostrar en el menú</string>
+    <string name="extensions_enabled">Activadas</string>
+    <string name="extensions_disabled">Desactivadas</string>
+    <!-- Tabs: automatic unloading and overview -->
+    <string name="settings_cat_tabs">Pestañas</string>
+    <string name="settings_auto_unload">Descargar pestañas inactivas</string>
+    <string name="settings_auto_unload_summary">Las pestañas descargadas siguen en tu lista y se recargan al abrirlas. Las que reproducen contenido nunca se descargan.</string>
+    <string name="auto_unload_off">Nunca</string>
+    <plurals name="auto_unload_minutes">
+        <item quantity="one">Tras %d minuto</item>
+        <item quantity="many">Tras %d minutos</item>
+        <item quantity="other">Tras %d minutos</item>
+    </plurals>
+    <plurals name="auto_unload_hours">
+        <item quantity="one">Tras %d hora</item>
+        <item quantity="many">Tras %d horas</item>
+        <item quantity="other">Tras %d horas</item>
+    </plurals>
+    <string name="tab_search_title">Pestañas abiertas</string>
+    <string name="tab_search_all_spaces">Todos los espacios</string>
+    <string name="tab_search_none_in_space">No hay pestañas que coincidan en %1$s.</string>
+    <string name="tab_search_no_results">Ninguna pestaña coincide con tu búsqueda.</string>
+
+    <!-- Toolbar layout -->
+    <string name="settings_toolbar_layout">Botones y barra lateral</string>
+    <string name="settings_toolbar_button">Botón de la barra de herramientas</string>
+    <string name="settings_swap_toolbar_buttons">Intercambiar los botones de barra lateral y menú</string>
+    <string name="settings_swap_toolbar_buttons_summary">Pone el botón de menú a la izquierda y el de la barra lateral a la derecha</string>
+    <string name="settings_sidebar_right">Barra lateral a la derecha</string>
+    <string name="settings_sidebar_right_summary">La barra lateral se abre desde el borde derecho (en pantallas anchas, se queda a la derecha)</string>
+    <string name="toolbar_action_home">Inicio (página de nueva pestaña)</string>
+    <string name="toolbar_action_bookmark">Añadir esta página a marcadores</string>
+    <string name="toolbar_action_none">Ninguno (ocultar el botón)</string>
+
+    <!-- Open links in apps -->
+    <string name="app_link_title">¿Abrir en %1$s?</string>
+    <string name="app_link_body">Este enlace se puede abrir en la aplicación %1$s.</string>
+    <string name="app_link_body_private">Este enlace se puede abrir en la aplicación %1$s. Abrirlo allí sale de la navegación privada.</string>
+    <string name="app_link_remember">No volver a preguntar para %1$s</string>
+    <string name="app_link_open">Abrir</string>
+    <string name="settings_app_links">Abrir enlaces en aplicaciones</string>
+    <string name="settings_app_links_ask">Preguntar primero</string>
+    <string name="settings_app_links_always">Siempre</string>
+    <string name="settings_app_links_never">Nunca</string>
+    <string name="settings_app_links_forget">Olvidar las elecciones de aplicaciones</string>
+    <plurals name="settings_app_links_remembered">
+        <item quantity="one">%d aplicación recordada con “No volver a preguntar”</item>
+        <item quantity="many">%d aplicaciones recordadas con “No volver a preguntar”</item>
+        <item quantity="other">%d aplicaciones recordadas con “No volver a preguntar”</item>
+    </plurals>
+    <string name="support_coffee">¡Invítame a un café!</string>
+    <string name="support_coffee_summary">Apoya el desarrollo de Lax en Ko-fi</string>
+
+    <!-- Saved logins -->
+    <string name="login_save_title">¿Guardar el inicio de sesión de %1$s?</string>
+    <string name="login_update_title">¿Actualizar el inicio de sesión de %1$s?</string>
+    <string name="login_save_note">Los inicios de sesión guardados se cifran en este dispositivo y se rellenan la próxima vez que entres.</string>
+    <string name="login_update">Actualizar</string>
+    <string name="login_never">Nunca</string>
+    <string name="login_not_now">Ahora no</string>
+    <string name="login_select_title">Entrar en %1$s como</string>
+    <string name="login_no_username">(sin nombre de usuario)</string>
+    <string name="logins_title">Inicios de sesión guardados</string>
+    <string name="logins_summary">Contraseñas guardadas en Lax, cifradas en este dispositivo</string>
+    <string name="logins_save_toggle">Guardar y rellenar inicios de sesión</string>
+    <string name="logins_save_toggle_summary">Ofrece guardar los inicios de sesión y rellenarlos</string>
+    <string name="logins_need_lock">Configura un bloqueo de pantalla en este dispositivo para ver o copiar las contraseñas guardadas.</string>
+    <string name="logins_search">Buscar inicios de sesión</string>
+    <string name="logins_empty">Aún no hay inicios de sesión guardados. Cuando entres en un sitio, Lax ofrecerá guardarlo.</string>
+    <string name="logins_no_match">Ningún inicio de sesión coincide con tu búsqueda.</string>
+    <string name="logins_never_saved">Nunca se guardan</string>
+    <string name="logins_allow_saving">Permitir guardar en %1$s</string>
+    <string name="logins_delete_all">Eliminar todos los inicios de sesión</string>
+    <string name="logins_delete_all_message">Se eliminarán de este dispositivo todos los inicios de sesión guardados. No se puede deshacer.</string>
+    <string name="logins_auth_title">Confirma que eres tú</string>
+    <string name="login_username">Nombre de usuario</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_copy_username">Copiar nombre de usuario</string>
+    <string name="login_copy_password">Copiar contraseña</string>
+    <string name="login_show_password">Mostrar contraseña</string>
+    <string name="login_delete_title">¿Eliminar el inicio de sesión?</string>
+    <string name="login_delete_message">Se eliminará de este dispositivo el inicio de sesión guardado de %1$s.</string>
+    <string name="msg_login_deleted">Inicio de sesión eliminado</string>
+    <string name="msg_logins_deleted">Se eliminaron todos los inicios de sesión</string>
+    <string name="msg_password_copied">Contraseña copiada</string>
+    <string name="msg_username_copied">Nombre de usuario copiado</string>
+
+    <!-- Error pages -->
+    <string name="error_not_found_title">No se encuentra este sitio</string>
+    <string name="error_not_found_body">Revisa que la dirección no tenga errores. Si es correcta, puede que el sitio no funcione o que tu red lo bloquee.</string>
+    <string name="error_offline_title">Estás sin conexión</string>
+    <string name="error_offline_body">Conéctate a una red Wi-Fi o a los datos móviles y vuelve a intentarlo.</string>
+    <string name="error_connection_title">No se puede conectar</string>
+    <string name="error_connection_body">El sitio no respondió o rechazó la conexión. Puede que no funcione por un momento.</string>
+    <string name="error_timeout_title">El sitio tardó demasiado</string>
+    <string name="error_timeout_body">El servidor no respondió a tiempo. Revisa tu conexión y vuelve a intentarlo.</string>
+    <string name="error_insecure_title">Esta conexión no es segura</string>
+    <string name="error_insecure_body">Lax no abrió esta página porque su certificado de seguridad no es de confianza. Alguien podría estar haciéndose pasar por el sitio.</string>
+    <string name="error_https_only_title">No hay versión segura</string>
+    <string name="error_https_only_body">El modo solo HTTPS está activado y este sitio no ofrece una conexión segura. Puedes desactivarlo en Ajustes → Privacidad.</string>
+    <string name="error_harmful_title">Sitio engañoso o dañino</string>
+    <string name="error_harmful_body">Este sitio se denunció por phishing o software dañino, así que Lax lo bloqueó para protegerte.</string>
+    <string name="error_invalid_title">Dirección no válida</string>
+    <string name="error_invalid_body">Esta dirección no se puede abrir. Revisa que no tenga errores.</string>
+    <string name="error_crashed_title">Esta página dejó de funcionar</string>
+    <string name="error_crashed_body">Algo salió mal al mostrar esta página. Prueba a cargarla de nuevo.</string>
+    <string name="error_other_title">No se puede abrir esta página</string>
+    <string name="error_other_body">Algo salió mal al cargar esta página.</string>
+    <string name="error_try_again">Reintentar</string>
+    <string name="error_go_back">Volver</string>
+
+    <!-- Downloads in the background -->
+    <string name="download_in_progress">Descargando…</string>
+    <string name="download_private_title">Descarga privada</string>
+    <string name="download_tab_progress">%1$s de %2$s</string>
+    <string name="download_tab_background">Puedes cerrar esto; la descarga continúa y aparece en Descargas.</string>
+    <string name="download_tab_done">Guardado en tu carpeta de Descargas.</string>
+    <string name="download_tab_failed">La descarga falló. Puede que el enlace haya caducado; intenta abrirlo de nuevo.</string>
+    <string name="download_tab_open">Abrir</string>
+    <string name="download_no_app">Ninguna aplicación puede abrir este archivo.</string>
+    <string name="download_cancel_all">Cancelar todas</string>
+    <plurals name="downloads_in_progress">
+        <item quantity="one">Descargando %d archivo</item>
+        <item quantity="many">Descargando %d archivos</item>
+        <item quantity="other">Descargando %d archivos</item>
+    </plurals>
+
+    <!-- Theme and brand -->
+    <string name="settings_cat_theme">Tema</string>
+    <string name="settings_cat_theme_summary">Colores de Lax, tono del espacio, colores del fondo de pantalla</string>
+    <string name="settings_colors">Colores</string>
+    <string name="settings_space_accent">Teñir con el color del espacio</string>
+    <string name="settings_space_accent_summary">Los botones, las selecciones y la barra de carga usan el color del espacio activo</string>
+    <string name="settings_wallpaper_colors">Usar los colores del fondo de pantalla</string>
+    <string name="settings_wallpaper_colors_summary">Usa los colores de tu fondo de pantalla en lugar del lavanda y menta de Lax</string>
+    <string name="settings_theme_dark_note">Lax sigue el modo claro u oscuro del sistema.</string>
+    <string name="about_tagline">Navegador web para Android</string>
+    <string name="about_engine">Basado en GeckoView de Mozilla</string>
+    <string name="shortcuts_empty">Añade los sitios que más visitas para abrirlos con un toque.</string>
+
+    <!-- Default browser -->
+    <string name="default_browser_title">Haz de Lax tu navegador predeterminado</string>
+    <string name="default_browser_body">Los enlaces que abras en otras aplicaciones se abrirán en Lax.</string>
+    <string name="default_browser_action">Establecer como navegador predeterminado</string>
+
+    <!-- Site zoom and Space rules -->
+    <string name="menu_zoom">Zoom</string>
+    <string name="zoom_in">Ampliar</string>
+    <string name="zoom_out">Reducir</string>
+    <string name="site_zoom_value">%1$d %%</string>
+    <string name="menu_always_open_in_space">Abrir siempre este sitio en…</string>
+    <string name="site_opens_in">Se abre en %1$s</string>
+    <string name="site_any_space">Cualquier espacio</string>
+    <string name="site_space_title">Abrir siempre %1$s en</string>
+    <string name="site_space_explanation">Este sitio y sus subdominios se abren en el espacio elegido.</string>
+    <string name="msg_site_rule_saved">Este sitio se abrirá en %1$s</string>
+    <string name="site_rules_title">Zoom y reglas de espacios por sitio</string>
+    <string name="site_rules_summary">Niveles de zoom y el espacio en el que se abre cada sitio</string>
+    <string name="site_rules_explanation">Ajusta el zoom o el espacio de un sitio desde el menú del navegador.</string>
+    <string name="site_rules_empty">Aún no hay ajustes de sitios.</string>
+    <string name="site_rule_remove">Quitar los ajustes de %1$s</string>
+
+    <!-- Bookmark files and backups -->
+    <string name="settings_cat_data">Datos y copia de seguridad</string>
+    <string name="settings_cat_data_summary">Importa y exporta marcadores, haz una copia de seguridad de Lax</string>
+    <string name="bookmarks_import">Importar marcadores</string>
+    <string name="bookmarks_import_summary">Desde un archivo HTML de marcadores exportado por otro navegador</string>
+    <string name="bookmarks_export">Exportar marcadores</string>
+    <string name="bookmarks_export_summary">Como un archivo HTML que otros navegadores pueden importar</string>
+    <string name="imported_bookmarks_folder">Marcadores importados</string>
+    <string name="backup_header">Copia de seguridad</string>
+    <string name="backup_export">Hacer copia de seguridad de Lax</string>
+    <string name="backup_export_summary">Guarda espacios, pestañas, marcadores, accesos directos, ajustes de sitios y preferencias en un archivo</string>
+    <string name="backup_restore">Restaurar desde una copia</string>
+    <string name="backup_restore_summary">Sustituye los datos actuales por un archivo de copia de seguridad</string>
+    <string name="backup_note">Las copias no incluyen el historial, las descargas, las aplicaciones web instaladas ni las cookies.</string>
+    <string name="backup_restore_title">¿Restaurar esta copia?</string>
+    <string name="backup_restore_message">Tus espacios, pestañas, marcadores, accesos directos y ajustes actuales se sustituirán por los de la copia. Las páginas abiertas se cerrarán.</string>
+    <string name="backup_restore_confirm">Sustituir y restaurar</string>
+    <string name="msg_bookmarks_exported">Marcadores exportados</string>
+    <string name="msg_bookmarks_imported">Se han importado %1$d marcadores (%2$d ya estaban guardados)</string>
+    <string name="msg_bookmarks_import_empty">No se han encontrado marcadores en ese archivo</string>
+    <string name="msg_backup_saved">Copia de seguridad guardada</string>
+    <string name="msg_backup_restored">Copia de seguridad restaurada</string>
+    <string name="msg_backup_invalid">Ese archivo no es una copia de seguridad de Lax</string>
+    <string name="msg_file_failed">No se ha podido leer ni escribir el archivo</string>
+
+    <!-- About: updates, licenses, crash logs -->
+    <string name="updates_header">Actualizaciones</string>
+    <string name="updates_auto">Buscar actualizaciones automáticamente</string>
+    <string name="updates_auto_summary">Una vez al día pregunta a GitHub si hay una versión más reciente. No se envía nada sobre ti.</string>
+    <string name="updates_check_now">Buscar actualizaciones ahora</string>
+    <string name="updates_check_now_summary">Busca una versión más reciente en GitHub</string>
+    <string name="update_available_title">Lax %1$s está disponible</string>
+    <string name="update_available_body">Se ha publicado una versión más reciente de Lax.</string>
+    <string name="update_install">Instalar</string>
+    <string name="update_downloading_title">Descargando Lax %1$s</string>
+    <string name="update_ready_title">Lax %1$s está listo para instalar</string>
+    <string name="update_ready_body">Toca Instalar para abrir el instalador del sistema.</string>
+    <string name="update_permission_title">Permite que Lax instale actualizaciones</string>
+    <string name="update_permission_body">Activa “Permitir de esta fuente” para Lax y vuelve.</string>
+    <string name="update_permission_open">Abrir ajustes</string>
+    <string name="update_installing_title">Instalando Lax %1$s</string>
+    <string name="update_installing_body">Confirma la actualización en el instalador del sistema. Lax se cierra mientras se actualiza.</string>
+    <string name="update_failed_title">No se pudo actualizar</string>
+    <string name="update_failed_download">No se pudo descargar la actualización. Revisa tu conexión y vuelve a intentarlo, o descárgala desde la página de la versión.</string>
+    <string name="update_failed_verify">El archivo descargado no es una versión más nueva de Lax firmada por el mismo desarrollador, así que no se instaló.</string>
+    <string name="update_failed_install">El instalador del sistema no pudo instalar la actualización. Puedes descargarla desde la página de la versión.</string>
+    <string name="update_open_page">Ver versión</string>
+    <string name="update_later">Más tarde</string>
+    <string name="update_skip">Omitir esta versión</string>
+    <string name="msg_up_to_date">Lax está actualizado</string>
+    <string name="msg_update_check_failed">No se han podido buscar actualizaciones</string>
+    <string name="about_more">Más</string>
+    <string name="licenses_title">Licencias de código abierto</string>
+    <string name="licenses_summary">Los componentes con los que se ha hecho Lax</string>
+    <string name="licenses_explanation">Lax usa estos componentes de código abierto. Toca uno para leer su licencia.</string>
+    <string name="crash_logs_title">Registros de errores</string>
+    <string name="crash_logs_summary">Se guardan solo en este dispositivo; toca uno para compartirlo</string>
+    <string name="crash_logs_empty">No se ha registrado ningún error. Todo en orden.</string>
+    <string name="crash_report_subject">Informe de error de Lax</string>
+    <string name="msg_crashed_last_time">Lax se cerró de forma inesperada la última vez</string>
+    <string name="action_share">Compartir</string>
+
+    <!-- First-run onboarding -->
+    <string name="onboarding_skip">Omitir</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_start">Empezar a navegar</string>
+    <string name="onboarding_sidebar_title">Tus pestañas viven en la barra lateral</string>
+    <string name="onboarding_sidebar_body">Toca el botón de menú o la dirección para abrirla. Las pestañas esenciales están arriba en todos los espacios; después vienen la barra de direcciones, tus pestañas fijadas y tus pestañas abiertas.</string>
+    <string name="onboarding_spaces_title">Los espacios mantienen todo separado</string>
+    <string name="onboarding_spaces_body">Crea un espacio para el trabajo, otro para lo personal, etc. Cada espacio tiene su propio contenedor, así que sus inicios de sesión y cookies se mantienen separados.</string>
+    <string name="onboarding_tabs_title">Fija, descarga y divide</string>
+    <string name="onboarding_tabs_body">Las pestañas fijadas y las esenciales recuerdan su página. Descarga una pestaña para liberar memoria sin cerrarla y abre dos pestañas a la vez con la vista dividida.</string>
+    <string name="onboarding_privacy_title">Privado desde el principio</string>
+    <string name="onboarding_privacy_body">La protección contra el rastreo está activada, las pestañas privadas no dejan historial y las extensiones de Firefox de addons.mozilla.org también funcionan aquí.</string>
+    <string name="onboarding_back">Atrás</string>
+    <string name="onboarding_layout_title">Ponte cómodo</string>
+    <string name="onboarding_layout_body">Elige dónde va cada cosa. Puedes cambiar todo esto más tarde en Ajustes.</string>
+    <string name="onboarding_toolbar">Barra de direcciones</string>
+    <string name="onboarding_sidebar_side">Barra lateral</string>
+    <string name="onboarding_sidebar_left">A la izquierda</string>
+    <string name="onboarding_sidebar_right">A la derecha</string>
+    <string name="onboarding_unload_title">Dormir las pestañas inactivas después de</string>
+    <string name="onboarding_unload_15">15 min</string>
+    <string name="onboarding_unload_30">30 min</string>
+    <string name="onboarding_unload_60">1 hora</string>
+    <string name="onboarding_unload_never">Nunca</string>
+    <string name="onboarding_unload_note">Las pestañas dormidas siguen en la barra lateral y se recargan al abrirlas. Así se ahorra memoria y batería.</string>
+    <string name="onboarding_space_title">Añade un segundo espacio</string>
+    <string name="onboarding_space_body">Tu primer espacio es “%1$s”. Añade otro para otra parte de tu vida. Cada espacio tiene su propio contenedor, así que los inicios de sesión y las cookies se mantienen separados.</string>
+    <string name="onboarding_space_none">Ahora no</string>
+    <string name="onboarding_space_none_desc">Solo “%1$s” por ahora</string>
+    <string name="onboarding_space_later">Puedes crear, renombrar y cambiar el color de los espacios cuando quieras desde la barra lateral.</string>
+    <string name="preset_space_work">Trabajo</string>
+    <string name="preset_space_work_desc">Correo, calendarios y cuentas del trabajo</string>
+    <string name="preset_space_school">Estudios</string>
+    <string name="preset_space_school_desc">Clases, investigación y cuentas de la escuela</string>
+    <string name="preset_space_projects">Proyectos</string>
+    <string name="preset_space_projects_desc">Proyectos personales, aficiones y herramientas</string>
+    <string name="preset_space_gaming">Juegos</string>
+    <string name="preset_space_gaming_desc">Juegos, directos y comunidades</string>
+    <string name="preset_space_shopping">Compras</string>
+    <string name="preset_space_shopping_desc">Tiendas y envíos, separados de todo lo demás</string>
+    <string name="onboarding_essentials_title">Elige tus esenciales</string>
+    <string name="onboarding_essentials_body">Las pestañas esenciales están arriba en la barra lateral en todos los espacios, a un toque.</string>
+    <string name="onboarding_essentials_later">Puedes añadir más después desde la barra lateral.</string>
+    <plurals name="onboarding_essentials_count">
+        <item quantity="one">%d seleccionada</item>
+        <item quantity="many">%d seleccionadas</item>
+        <item quantity="other">%d seleccionadas</item>
+    </plurals>
+    <string name="onboarding_search_title">Búsqueda y privacidad</string>
+    <string name="onboarding_search_body">Elige cómo buscas y qué tan estricto debe ser Lax con los rastreadores.</string>
+    <string name="onboarding_extensions_title">Extensiones recomendadas</string>
+    <string name="onboarding_extensions_body">Los complementos de Firefox funcionan en Lax. Aquí tienes algunos favoritos.</string>
+    <string name="onboarding_extensions_more">Encuentra más cuando quieras en Ajustes → Extensiones.</string>
+    <string name="onboarding_finish_title">Todo listo</string>
+    <string name="onboarding_finish_body">Esto es lo que Lax preparará al empezar:</string>
+    <string name="onboarding_finish_space">Un espacio “%1$s” con su propio contenedor</string>
+    <plurals name="onboarding_finish_essentials">
+        <item quantity="one">%d esencial en la barra lateral</item>
+        <item quantity="many">%d esenciales en la barra lateral</item>
+        <item quantity="other">%d esenciales en la barra lateral</item>
+    </plurals>
+    <string name="onboarding_finish_layout">Barra de direcciones %1$s, barra lateral %2$s</string>
+    <string name="onboarding_import">Importar marcadores</string>
+    <string name="onboarding_import_summary">¿Vienes de Chrome, Firefox o Edge? Exporta allí tus marcadores como archivo HTML y luego impórtalo aquí.</string>
+    <string name="onboarding_import_none">No se encontraron marcadores en ese archivo.</string>
+    <plurals name="onboarding_imported">
+        <item quantity="one">Se importó %d marcador.</item>
+        <item quantity="many">Se importaron %d marcadores.</item>
+        <item quantity="other">Se importaron %d marcadores.</item>
+    </plurals>
+    <string name="extensions_recommended">Recomendadas</string>
+    <string name="rec_ext_details">Detalles de %1$s</string>
+    <string name="rec_ext_added">Añadida</string>
+    <string name="rec_ext_ublock">Bloquea anuncios y rastreadores sin ralentizar las páginas</string>
+    <string name="rec_ext_bitwarden">Gestor de contraseñas de código abierto</string>
+    <string name="rec_ext_dark_reader">Modo oscuro para cualquier sitio web</string>
+    <string name="rec_ext_consent">Responde a los avisos de cookies por ti</string>
+    <string name="rec_ext_sponsorblock">Salta los segmentos patrocinados de los vídeos de YouTube</string>
+    <string name="rec_ext_privacy_badger">Aprende a bloquear rastreadores invisibles</string>
+
+    <string name="more_options">Más opciones</string>
+
+    <!-- Importar y exportar inicios de sesión -->
+    <string name="logins_import">Importar desde un archivo</string>
+    <string name="logins_export">Exportar a un archivo</string>
+    <string name="logins_export_title">¿Exportar los inicios de sesión?</string>
+    <string name="logins_export_message">El archivo no está cifrado: cualquiera que lo abra puede leer tus usuarios y contraseñas.</string>
+    <string name="logins_export_confirm">Exportar</string>
+    <string name="logins_export_auth_title">Exportar inicios de sesión</string>
+    <string name="logins_imported_title">Inicios de sesión importados</string>
+    <plurals name="logins_imported_count">
+        <item quantity="one">Se añadió %d inicio de sesión.</item>
+        <item quantity="many">Se añadieron %d inicios de sesión.</item>
+        <item quantity="other">Se añadieron %d inicios de sesión.</item>
+    </plurals>
+    <plurals name="logins_already_saved_count">
+        <item quantity="one">%d ya estaba guardado y no se modificó.</item>
+        <item quantity="many">%d ya estaban guardados y no se modificaron.</item>
+        <item quantity="other">%d ya estaban guardados y no se modificaron.</item>
+    </plurals>
+    <string name="logins_imported_delete_hint">El archivo que importaste no está cifrado. Bórralo si ya no lo necesitas.</string>
+    <string name="logins_imported_delete_file">Borrar archivo</string>
+    <string name="logins_imported_keep_file">Conservar</string>
+    <string name="msg_logins_import_empty">No se encontraron inicios de sesión en ese archivo</string>
+    <string name="msg_import_file_deleted">Archivo borrado</string>
+    <string name="msg_import_file_not_deleted">No se pudo borrar el archivo. Bórralo desde tu app de archivos.</string>
+    <string name="msg_logins_exported">Inicios de sesión exportados</string>
+    <string name="onboarding_import_logins">Importar contraseñas</string>
+    <string name="onboarding_import_logins_summary">Exporta tus contraseñas como archivo CSV desde Firefox, Chrome o tu gestor de contraseñas y elígelo aquí.</string>
+
+    <!-- Generador de contraseñas -->
+    <string name="password_generator_title">Generar contraseña</string>
+    <string name="password_generator_new">Nueva contraseña</string>
+    <string name="password_generator_length">Longitud: %1$d</string>
+    <string name="password_generator_digits">Números</string>
+    <string name="password_generator_symbols">Símbolos</string>
+    <string name="password_generator_copy">Copiar</string>
+    <string name="login_generated_title">¿Usar una contraseña segura?</string>
+    <string name="login_generated_body">Lax creó una contraseña segura para %1$s. Después de registrarte, podrás guardarla.</string>
+    <string name="login_generated_use">Usar contraseña segura</string>
+
+    <!-- Inicios de sesión en las copias de seguridad -->
+    <string name="backup_include_logins">Incluir inicios de sesión guardados</string>
+    <string name="backup_include_logins_summary">Cifrados con una contraseña que elijas</string>
+    <string name="backup_logins_auth_title">Copia de los inicios de sesión</string>
+    <string name="backup_password">Contraseña de la copia</string>
+    <plurals name="backup_password_hint">
+        <item quantity="one">Al menos %d carácter</item>
+        <item quantity="many">Al menos %d caracteres</item>
+        <item quantity="other">Al menos %d caracteres</item>
+    </plurals>
+    <string name="backup_password_confirm">Confirmar contraseña</string>
+    <string name="backup_password_mismatch">Las contraseñas no coinciden</string>
+    <string name="backup_password_warning">Necesitarás esta contraseña para restaurar los inicios de sesión. Lax no puede recuperarla si la olvidas.</string>
+    <string name="restore_logins_title">Restaurar inicios de sesión</string>
+    <plurals name="restore_logins_body">
+        <item quantity="one">Esta copia tiene %d inicio de sesión guardado. Escribe la contraseña de la copia para restaurarlo.</item>
+        <item quantity="many">Esta copia tiene %d inicios de sesión guardados. Escribe la contraseña de la copia para restaurarlos.</item>
+        <item quantity="other">Esta copia tiene %d inicios de sesión guardados. Escribe la contraseña de la copia para restaurarlos.</item>
+    </plurals>
+    <string name="restore_logins_body_unknown">Esta copia tiene inicios de sesión guardados. Escribe la contraseña de la copia para restaurarlos.</string>
+    <string name="restore_logins_wrong_password">Contraseña incorrecta</string>
+    <string name="restore_logins_confirm">Restaurar</string>
+    <string name="restore_logins_skip">Omitir inicios de sesión</string>
+    <string name="msg_logins_restored">Inicios de sesión restaurados: %1$d</string>
+    <string name="msg_logins_restore_damaged">No se pudieron leer los inicios de sesión de esta copia</string>
+
+    <!-- Bloqueo de pestañas privadas -->
+    <string name="settings_private_lock">Bloquear pestañas privadas</string>
+    <string name="settings_private_lock_summary">Pide tu huella, tu cara o el bloqueo de pantalla al volver a las pestañas privadas después de salir de Lax</string>
+    <string name="settings_private_lock_unavailable">Configura un bloqueo de pantalla en este dispositivo para usar esta opción</string>
+    <string name="private_lock_title">Las pestañas privadas están bloqueadas</string>
+    <string name="private_lock_body">Desbloquea con tu huella, tu cara o el bloqueo de pantalla para ver tus pestañas privadas.</string>
+    <string name="private_lock_unlock">Desbloquear</string>
+    <string name="private_lock_leave">Salir de la navegación privada</string>
+    <string name="private_lock_auth_title">Desbloquear pestañas privadas</string>
+
+    <!-- Widget de la pantalla de inicio -->
+    <string name="widget_search_label">Búsqueda de Lax</string>
+    <string name="widget_search_description">Abre una pestaña nueva lista para escribir, o una pestaña privada</string>
+    <string name="widget_search_hint">Busca o escribe una dirección</string>
+    <string name="widget_private_tab">Nueva pestaña privada</string>
+</resources>
