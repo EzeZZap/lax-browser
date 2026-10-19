@@ -43,7 +43,8 @@
 - Bookmarks (with HTML import/export), history, downloads, reader view, translation, find in
   page, per-site zoom, installable web apps and Custom Tabs.
 - Local backups, optionally with saved logins encrypted by a password you choose.
-- A search bar widget for the home screen.
+- Swipe on the address to switch tabs and Spaces; each direction can be set to another action.
+- A search bar widget for the home screen, optionally tied to one Space.
 - English and Spanish translations.
 
 Lax has no telemetry. See [PRIVACY.md](PRIVACY.md) for what it stores and which servers it

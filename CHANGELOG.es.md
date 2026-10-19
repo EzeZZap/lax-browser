@@ -1,5 +1,15 @@
 # Registro de cambios
 
+## 0.2.0
+
+- Desliza sobre la dirección de la barra para cambiar de pestaña (izquierda y derecha) o de espacio
+  (arriba y abajo). Cada dirección puede en cambio abrir la barra lateral o el menú, activar o
+  desactivar la vista dividida, abrir o cerrar una pestaña, recargar o editar la dirección, en
+  Ajustes > Barra de herramientas y gestos
+- El widget de búsqueda se puede asociar a un espacio, para que sus pestañas se abran en el
+  contenedor de ese espacio. Si no tiene ninguno, usa el espacio que está abierto
+- "Buscar actualizaciones ahora" avisa cuando Lax ya está actualizado
+
 ## 0.1.0
 
 Primera versión.

@@ -1021,4 +1021,23 @@
     <string name="widget_search_description">Opens a new tab ready for typing, or a private tab</string>
     <string name="widget_search_hint">Search or type address</string>
     <string name="widget_private_tab">New private tab</string>
+    <string name="widget_search_hint_space">Search in %1$s</string>
+    <string name="widget_config_title">Search widget Space</string>
+    <string name="widget_config_current">Current Space</string>
+    <string name="widget_config_current_summary">The Space that\'s open in Lax</string>
+    <string name="widget_config_container">Container: %1$s</string>
+
+    <!-- Swipes on the toolbar's address -->
+    <string name="settings_address_swipes">Swipes on the address</string>
+    <string name="settings_swipe_left">Swipe left</string>
+    <string name="settings_swipe_right">Swipe right</string>
+    <string name="settings_swipe_up">Swipe up</string>
+    <string name="settings_swipe_down">Swipe down</string>
+    <string name="swipe_action_none">Nothing</string>
+    <string name="swipe_action_previous_tab">Previous tab</string>
+    <string name="swipe_action_next_tab">Next tab</string>
+    <string name="swipe_action_previous_space">Previous Space</string>
+    <string name="swipe_action_next_space">Next Space</string>
+    <string name="swipe_action_open_menu">Open menu</string>
+    <string name="swipe_action_split_view">Split view on or off</string>
 </resources>

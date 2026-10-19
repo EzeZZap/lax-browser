@@ -4,6 +4,7 @@ import android.util.Log
 import com.javzzap.laxbrowser.domain.AutoUnload
 import com.javzzap.laxbrowser.domain.AutoplayPolicy
 import com.javzzap.laxbrowser.domain.SiteRules
+import com.javzzap.laxbrowser.domain.SwipeAction
 import com.javzzap.laxbrowser.domain.SiteSetting
 import com.javzzap.laxbrowser.domain.Bookmark
 import com.javzzap.laxbrowser.domain.BookmarkFolder
@@ -159,6 +160,10 @@ internal fun SettingsEntity.toDomain(): BrowserSettings {
         externalLinks = LinkTarget.parse(externalLinks),
         saveLogins = saveLogins,
         privateTabsLock = privateTabsLock,
+        swipeLeft = swipeAction(swipeLeft, defaults.swipeLeft),
+        swipeRight = swipeAction(swipeRight, defaults.swipeRight),
+        swipeUp = swipeAction(swipeUp, defaults.swipeUp),
+        swipeDown = swipeAction(swipeDown, defaults.swipeDown),
         pullToRefresh = pullToRefresh,
         websiteAppearance = WebsiteAppearance.entries.firstOrNull { it.name == websiteAppearance } ?: defaults.websiteAppearance,
         textScalePercent = textScalePercent.coerceIn(50, 200),
@@ -203,7 +208,13 @@ internal fun BrowserSettings.toEntity() = SettingsEntity(
     externalLinks = externalLinks.key,
     saveLogins = saveLogins,
     privateTabsLock = privateTabsLock,
+    swipeLeft = swipeLeft.name,
+    swipeRight = swipeRight.name,
+    swipeUp = swipeUp.name,
+    swipeDown = swipeDown.name,
 )
+
+private fun swipeAction(name: String, fallback: SwipeAction) = SwipeAction.entries.firstOrNull { it.name == name } ?: fallback
 
 internal fun SiteSettingEntity.toDomain() = SiteSetting(host, zoomPercent.coerceIn(SiteRules.MIN_ZOOM, SiteRules.MAX_ZOOM), spaceId)
 internal fun SiteSetting.toEntity() = SiteSettingEntity(host, zoomPercent, spaceId)

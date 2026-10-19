@@ -1,0 +1,3 @@
+- Desliza sobre la dirección de la barra para cambiar de pestaña (izquierda y derecha) o de espacio (arriba y abajo). Cada dirección puede hacer otra cosa, en Ajustes > Barra de herramientas y gestos
+- El widget de búsqueda se puede asociar a un espacio, para que sus pestañas se abran en el contenedor de ese espacio
+- "Buscar actualizaciones ahora" avisa cuando Lax ya está actualizado

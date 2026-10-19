@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The preview layout and cell sizes are Android 12+; older launchers use the minimum sizes. -->
+<!--
+  The preview layout, cell sizes, and optional configuration are Android 12+. Older launchers use
+  the minimum sizes and show the Space chooser when the widget is added.
+-->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:targetApi="31"
+    android:configure="com.javzzap.laxbrowser.widget.SearchWidgetConfigActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional"
     android:description="@string/widget_search_description"
     android:initialLayout="@layout/widget_search"
     android:minWidth="250dp"

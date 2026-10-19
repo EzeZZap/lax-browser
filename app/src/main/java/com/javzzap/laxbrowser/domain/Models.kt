@@ -170,6 +170,22 @@ sealed interface LinkTarget {
 /** Default for media that starts playing by itself. Sites can be allowed individually. */
 enum class AutoplayPolicy { BLOCK_AUDIBLE, BLOCK_ALL, ALLOW_ALL }
 
+/** What a swipe on the toolbar's address does. Every direction can do any of these. */
+enum class SwipeAction {
+    NONE,
+    PREVIOUS_TAB,
+    NEXT_TAB,
+    PREVIOUS_SPACE,
+    NEXT_SPACE,
+    OPEN_SIDEBAR,
+    OPEN_MENU,
+    SPLIT_VIEW,
+    NEW_TAB,
+    CLOSE_TAB,
+    RELOAD,
+    EDIT_ADDRESS,
+}
+
 /** Browser state and user preferences, persisted as a single row. */
 data class BrowserSettings(
     val activeSpaceId: String? = null,
@@ -206,6 +222,11 @@ data class BrowserSettings(
     val saveLogins: Boolean = true,
     /** Ask for the screen lock before showing private tabs again after leaving the app. */
     val privateTabsLock: Boolean = false,
+    /** Swipes on the toolbar's address (the part that shows the site and opens the address bar). */
+    val swipeLeft: SwipeAction = SwipeAction.PREVIOUS_TAB,
+    val swipeRight: SwipeAction = SwipeAction.NEXT_TAB,
+    val swipeUp: SwipeAction = SwipeAction.NEXT_SPACE,
+    val swipeDown: SwipeAction = SwipeAction.PREVIOUS_SPACE,
 ) {
     /** The parts that configure the engine, used to detect when they need to be re-applied. */
     val engineSettings: EngineSettings

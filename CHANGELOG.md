@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0
+
+- Swipe on the toolbar's address to switch tabs (left and right) or Spaces (up and down). Each
+  direction can instead open the sidebar or the menu, turn split view on or off, open or close a
+  tab, reload, or edit the address, in Settings > Toolbar & gestures
+- The search widget can be set to a Space, so its tabs open in that Space's container. Without
+  one, it uses the Space that is open
+- "Check for updates now" says when Lax is already up to date
+
 ## 0.1.0
 
 Initial release.

@@ -85,7 +85,9 @@ object Backup {
                 .put("checkForUpdates", s.checkForUpdates).put("toolbarAction", s.toolbarAction.name)
                 .put("swapToolbarButtons", s.swapToolbarButtons).put("sidebarOnRight", s.sidebarOnRight)
                 .put("wallpaperColors", s.wallpaperColors).put("spaceAccent", s.spaceAccent).put("externalLinks", s.externalLinks.key)
-                .put("saveLogins", s.saveLogins).put("privateTabsLock", s.privateTabsLock),
+                .put("saveLogins", s.saveLogins).put("privateTabsLock", s.privateTabsLock)
+                .put("swipeLeft", s.swipeLeft.name).put("swipeRight", s.swipeRight.name)
+                .put("swipeUp", s.swipeUp.name).put("swipeDown", s.swipeDown.name),
         )
     }.toString(2)
 
@@ -183,6 +185,10 @@ object Backup {
             externalLinks = LinkTarget.parse(s.str("externalLinks")),
             saveLogins = s.optBoolean("saveLogins", defaults.saveLogins),
             privateTabsLock = s.optBoolean("privateTabsLock", defaults.privateTabsLock),
+            swipeLeft = enumOf(SwipeAction.entries.toTypedArray(), "swipeLeft", defaults.swipeLeft),
+            swipeRight = enumOf(SwipeAction.entries.toTypedArray(), "swipeRight", defaults.swipeRight),
+            swipeUp = enumOf(SwipeAction.entries.toTypedArray(), "swipeUp", defaults.swipeUp),
+            swipeDown = enumOf(SwipeAction.entries.toTypedArray(), "swipeDown", defaults.swipeDown),
             pullToRefresh = s.optBoolean("pullToRefresh", defaults.pullToRefresh),
             websiteAppearance = enumOf(WebsiteAppearance.entries.toTypedArray(), "websiteAppearance", defaults.websiteAppearance),
             textScalePercent = s.optInt("textScalePercent", defaults.textScalePercent).coerceIn(50, 200),

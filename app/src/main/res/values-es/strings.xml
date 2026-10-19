@@ -1035,4 +1035,23 @@
     <string name="widget_search_description">Abre una pestaña nueva lista para escribir, o una pestaña privada</string>
     <string name="widget_search_hint">Busca o escribe una dirección</string>
     <string name="widget_private_tab">Nueva pestaña privada</string>
+    <string name="widget_search_hint_space">Buscar en %1$s</string>
+    <string name="widget_config_title">Espacio del widget de búsqueda</string>
+    <string name="widget_config_current">Espacio actual</string>
+    <string name="widget_config_current_summary">El espacio que está abierto en Lax</string>
+    <string name="widget_config_container">Contenedor: %1$s</string>
+
+    <!-- Deslizamientos sobre la dirección de la barra -->
+    <string name="settings_address_swipes">Deslizar sobre la dirección</string>
+    <string name="settings_swipe_left">Deslizar a la izquierda</string>
+    <string name="settings_swipe_right">Deslizar a la derecha</string>
+    <string name="settings_swipe_up">Deslizar hacia arriba</string>
+    <string name="settings_swipe_down">Deslizar hacia abajo</string>
+    <string name="swipe_action_none">Nada</string>
+    <string name="swipe_action_previous_tab">Pestaña anterior</string>
+    <string name="swipe_action_next_tab">Pestaña siguiente</string>
+    <string name="swipe_action_previous_space">Espacio anterior</string>
+    <string name="swipe_action_next_space">Espacio siguiente</string>
+    <string name="swipe_action_open_menu">Abrir el menú</string>
+    <string name="swipe_action_split_view">Activar o desactivar la vista dividida</string>
 </resources>

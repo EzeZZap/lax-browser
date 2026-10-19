@@ -276,6 +276,25 @@ class BrowserDatabaseTest {
     }
 
     @Test
+    fun migration11To12AddsDefaultAddressSwipes() {
+        migrationHelper.createDatabase(MIGRATION_DB, 11).apply {
+            execSQL("INSERT INTO browser_settings (id, active_space_id, last_background_at, private_tabs_lock) VALUES (0, 's1', 42, 1)")
+            close()
+        }
+        val db = migrationHelper.runMigrationsAndValidate(MIGRATION_DB, 12, true, MIGRATION_11_12)
+        db.query("SELECT active_space_id, private_tabs_lock, swipe_left, swipe_right, swipe_up, swipe_down FROM browser_settings").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+            assertEquals("s1", cursor.getString(0))
+            assertEquals(1, cursor.getInt(1))
+            assertEquals("PREVIOUS_TAB", cursor.getString(2))
+            assertEquals("NEXT_TAB", cursor.getString(3))
+            assertEquals("NEXT_SPACE", cursor.getString(4))
+            assertEquals("PREVIOUS_SPACE", cursor.getString(5))
+        }
+        db.close()
+    }
+
+    @Test
     fun historyMergesQuickRevisitsSearchesAndClears() = runBlocking {
         BrowserDatabase.create(context, TEST_DB).use { db ->
             val history = RoomHistoryStore(db.historyDao())

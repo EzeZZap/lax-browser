@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             Intent.ACTION_VIEW -> intent.dataString?.takeIf(UrlInput::isWebUrl)?.let(viewModel::openExternalUrl)
             ACTION_OPEN_TEXT -> intent.getStringExtra(EXTRA_TEXT)?.let { viewModel.openSharedText(it, ask = intent.getBooleanExtra(EXTRA_ASK_TARGET, false)) }
             WebNotifications.ACTION_CLICK -> intent.getStringExtra(WebNotifications.EXTRA_TAG)?.let(appContainer.engine.notifications::onClicked)
-            ACTION_WIDGET_SEARCH -> viewModel.searchFromWidget(private = false)
+            ACTION_WIDGET_SEARCH -> viewModel.searchFromWidget(private = false, spaceId = intent.getStringExtra(EXTRA_SPACE_ID))
             ACTION_WIDGET_PRIVATE -> viewModel.searchFromWidget(private = true)
         }
     }
@@ -142,6 +142,9 @@ class MainActivity : AppCompatActivity() {
         /** From the home screen search widget: a new tab, or a new private tab, ready for typing. */
         const val ACTION_WIDGET_SEARCH = "com.javzzap.laxbrowser.WIDGET_SEARCH"
         const val ACTION_WIDGET_PRIVATE = "com.javzzap.laxbrowser.WIDGET_PRIVATE"
+
+        /** The Space a search widget is set to; missing means the Space that is open. */
+        const val EXTRA_SPACE_ID = "space_id"
         private const val SPLASH_MAX_MS = 1_500L
 
         private val screenStackSaver = listSaver<List<Screen>, String>(

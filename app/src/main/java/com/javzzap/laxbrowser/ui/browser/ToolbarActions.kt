@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.VerticalSplit
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.javzzap.laxbrowser.R
+import com.javzzap.laxbrowser.domain.SwipeAction
 import com.javzzap.laxbrowser.domain.ToolbarAction
 
 /** The icon shown for [ToolbarAction] in settings (the toolbar may show a state-specific one). */
@@ -64,4 +65,21 @@ val ToolbarAction.label: Int
         ToolbarAction.HISTORY -> R.string.menu_history
         ToolbarAction.DOWNLOADS -> R.string.menu_downloads
         ToolbarAction.NONE -> R.string.toolbar_action_none
+    }
+
+@get:StringRes
+val SwipeAction.label: Int
+    get() = when (this) {
+        SwipeAction.NONE -> R.string.swipe_action_none
+        SwipeAction.PREVIOUS_TAB -> R.string.swipe_action_previous_tab
+        SwipeAction.NEXT_TAB -> R.string.swipe_action_next_tab
+        SwipeAction.PREVIOUS_SPACE -> R.string.swipe_action_previous_space
+        SwipeAction.NEXT_SPACE -> R.string.swipe_action_next_space
+        SwipeAction.OPEN_SIDEBAR -> R.string.open_sidebar
+        SwipeAction.OPEN_MENU -> R.string.swipe_action_open_menu
+        SwipeAction.SPLIT_VIEW -> R.string.swipe_action_split_view
+        SwipeAction.NEW_TAB -> R.string.new_tab
+        SwipeAction.CLOSE_TAB -> R.string.close_tab
+        SwipeAction.RELOAD -> R.string.reload
+        SwipeAction.EDIT_ADDRESS -> R.string.edit_address
     }

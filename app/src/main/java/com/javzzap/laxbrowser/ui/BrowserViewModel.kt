@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Bitmap
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -394,12 +395,18 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     /** Asks the activity to return to the browser from any other screen. */
     val showBrowser: SharedFlow<Unit> = mutableShowBrowser.asSharedFlow()
 
-    /** The search widget: a new tab (or private tab) with the address bar ready for typing. */
-    fun searchFromWidget(private: Boolean) {
+    /**
+     * The search widget: a new tab (or private tab) with the address bar ready for typing, in the
+     * widget's Space when it has one that still exists, otherwise in the open Space.
+     */
+    fun searchFromWidget(private: Boolean, spaceId: String? = null) {
         viewModelScope.launch {
             state.first { it.isLoaded }
             if (!state.value.data.settings.onboardingDone) return@launch
             controller.setPrivateMode(private)
+            if (!private && spaceId != null && state.value.space(spaceId) != null && state.value.activeSpace?.id != spaceId) {
+                controller.switchSpace(spaceId)
+            }
             if (!report(controller.openNewTabPage())) return@launch
             mutableShowBrowser.tryEmit(Unit)
             // The browser screen may still be composing; events are not replayed.
@@ -1047,12 +1054,17 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     /** Checks GitHub now, from Settings; reports when Lax is up to date. */
     fun checkForUpdatesNow() {
         viewModelScope.launch {
+            // A toast, not a snackbar: this runs from Settings, where the browser's snackbars are not shown.
             container.updateChecker.check(System.currentTimeMillis(), includeDismissed = true).fold(
-                onSuccess = { info -> if (info != null) mutableUpdate.value = info else message(R.string.msg_up_to_date) },
-                onFailure = { message(R.string.msg_update_check_failed) },
+                onSuccess = { info -> if (info != null) mutableUpdate.value = info else toast(R.string.msg_up_to_date) },
+                onFailure = { toast(R.string.msg_update_check_failed) },
             )
             refreshNewerVersion()
         }
+    }
+
+    private fun toast(@StringRes text: Int) {
+        Toast.makeText(getApplication(), text, Toast.LENGTH_SHORT).show()
     }
 
     fun dismissUpdate(remember: Boolean) {

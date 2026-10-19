@@ -152,6 +152,18 @@
             android:name=".platform.UpdateInstallReceiver"
             android:exported="false" />
 
+        <!-- Chooses the Space a search widget opens tabs in. Launchers start it when the widget is
+             added or reconfigured; it only saves a Space for the given widget ID. -->
+        <activity
+            android:name=".widget.SearchWidgetConfigActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@style/Theme.Lax">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
         <!-- Home screen search bar. -->
         <receiver
             android:name=".widget.SearchWidgetProvider"

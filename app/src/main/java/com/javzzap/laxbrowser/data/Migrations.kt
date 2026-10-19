@@ -132,3 +132,13 @@ val MIGRATION_10_11 = object : Migration(10, 11) {
         db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `private_tabs_lock` INTEGER NOT NULL DEFAULT 0")
     }
 }
+
+/** Version 12: what swipes on the toolbar's address do. */
+val MIGRATION_11_12 = object : Migration(11, 12) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `swipe_left` TEXT NOT NULL DEFAULT 'PREVIOUS_TAB'")
+        db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `swipe_right` TEXT NOT NULL DEFAULT 'NEXT_TAB'")
+        db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `swipe_up` TEXT NOT NULL DEFAULT 'NEXT_SPACE'")
+        db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `swipe_down` TEXT NOT NULL DEFAULT 'PREVIOUS_SPACE'")
+    }
+}

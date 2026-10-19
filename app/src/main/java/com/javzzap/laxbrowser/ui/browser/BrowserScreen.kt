@@ -202,6 +202,16 @@ import com.javzzap.laxbrowser.ui.common.ConfirmDialog
 import com.javzzap.laxbrowser.ui.common.SiteIcon
 import com.javzzap.laxbrowser.ui.gesture.SwipeDirection
 import com.javzzap.laxbrowser.ui.gesture.ToolbarScroll
+import com.javzzap.laxbrowser.ui.gesture.AddressSwipeDirection
+import com.javzzap.laxbrowser.ui.gesture.addressSwipes
+import com.javzzap.laxbrowser.domain.SwipeAction
+import com.javzzap.laxbrowser.ui.KeyboardShortcut
+import androidx.compose.animation.core.animateOffsetAsState
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
 import com.javzzap.laxbrowser.ui.extensions.ExtensionPermissionDialog
 import com.javzzap.laxbrowser.ui.extensions.ExtensionPopupSheet
 import com.javzzap.laxbrowser.ui.extensions.ExtensionsScreen
@@ -1139,13 +1149,61 @@ private fun AddressRow(
         }
     }
 
+    // Swipes on the address run the actions chosen in Settings > Toolbar & gestures.
+    val haptics = LocalHapticFeedback.current
+    val swipeActions = mapOf(
+        AddressSwipeDirection.LEFT to settings.swipeLeft,
+        AddressSwipeDirection.RIGHT to settings.swipeRight,
+        AddressSwipeDirection.UP to settings.swipeUp,
+        AddressSwipeDirection.DOWN to settings.swipeDown,
+    )
+    val perform by rememberUpdatedState { action: SwipeAction ->
+        when (action) {
+            SwipeAction.NONE -> Unit
+            SwipeAction.PREVIOUS_TAB -> vm.onShortcut(KeyboardShortcut.PREVIOUS_TAB)
+            SwipeAction.NEXT_TAB -> vm.onShortcut(KeyboardShortcut.NEXT_TAB)
+            SwipeAction.PREVIOUS_SPACE -> vm.onShortcut(KeyboardShortcut.PREVIOUS_SPACE)
+            SwipeAction.NEXT_SPACE -> vm.onShortcut(KeyboardShortcut.NEXT_SPACE)
+            SwipeAction.OPEN_SIDEBAR -> onOpenSidebar?.invoke()
+            SwipeAction.OPEN_MENU -> menu = true
+            SwipeAction.SPLIT_VIEW -> if (state.splitTab != null) vm.closeSplit() else if (tab != null) onMenuDialog(MenuDialog.SPLIT)
+            SwipeAction.NEW_TAB -> vm.onShortcut(KeyboardShortcut.NEW_TAB)
+            SwipeAction.CLOSE_TAB -> vm.onShortcut(KeyboardShortcut.CLOSE_TAB)
+            SwipeAction.RELOAD -> vm.onShortcut(KeyboardShortcut.RELOAD)
+            SwipeAction.EDIT_ADDRESS -> onAddressClick()
+        }
+    }
+    val currentSwipes by rememberUpdatedState(swipeActions)
+    var dragOffset by remember { mutableStateOf(Offset.Zero) }
+    val onSwipe = remember {
+        { direction: AddressSwipeDirection ->
+            val action = currentSwipes.getValue(direction)
+            if (action != SwipeAction.NONE) {
+                haptics.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
+                perform(action)
+            }
+        }
+    }
+    val onDrag = remember { { offset: Offset -> dragOffset = offset } }
+    val nudge by animateOffsetAsState(dragOffset, label = "address swipe")
+    val swipeLabels = swipeActions.values.filter { it != SwipeAction.NONE }.distinct().map { it to stringResource(it.label) }
+
     Row(Modifier.height(56.dp).padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
         if (settings.swapToolbarButtons) menuButton() else sidebarButton()
         Row(
             Modifier
                 .weight(1f)
+                .graphicsLayer {
+                    val limit = SWIPE_NUDGE.toPx()
+                    translationX = (nudge.x * 0.25f).coerceIn(-limit, limit)
+                    translationY = (nudge.y * 0.15f).coerceIn(-limit / 2, limit / 2)
+                }
+                .addressSwipes(enabled = swipeLabels.isNotEmpty(), onDrag = onDrag, onSwipe = onSwipe)
                 .clickable(onClickLabel = stringResource(R.string.edit_address)) { onAddressClick() }
-                .semantics(mergeDescendants = true) { contentDescription = addressDescription }
+                .semantics(mergeDescendants = true) {
+                    contentDescription = addressDescription
+                    customActions = swipeLabels.map { (action, label) -> CustomAccessibilityAction(label) { perform(action); true } }
+                }
                 .padding(vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -1542,3 +1600,6 @@ private val DRAWER_WIDTH = 320.dp
 /** "Buy me a coffee!" in Settings. */
 private const val SUPPORT_URL = "https://ko-fi.com/javzzap"
 private val PAGE_SHIFT = 28.dp
+
+/** How far the address follows a swipe before snapping back. */
+private val SWIPE_NUDGE = 16.dp

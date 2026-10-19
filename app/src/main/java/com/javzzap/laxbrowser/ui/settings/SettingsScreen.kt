@@ -108,6 +108,11 @@ import com.javzzap.laxbrowser.domain.ToolbarPosition
 import com.javzzap.laxbrowser.ui.browser.icon
 import com.javzzap.laxbrowser.ui.browser.label
 import com.javzzap.laxbrowser.ui.common.ColorDot
+import com.javzzap.laxbrowser.domain.SwipeAction
+import androidx.compose.material.icons.filled.SwipeDown
+import androidx.compose.material.icons.filled.SwipeLeft
+import androidx.compose.material.icons.filled.SwipeRight
+import androidx.compose.material.icons.filled.SwipeUp
 import androidx.compose.material.icons.filled.NewReleases
 import com.javzzap.laxbrowser.ui.common.LaxWordmark
 import androidx.compose.ui.graphics.toArgb
@@ -386,6 +391,49 @@ private fun ToolbarSection(settings: BrowserSettings, actions: SettingsActions) 
         stringResource(R.string.settings_pull_to_refresh_summary),
         settings.pullToRefresh,
     ) { checked -> actions.update { it.copy(pullToRefresh = checked) } }
+
+    Header(stringResource(R.string.settings_address_swipes))
+    var choosingSwipe by remember { mutableStateOf<Int?>(null) }
+    val swipes = listOf(
+        Triple(R.string.settings_swipe_left, settings.swipeLeft) { a: SwipeAction -> actions.update { it.copy(swipeLeft = a) } },
+        Triple(R.string.settings_swipe_right, settings.swipeRight) { a: SwipeAction -> actions.update { it.copy(swipeRight = a) } },
+        Triple(R.string.settings_swipe_up, settings.swipeUp) { a: SwipeAction -> actions.update { it.copy(swipeUp = a) } },
+        Triple(R.string.settings_swipe_down, settings.swipeDown) { a: SwipeAction -> actions.update { it.copy(swipeDown = a) } },
+    )
+    val swipeIcons = listOf(Icons.Default.SwipeLeft, Icons.Default.SwipeRight, Icons.Default.SwipeUp, Icons.Default.SwipeDown)
+    swipes.forEachIndexed { index, (title, current, _) ->
+        ActionRow(swipeIcons[index], stringResource(title), stringResource(current.label)) { choosingSwipe = index }
+    }
+    choosingSwipe?.let { index ->
+        val (title, current, set) = swipes[index]
+        SwipeActionDialog(
+            title = stringResource(title),
+            selected = current,
+            onSelect = { action ->
+                set(action)
+                choosingSwipe = null
+            },
+            onDismiss = { choosingSwipe = null },
+        )
+    }
+}
+
+/** Picks what one swipe direction on the address does. */
+@Composable
+private fun SwipeActionDialog(title: String, selected: SwipeAction, onSelect: (SwipeAction) -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = {
+            Column(Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()).selectableGroup()) {
+                SwipeAction.entries.forEach { action ->
+                    RadioRow(stringResource(action.label), action == selected) { onSelect(action) }
+                }
+            }
+        },
+        confirmButton = {},
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
+    )
 }
 
 /** Picks what the toolbar button next to the address does. */

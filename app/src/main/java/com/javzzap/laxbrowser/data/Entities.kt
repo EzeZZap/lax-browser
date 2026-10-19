@@ -175,6 +175,10 @@ data class SettingsEntity(
     @ColumnInfo(name = "external_links", defaultValue = "active") val externalLinks: String = "active",
     @ColumnInfo(name = "save_logins", defaultValue = "1") val saveLogins: Boolean = true,
     @ColumnInfo(name = "private_tabs_lock", defaultValue = "0") val privateTabsLock: Boolean = false,
+    @ColumnInfo(name = "swipe_left", defaultValue = "PREVIOUS_TAB") val swipeLeft: String = "PREVIOUS_TAB",
+    @ColumnInfo(name = "swipe_right", defaultValue = "NEXT_TAB") val swipeRight: String = "NEXT_TAB",
+    @ColumnInfo(name = "swipe_up", defaultValue = "NEXT_SPACE") val swipeUp: String = "NEXT_SPACE",
+    @ColumnInfo(name = "swipe_down", defaultValue = "PREVIOUS_SPACE") val swipeDown: String = "PREVIOUS_SPACE",
 ) {
     companion object {
         const val SINGLETON_ID = 0
