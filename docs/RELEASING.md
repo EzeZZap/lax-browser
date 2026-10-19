@@ -124,27 +124,3 @@ different key is refused, so keep using `lax-release.jks`.
 To release: update `versionCode` and `versionName`, add a `## <versionName>` section to both
 changelogs, build once (so the F-Droid notes are written), commit, then
 `git tag v0.3.0 && git push origin v0.3.0`.
-
-## F-Droid
-
-- F-Droid builds from source and signs with its own key, so users cannot switch between the
-  F-Droid and GitHub builds without reinstalling (unless reproducible builds are set up).
-- F-Droid builds the `fdroid` flavor (in its build metadata: `gradle: [fdroid]`), which has no
-  update checker, so the option is not shown in the app.
-- The APKs contain no Google dependency metadata block (`dependenciesInfo` is disabled) and no
-  proprietary libraries. GeckoView comes from Mozilla's Maven repository, which F-Droid allows.
-- The per-ABI version codes follow F-Droid's convention, so its metadata can use
-  `VercodeOperation` with `10 * %c + 1/2/3`.
-- The store listing lives in `fastlane/metadata/android/` (English and Spanish, with
-  `images/icon.png` and five screenshots), which F-Droid reads from the repository.
-- F-Droid builds leave out the bundled site and add-on logos, which are not freely licensed: they
-  live in `app/src/github/res/drawable-nodpi`, and `src/fdroid` has an empty `BrandIcons`.
-- `-PlaxAbi=<abi>` builds one APK, so each F-Droid build block builds only its own.
-- `REQUEST_INSTALL_PACKAGES` stays in both builds: Android needs it to open APKs downloaded in the
-  browser. Only GitHub builds use it for their own updates.
-- The build metadata to submit is in [`docs/fdroid/com.javzzap.laxbrowser.yml`](fdroid/com.javzzap.laxbrowser.yml).
-  Fork https://gitlab.com/fdroid/fdroiddata, copy it to `metadata/`, replace each `commit: v0.3.0`
-  with the full commit hash of that tag, run `fdroid lint` and `fdroid rewritemeta` if you have
-  fdroidserver, and open a merge request titled "New App: com.javzzap.laxbrowser". Their CI builds
-  it; reviewers may ask about GeckoView (downloaded prebuilt from Mozilla's Maven repository) and
-  list Safe Browsing (a Google service GeckoView uses) as an anti-feature.
