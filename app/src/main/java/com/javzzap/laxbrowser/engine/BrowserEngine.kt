@@ -27,6 +27,9 @@ interface BrowserEngine {
     fun closeSession(tabId: String): Boolean
 
     fun hasSession(tabId: String): Boolean
+
+    /** [httpsUrl] was typed without a scheme; if its secure connection fails, try it over http://. */
+    fun allowHttpFallback(httpsUrl: String) = Unit
 }
 
 interface EngineListener {

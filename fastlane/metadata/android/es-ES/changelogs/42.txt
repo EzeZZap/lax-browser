@@ -1,0 +1,1 @@
+- Los sitios sin HTTPS vuelven a abrirse: una dirección escrita sin "https://" pasa a "http://" si la conexión segura falla, salvo con el modo solo HTTPS activado

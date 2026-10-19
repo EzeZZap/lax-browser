@@ -10,6 +10,26 @@ class UrlInputTest {
     private fun search(q: String) = UrlInput.searchUrl(q)
 
     @Test
+    fun `only addresses typed without a scheme may fall back to http`() {
+        assertEquals("https://neverssl.com", UrlInput.upgradedAddress("neverssl.com"))
+        assertEquals("https://192.168.1.1:8080", UrlInput.upgradedAddress(" 192.168.1.1:8080 "))
+        assertNull(UrlInput.upgradedAddress("https://example.com"))
+        assertNull(UrlInput.upgradedAddress("http://example.com"))
+        assertNull(UrlInput.upgradedAddress("how to bake bread"))
+        assertEquals("http://neverssl.com/page?a=1", UrlInput.httpFallbackFor("https://neverssl.com/page?a=1"))
+        assertNull(UrlInput.httpFallbackFor("http://neverssl.com"))
+    }
+
+    @Test
+    fun `only failed secure connections retry over http`() {
+        val kinds = com.javzzap.laxbrowser.engine.gecko.LoadErrorKind
+        assertTrue(kinds.allowsHttpFallback(org.mozilla.geckoview.WebRequestError.ERROR_CONNECTION_REFUSED))
+        assertTrue(kinds.allowsHttpFallback(org.mozilla.geckoview.WebRequestError.ERROR_SECURITY_BAD_CERT))
+        assertFalse(kinds.allowsHttpFallback(org.mozilla.geckoview.WebRequestError.ERROR_UNKNOWN_HOST))
+        assertFalse(kinds.allowsHttpFallback(org.mozilla.geckoview.WebRequestError.ERROR_HTTPS_ONLY))
+    }
+
+    @Test
     fun `blank input yields nothing`() {
         assertNull(UrlInput.normalize("   "))
     }

@@ -202,6 +202,18 @@ class GeckoEngine(
 
     val errorPages = ErrorPages(appContext)
 
+    /**
+     * Addresses typed without a scheme that Lax opened as https:// (GeckoView 158 has no
+     * HTTPS-First mode). If one cannot connect securely, it is tried once over http://.
+     */
+    private val httpFallbacks = LinkedHashSet<String>()
+    private val maxHttpFallbacks = 20
+
+    override fun allowHttpFallback(httpsUrl: String) {
+        httpFallbacks += httpsUrl.trimEnd('/')
+        while (httpFallbacks.size > maxHttpFallbacks) httpFallbacks.remove(httpFallbacks.first())
+    }
+
     /** A link an installed app can open, waiting for the user to choose ("Open in YouTube?"). */
     data class AppLinkRequest(val tabId: String, val url: String, val app: LinkApp, val isPrivate: Boolean)
 
@@ -618,6 +630,13 @@ class GeckoEngine(
 
             override fun onLoadError(session: GeckoSession, uri: String?, error: WebRequestError): GeckoResult<String>? {
                 if (!isCurrent(entry)) return null
+                val http = uri?.let(UrlInput::httpFallbackFor)
+                if (http != null && desiredSettings?.httpsOnly != true && LoadErrorKind.allowsHttpFallback(error.code) &&
+                    httpFallbacks.remove(uri.trimEnd('/'))
+                ) {
+                    mainHandler.post { if (isCurrent(entry)) session.loadUri(http) }
+                    return null
+                }
                 val page = errorPages.pageFor(uri, error)
                 entry.errorPage = page
                 return GeckoResult.fromValue(page)

@@ -44,6 +44,19 @@ enum class LoadErrorKind(@StringRes val title: Int, @StringRes val body: Int, va
                 else -> OTHER
             }
         }
+
+        /**
+         * Whether the secure connection itself failed, so an address Lax upgraded to https:// may
+         * be tried over http://. An unknown host is not one: plain HTTP would fail the same way.
+         */
+        fun allowsHttpFallback(code: Int): Boolean = code in setOf(
+            WebRequestError.ERROR_CONNECTION_REFUSED,
+            WebRequestError.ERROR_NET_TIMEOUT,
+            WebRequestError.ERROR_NET_RESET,
+            WebRequestError.ERROR_NET_INTERRUPT,
+            WebRequestError.ERROR_SECURITY_SSL,
+            WebRequestError.ERROR_SECURITY_BAD_CERT,
+        )
     }
 }
 

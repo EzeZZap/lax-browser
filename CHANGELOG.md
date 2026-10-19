@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Sites without HTTPS open again: an address typed without "https://" falls back to "http://"
+  when the secure connection fails, unless HTTPS-only mode is on
+
 ## 0.3.0
 
 - Back up to your own Nextcloud, by hand or automatically once a day, and restore from it.

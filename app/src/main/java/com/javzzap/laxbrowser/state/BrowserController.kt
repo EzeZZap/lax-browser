@@ -203,7 +203,10 @@ class BrowserController(
 
     fun newTab(url: String? = null) = dispatch { ops.newTab(it, url) }
     fun openNewTabPage() = dispatch { ops.openNewTabPage(it) }
-    fun navigate(tabId: String?, input: String) = dispatch { ops.navigate(it, tabId, input) }
+    fun navigate(tabId: String?, input: String): Reduction {
+        UrlInput.upgradedAddress(input)?.let(engine::allowHttpFallback)
+        return dispatch { ops.navigate(it, tabId, input) }
+    }
     fun openUrl(url: String) = dispatch { ops.openUrlInActiveSpace(it, url) }
     fun selectTab(tabId: String) = dispatch { ops.selectTab(it, tabId) }
     fun unloadTab(tabId: String) = dispatch { ops.unloadTab(it, tabId) }

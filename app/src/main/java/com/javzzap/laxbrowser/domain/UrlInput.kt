@@ -17,6 +17,20 @@ object UrlInput {
         return toUrlOrNull(text) ?: SearchEngines.searchUrl(searchTemplate, text)
     }
 
+    /**
+     * For an address typed without a scheme ("example.com"), the https:// URL Lax tries first.
+     * Only these may fall back to http:// when the secure connection fails, like Firefox's
+     * HTTPS-First; links and addresses typed with https:// are never downgraded.
+     */
+    fun upgradedAddress(input: String): String? {
+        val text = input.trim()
+        if (text.contains("://")) return null
+        return toUrlOrNull(text)?.takeIf { it.startsWith("https://") }
+    }
+
+    /** [upgradedAddress]'s URL over plain HTTP. */
+    fun httpFallbackFor(httpsUrl: String): String? = httpsUrl.takeIf { it.startsWith("https://") }?.let { "http://" + it.removePrefix("https://") }
+
     /** Returns [input] as a URL when it is one (explicit scheme or host-like), otherwise null. */
     fun toUrlOrNull(input: String): String? {
         val text = input.trim()

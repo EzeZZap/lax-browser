@@ -1,5 +1,10 @@
 # Registro de cambios
 
+## 0.3.1
+
+- Los sitios sin HTTPS vuelven a abrirse: una dirección escrita sin "https://" pasa a "http://" si
+  la conexión segura falla, salvo con el modo solo HTTPS activado
+
 ## 0.3.0
 
 - Copias de seguridad en tu propio Nextcloud, a mano o automáticamente una vez al día, y
