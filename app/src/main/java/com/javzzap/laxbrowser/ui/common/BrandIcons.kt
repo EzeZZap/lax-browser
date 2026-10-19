@@ -2,11 +2,7 @@ package com.javzzap.laxbrowser.ui.common
 
 import com.javzzap.laxbrowser.R
 
-/**
- * Site and add-on logos bundled with GitHub builds. They belong to their owners and are not
- * freely licensed, so F-Droid builds ship without them (see src/fdroid) and show the site's
- * favicon or a letter instead.
- */
+/** Bundled site and add-on logos. They belong to their owners and are not freely licensed. */
 object BrandIcons {
     val sites: Map<String, Int> = mapOf(
         "mail.google.com" to R.drawable.site_gmail,

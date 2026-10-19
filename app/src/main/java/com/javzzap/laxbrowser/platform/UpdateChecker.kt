@@ -15,7 +15,7 @@ data class UpdateInfo(val version: String, val notes: String, val pageUrl: Strin
 /**
  * Checks GitHub Releases of [repo] ("owner/name") for a version newer than the installed one. Only
  * the public release list is requested; nothing about the user is sent. Builds without a repo
- * (for example F-Droid builds, which F-Droid updates itself) never check.
+ * (`-PlaxUpdateRepo=`) never check.
  */
 class UpdateChecker(context: Context, private val repo: String, private val currentVersion: String) {
     private val appContext = context.applicationContext

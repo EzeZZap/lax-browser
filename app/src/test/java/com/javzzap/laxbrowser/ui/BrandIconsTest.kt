@@ -11,7 +11,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** GitHub builds bundle site and add-on logos; F-Droid builds do not, so this runs for GitHub only. */
 class BrandIconsTest {
     @Test
     fun `bundled icons match a host or its closest parent domain`() {

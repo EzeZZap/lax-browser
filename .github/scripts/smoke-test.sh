@@ -3,7 +3,7 @@
 # app), and fails if any Lax process crashes or Lax stops running. Release builds go through R8,
 # so this catches missing keep rules before an APK is published.
 #
-# Usage: smoke-test.sh path/to/app-github-x86_64-release.apk
+# Usage: smoke-test.sh path/to/app-x86_64-release.apk
 set -euo pipefail
 
 apk="$1"

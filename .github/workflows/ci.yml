@@ -30,20 +30,20 @@ jobs:
       - name: Unit tests, lint, debug builds, and a release build
         run: |
           chmod +x gradlew
-          ./gradlew testGithubDebugUnitTest lintGithubDebug assembleGithubDebug assembleFdroidDebug \
-            assembleGithubRelease -PlaxDebugSignRelease=true --stacktrace
+          ./gradlew testDebugUnitTest lintDebug assembleDebug \
+            assembleRelease -PlaxDebugSignRelease=true --stacktrace
 
       - name: Release APK for the emulator check
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: app/build/outputs/apk/github/release/app-github-x86_64-release.apk
+          path: app/build/outputs/apk/release/app-x86_64-release.apk
 
       - name: R8 mapping
         uses: actions/upload-artifact@v4
         with:
           name: r8-mapping
-          path: app/build/outputs/mapping/githubRelease/
+          path: app/build/outputs/mapping/release/
           if-no-files-found: ignore
 
       - name: Test and lint reports
@@ -53,7 +53,7 @@ jobs:
           name: reports
           path: |
             app/build/reports/tests/
-            app/build/reports/lint-results-githubDebug.*
+            app/build/reports/lint-results-debug.*
           if-no-files-found: ignore
 
   device:
@@ -95,9 +95,9 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
           script: |
             chmod +x gradlew .github/scripts/smoke-test.sh
-            .github/scripts/smoke-test.sh release-apk/app-github-x86_64-release.apk
+            .github/scripts/smoke-test.sh release-apk/app-x86_64-release.apk
             adb uninstall com.javzzap.laxbrowser || true
-            ./gradlew connectedGithubDebugAndroidTest -PlaxUpdateRepo= --stacktrace
+            ./gradlew connectedDebugAndroidTest -PlaxUpdateRepo= --stacktrace
 
       - name: Instrumented test reports
         if: always()

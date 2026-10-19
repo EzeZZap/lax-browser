@@ -51,7 +51,7 @@ jobs:
           LAX_KEY_PASSWORD: ${{ secrets.LAX_KEY_PASSWORD }}
         run: |
           chmod +x gradlew
-          ./gradlew testGithubDebugUnitTest assembleGithubRelease -PlaxUpdateRepo=${{ github.repository }} --stacktrace
+          ./gradlew testDebugUnitTest assembleRelease -PlaxUpdateRepo=${{ github.repository }} --stacktrace
 
       - name: Remove the signing key
         run: rm -f lax-release.jks
@@ -76,20 +76,20 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
           script: |
             chmod +x .github/scripts/smoke-test.sh
-            .github/scripts/smoke-test.sh app/build/outputs/apk/github/release/app-github-x86_64-release.apk
+            .github/scripts/smoke-test.sh app/build/outputs/apk/release/app-x86_64-release.apk
 
       - name: Keep the R8 mapping (to read crash logs from this release)
         uses: actions/upload-artifact@v4
         with:
           name: r8-mapping-${{ github.ref_name }}
-          path: app/build/outputs/mapping/githubRelease/mapping.txt
+          path: app/build/outputs/mapping/release/mapping.txt
           retention-days: 90
 
       - name: Name the APKs after the version
         run: |
           mkdir -p dist
-          for apk in app/build/outputs/apk/github/release/app-github-*-release.apk; do
-            abi=$(basename "$apk" | sed 's/app-github-\(.*\)-release.apk/\1/')
+          for apk in app/build/outputs/apk/release/app-*-release.apk; do
+            abi=$(basename "$apk" | sed 's/app-\(.*\)-release.apk/\1/')
             cp "$apk" "dist/lax-${GITHUB_REF_NAME}-${abi}.apk"
           done
           ls -l dist

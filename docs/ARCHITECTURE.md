@@ -67,9 +67,9 @@ unloaded and restored later.
 
 ## Testing
 
-- `app/src/test`: unit tests for the domain code and parsers (`./gradlew testGithubDebugUnitTest`).
+- `app/src/test`: unit tests for the domain code and parsers (`./gradlew testDebugUnitTest`).
 - `app/src/androidTest`: instrumented tests for container isolation with the real engine, database
-  migrations, encrypted logins, and UI (`./gradlew connectedGithubDebugAndroidTest`).
+  migrations, encrypted logins, and UI (`./gradlew connectedDebugAndroidTest`).
 - CI runs both, and starts every release APK on an emulator (`.github/scripts/smoke-test.sh`)
   before it is published, since R8 problems only show up at runtime.
 

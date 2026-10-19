@@ -33,34 +33,29 @@ root). Without a key file the release APKs are built unsigned.
 
 ## Building
 
-There are two distribution flavors, each with a debug and a release build:
+| Preset (Android Studio run menu) | Gradle task |
+| --- | --- |
+| Build debug | `assembleDebug` |
+| Build release | `assembleRelease` |
 
-| Preset (Android Studio run menu) | Gradle task | Update checks |
-| --- | --- | --- |
-| Build GitHub debug | `assembleGithubDebug` | GitHub releases of `laxUpdateRepo` |
-| Build GitHub release | `assembleGithubRelease` | GitHub releases of `laxUpdateRepo` |
-| Build F-Droid debug | `assembleFdroidDebug` | none |
-| Build F-Droid release | `assembleFdroidRelease` | none |
-
-The presets live in `.run/`; Android Studio's Build Variants panel switches between the same four
-variants (`githubDebug` is the default). Both flavors are the same app (same package name).
+The presets live in `.run/`. Both builds check the GitHub releases of `laxUpdateRepo` for updates.
 
 ```powershell
 $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
-.\gradlew.bat testGithubDebugUnitTest lintGithubDebug assembleGithubRelease
+.\gradlew.bat testDebugUnitTest lintDebug assembleRelease
 ```
 
-The APKs are in `app/build/outputs/apk/<flavor>/<buildType>/`, for example
-`app/build/outputs/apk/github/release/`:
+The APKs are in `app/build/outputs/apk/<buildType>/`, for example
+`app/build/outputs/apk/release/`:
 
-- `app-github-arm64-v8a-release.apk`: almost all current phones and tablets.
-- `app-github-armeabi-v7a-release.apk`: older 32-bit phones.
-- `app-github-x86_64-release.apk`: emulators and Chromebooks.
+- `app-arm64-v8a-release.apk`: almost all current phones and tablets.
+- `app-armeabi-v7a-release.apk`: older 32-bit phones.
+- `app-x86_64-release.apk`: emulators and Chromebooks.
 
 Check the signature with:
 
 ```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\build-tools\36.0.0\apksigner.bat" verify --print-certs app\build\outputs\apk\github\release\app-github-arm64-v8a-release.apk
+& "$env:LOCALAPPDATA\Android\Sdk\build-tools\36.0.0\apksigner.bat" verify --print-certs app\build\outputs\apk\release\app-arm64-v8a-release.apk
 ```
 
 Release builds run R8 over the whole app with the rules in `app/src/main/keepRules/rules.keep`:
@@ -68,10 +63,10 @@ Lax's own classes and GeckoView are kept whole and only the libraries are shrunk
 per APK). Limiting R8 to some packages (`packageScope`) breaks startup, and a missing keep rule
 only shows up at runtime, so CI starts every release APK on an emulator
 (`.github/scripts/smoke-test.sh`) before it can be published. If a release build crashes on startup, the crash log and
-`app/build/outputs/mapping/githubRelease/mapping.txt` show which class needs a keep rule.
+`app/build/outputs/mapping/release/mapping.txt` show which class needs a keep rule.
 
 To check a release build on your own device without the release key, build it with the debug key:
-`.\gradlew.bat assembleGithubRelease -PlaxDebugSignRelease=true`.
+`.\gradlew.bat assembleRelease -PlaxDebugSignRelease=true`.
 
 ## GitHub releases and update checks
 
@@ -97,7 +92,7 @@ different key is refused, so keep using `lax-release.jks`.
   - `build`: unit tests, lint, debug builds, and an R8 release build signed with a throwaway
     debug key.
   - `device`: on an Android 14 emulator, starts that release APK and opens a link in it (the
-    smoke test), then runs the instrumented tests with `connectedGithubDebugAndroidTest`: Gecko
+    smoke test), then runs the instrumented tests with `connectedDebugAndroidTest`: Gecko
     container isolation, database migrations, encrypted logins, the sidebar, activity recreation,
     and the search widget. Reports and the R8 mapping are uploaded as artifacts.
 - `.github/workflows/release.yml` runs when you push a tag like `v0.1.0`: it checks the tag

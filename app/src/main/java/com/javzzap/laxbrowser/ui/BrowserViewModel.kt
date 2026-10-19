@@ -1230,7 +1230,7 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         mutableUpdate.value = null
     }
 
-    /** The in-app update in progress (GitHub builds), shown as a dialog. */
+    /** The in-app update in progress, shown as a dialog. */
     val updateProgress: StateFlow<UpdateProgress?> get() = container.updateInstaller.progress
 
     private var updatePage: String? = null

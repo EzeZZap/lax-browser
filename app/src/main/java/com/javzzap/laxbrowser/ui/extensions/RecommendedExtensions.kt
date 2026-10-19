@@ -51,7 +51,6 @@ data class RecommendedExtension(
     val installUrl: String get() = "https://addons.mozilla.org/firefox/downloads/latest/$slug/latest.xpi"
     val listingUrl: String get() = "https://addons.mozilla.org/android/addon/$slug/"
 
-    /** Bundled in GitHub builds only (see [BrandIcons]). */
     @get:DrawableRes
     val icon: Int? get() = BrandIcons.extensions[id]
 }

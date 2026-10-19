@@ -46,7 +46,7 @@ sealed interface UpdateProgress {
  * Downloads a GitHub release APK and hands it to the system installer, which asks the user to
  * confirm. Before installing, the APK must be Lax with a higher version code and signed with the
  * same certificate as the installed app (Android enforces the same, this just fails earlier with
- * a clear message). Only GitHub builds use this; F-Droid installs its own updates.
+ * a clear message).
  */
 class UpdateInstaller(context: Context, private val scope: CoroutineScope) {
     private val appContext = context.applicationContext

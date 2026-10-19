@@ -24,9 +24,8 @@ Apart from the websites you visit, Lax connects to:
 
 - **Your search engine**, for search suggestions while typing in the address bar. This is off in
   private tabs and can be turned off in Settings > Search.
-- **api.github.com**, once a day, to check for a new release. Only in builds from GitHub, and
-  only if you turn it on during setup or in Settings > About. When you choose to update, the APK is downloaded from
-  github.com. F-Droid builds do not check for updates.
+- **api.github.com**, once a day, to check for a new release, only if you turn it on during
+  setup or in Settings > About. When you choose to update, the APK is downloaded from github.com.
 - **Your Nextcloud server**, only if you connect one in Settings > Data: to log in (your
   Nextcloud's login page opens in a tab and gives Lax its own app password), and to upload or
   download the backup file `Lax-backup.json`. The app password is stored on the device encrypted

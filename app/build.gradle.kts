@@ -62,24 +62,11 @@ android {
         versionName = "0.3.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
-    // Where the build is distributed. Both flavors are the same app; they differ in update checks:
-    //   github: checks the GitHub releases of `laxUpdateRepo` (gradle.properties or -P) once a day.
-    //   fdroid: no update checker, since F-Droid updates apps itself.
-    // Tasks: assembleGithubDebug, assembleGithubRelease, assembleFdroidDebug, assembleFdroidRelease.
-    flavorDimensions += "distribution"
-    productFlavors {
-        create("github") {
-            dimension = "distribution"
-            isDefault = true
-            val updateRepo = providers.gradleProperty("laxUpdateRepo").orNull.orEmpty().trim()
-            buildConfigField("String", "UPDATE_REPO", "\"$updateRepo\"")
-        }
-        create("fdroid") {
-            dimension = "distribution"
-            buildConfigField("String", "UPDATE_REPO", "\"\"")
-        }
+        // Update checks use the GitHub releases of `laxUpdateRepo` (gradle.properties or -P);
+        // empty leaves them out of the app.
+        val updateRepo = providers.gradleProperty("laxUpdateRepo").orNull.orEmpty().trim()
+        buildConfigField("String", "UPDATE_REPO", "\"$updateRepo\"")
     }
 
     signingConfigs {
@@ -106,7 +93,7 @@ android {
         }
     }
 
-    // F-Droid rejects APKs with Google's encrypted dependency metadata block.
+    // Leaves out Google's encrypted dependency metadata block, which only Google Play reads.
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
@@ -124,7 +111,7 @@ android {
         abi {
             isEnable = true
             reset()
-            // -PlaxAbi=arm64-v8a builds only that APK (F-Droid builds one APK per build block).
+            // -PlaxAbi=arm64-v8a builds only that APK.
             val onlyAbi = providers.gradleProperty("laxAbi").orNull?.takeIf { it.isNotBlank() }
             include(*(onlyAbi?.let { arrayOf(it) } ?: arrayOf("arm64-v8a", "armeabi-v7a", "x86_64")))
             isUniversalApk = false

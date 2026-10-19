@@ -65,33 +65,31 @@ Signed APKs are attached to each [GitHub release](../../releases):
 - `armeabi-v7a` for older 32-bit phones
 - `x86_64` for emulators and Chromebooks
 
-Builds from GitHub check this repository for new releases once a day and can download and
-install them (Android asks you to confirm). If you use Obtainium, you can turn this off in
-Settings > About. Android 8.0 or newer is required.
+Lax can check this repository for new releases once a day and download and install them
+(Android asks you to confirm). It's off until you turn it on during setup or in Settings > About;
+leave it off if you use Obtainium. Android 8.0 or newer is required.
 
 ## Building
 
 You need JDK 17 or newer (the JBR bundled with Android Studio works) and the Android SDK.
 
-The app has two product flavors:
-
-- `github`: checks GitHub releases of the repository set in `laxUpdateRepo` (`gradle.properties`)
-- `fdroid`: no update checker
+Update checks use the GitHub releases of the repository set in `laxUpdateRepo`
+(`gradle.properties`).
 
 ```sh
-./gradlew assembleGithubDebug
-./gradlew assembleFdroidRelease
-./gradlew testGithubDebugUnitTest lintGithubDebug
+./gradlew assembleDebug
+./gradlew assembleRelease
+./gradlew testDebugUnitTest lintDebug
 ```
 
-APKs end up in `app/build/outputs/apk/<flavor>/<build type>/`. Android Studio also has run
-configurations for all four builds. Release signing is described in
+APKs end up in `app/build/outputs/apk/<build type>/`. Android Studio also has run
+configurations for both builds. Release signing is described in
 [docs/RELEASING.md](docs/RELEASING.md).
 
 Instrumented tests (database migrations, container isolation, UI) need a device or emulator:
 
 ```sh
-./gradlew connectedGithubDebugAndroidTest
+./gradlew connectedDebugAndroidTest
 ```
 
 ## Documentation
