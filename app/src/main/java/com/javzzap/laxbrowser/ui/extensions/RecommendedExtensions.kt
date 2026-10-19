@@ -18,6 +18,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Extension
+import androidx.compose.foundation.background
+import com.javzzap.laxbrowser.ui.common.BrandIcons
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -44,21 +47,22 @@ data class RecommendedExtension(
     val name: String,
     val slug: String,
     @StringRes val description: Int,
-    @DrawableRes val icon: Int,
 ) {
     val installUrl: String get() = "https://addons.mozilla.org/firefox/downloads/latest/$slug/latest.xpi"
     val listingUrl: String get() = "https://addons.mozilla.org/android/addon/$slug/"
+
+    /** Bundled in GitHub builds only (see [BrandIcons]). */
+    @get:DrawableRes
+    val icon: Int? get() = BrandIcons.extensions[id]
 }
 
 val recommendedExtensions = listOf(
-    RecommendedExtension("uBlock0@raymondhill.net", "uBlock Origin", "ublock-origin", R.string.rec_ext_ublock, R.drawable.ext_ublock_origin),
-    RecommendedExtension(
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}", "Bitwarden", "bitwarden-password-manager", R.string.rec_ext_bitwarden, R.drawable.ext_bitwarden,
-    ),
-    RecommendedExtension("addon@darkreader.org", "Dark Reader", "darkreader", R.string.rec_ext_dark_reader, R.drawable.ext_dark_reader),
-    RecommendedExtension("gdpr@cavi.au.dk", "Consent-O-Matic", "consent-o-matic", R.string.rec_ext_consent, R.drawable.ext_consent_o_matic),
-    RecommendedExtension("sponsorBlocker@ajay.app", "SponsorBlock", "sponsorblock", R.string.rec_ext_sponsorblock, R.drawable.ext_sponsorblock),
-    RecommendedExtension("jid1-MnnxcxisBPnSXQ@jetpack", "Privacy Badger", "privacy-badger17", R.string.rec_ext_privacy_badger, R.drawable.ext_privacy_badger),
+    RecommendedExtension("uBlock0@raymondhill.net", "uBlock Origin", "ublock-origin", R.string.rec_ext_ublock),
+    RecommendedExtension("{446900e4-71c2-419f-a6a7-df9c091e268b}", "Bitwarden", "bitwarden-password-manager", R.string.rec_ext_bitwarden),
+    RecommendedExtension("addon@darkreader.org", "Dark Reader", "darkreader", R.string.rec_ext_dark_reader),
+    RecommendedExtension("gdpr@cavi.au.dk", "Consent-O-Matic", "consent-o-matic", R.string.rec_ext_consent),
+    RecommendedExtension("sponsorBlocker@ajay.app", "SponsorBlock", "sponsorblock", R.string.rec_ext_sponsorblock),
+    RecommendedExtension("jid1-MnnxcxisBPnSXQ@jetpack", "Privacy Badger", "privacy-badger17", R.string.rec_ext_privacy_badger),
 )
 
 /**
@@ -97,7 +101,17 @@ private fun RecommendedRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // Bundled icons, so the list shows them without contacting the store.
-        Image(painterResource(extension.icon), contentDescription = null, modifier = Modifier.size(40.dp).clip(RoundedCornerShape(10.dp)))
+        val icon = extension.icon
+        if (icon != null) {
+            Image(painterResource(icon), contentDescription = null, modifier = Modifier.size(40.dp).clip(RoundedCornerShape(10.dp)))
+        } else {
+            Box(
+                Modifier.size(40.dp).clip(RoundedCornerShape(10.dp)).background(MaterialTheme.colorScheme.secondaryContainer),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(Icons.Default.Extension, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
+            }
+        }
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
             Text(extension.name, style = MaterialTheme.typography.bodyLarge)

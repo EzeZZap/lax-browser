@@ -1027,6 +1027,41 @@
     <string name="widget_config_current_summary">The Space that\'s open in Lax</string>
     <string name="widget_config_container">Container: %1$s</string>
 
+    <!-- Nextcloud backups -->
+    <string name="nextcloud_header">Nextcloud</string>
+    <string name="nextcloud_connect">Connect to Nextcloud</string>
+    <string name="nextcloud_connect_summary">Back up Lax to your own Nextcloud server</string>
+    <string name="nextcloud_server">Server address</string>
+    <string name="nextcloud_log_in">Log in</string>
+    <string name="nextcloud_connect_note">Your Nextcloud\'s login page opens in a new tab. After you grant access, Lax connects by itself.</string>
+    <string name="nextcloud_use_app_password">Use an app password instead</string>
+    <string name="nextcloud_use_login">Log in through the browser instead</string>
+    <string name="nextcloud_username">Username</string>
+    <string name="nextcloud_app_password">App password</string>
+    <string name="nextcloud_waiting">Waiting for you to grant access in your Nextcloud…</string>
+    <string name="nextcloud_connected_as">Connected as %1$s on %2$s</string>
+    <string name="nextcloud_backup_now">Back up now</string>
+    <string name="nextcloud_working">Working…</string>
+    <string name="nextcloud_last_backup">Last backup: %1$s</string>
+    <string name="nextcloud_never_backed_up">Not backed up yet</string>
+    <string name="nextcloud_auto">Back up automatically</string>
+    <string name="nextcloud_auto_summary">Once a day, when you use Lax</string>
+    <string name="nextcloud_include_logins">Saved logins in Nextcloud backups</string>
+    <string name="nextcloud_logins_on">Included, encrypted with your backup password</string>
+    <string name="nextcloud_logins_off">Not included</string>
+    <string name="nextcloud_restore">Restore from Nextcloud</string>
+    <string name="nextcloud_restore_summary">Replace current data with the backup on your Nextcloud</string>
+    <string name="nextcloud_disconnect">Disconnect</string>
+    <string name="nextcloud_disconnect_summary">Lax forgets this account. The backup stays on your Nextcloud, and you can remove Lax\'s access in Nextcloud\'s security settings.</string>
+    <string name="nextcloud_note">Backups are saved as %1$s in your Nextcloud files.</string>
+    <string name="msg_nextcloud_bad_address">Enter your Nextcloud\'s https:// address</string>
+    <string name="msg_nextcloud_unreachable">Couldn\'t reach your Nextcloud</string>
+    <string name="msg_nextcloud_unauthorized">Nextcloud didn\'t accept the login</string>
+    <string name="msg_nextcloud_connected">Connected to Nextcloud</string>
+    <string name="msg_nextcloud_login_timeout">The Nextcloud login wasn\'t finished in time</string>
+    <string name="msg_nextcloud_backed_up">Backed up to Nextcloud</string>
+    <string name="msg_nextcloud_no_backup">There\'s no Lax backup on your Nextcloud yet</string>
+
     <!-- Swipes on the toolbar's address -->
     <string name="settings_address_swipes">Swipes on the address</string>
     <string name="settings_swipe_left">Swipe left</string>

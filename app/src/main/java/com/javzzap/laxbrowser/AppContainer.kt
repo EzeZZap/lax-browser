@@ -21,6 +21,8 @@ import com.javzzap.laxbrowser.engine.gecko.SearchSuggestions
 import com.javzzap.laxbrowser.media.MediaPlaybackService
 import com.javzzap.laxbrowser.platform.UpdateChecker
 import com.javzzap.laxbrowser.platform.UpdateInstaller
+import com.javzzap.laxbrowser.platform.NextcloudClient
+import com.javzzap.laxbrowser.platform.NextcloudStore
 import com.javzzap.laxbrowser.pwa.WebAppInstaller
 import com.javzzap.laxbrowser.state.BrowserController
 import kotlinx.coroutines.CoroutineScope
@@ -107,6 +109,9 @@ class AppContainer(context: Context) {
     }
 
     val updateInstaller by lazy { UpdateInstaller(appContext, mainScope) }
+
+    val nextcloudStore by lazy { NextcloudStore(appContext) }
+    val nextcloudClient by lazy { NextcloudClient() }
 
     val webAppInstaller by lazy { WebAppInstaller(appContext, clock) }
 }

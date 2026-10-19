@@ -58,6 +58,10 @@ unloaded and restored later.
 - Saved logins are a JSON document encrypted with AES-GCM using a key in the Android Keystore
   (`files/logins.enc`). Backups can include them, encrypted with a password the user picks
   (PBKDF2 + AES-GCM, see `LoginBackup`).
+- Backups go to a local file or to the user's Nextcloud (`NextcloudClient`: Login Flow v2 for an
+  app password, then a WebDAV `PUT`/`GET` of `Lax-backup.json` in their files). The account is
+  kept in `files/nextcloud.enc`, encrypted like saved logins; automatic backups run at most once a
+  day, when Lax starts.
 - Restoring tolerates bad data: unreadable rows are skipped, tabs whose Space is missing are kept
   aside, and Spaces with a missing container are shown as blocked.
 
@@ -80,5 +84,9 @@ unloaded and restored later.
 - Per-site zoom uses CSS `zoom`, which scales the layout rather than zooming like a pinch.
 - A horizontal scroller that starts inside the 24 dp edge-swipe zone loses drags that begin there.
 - GeckoView 158 has no completion callback for clearing a container's data.
-- Not implemented: Firefox Sync, background web push, folder uploads, and the add-on features
-  listed at the end of [EXTENSIONS.md](EXTENSIONS.md).
+- Not implemented: background web push, folder uploads, and the add-on features listed at the end
+  of [EXTENSIONS.md](EXTENSIONS.md).
+- Firefox Sync is not implemented. A third-party browser needs its own OAuth client ID from
+  Mozilla's accounts team to sign in to Mozilla accounts, plus Mozilla's application-services
+  libraries (Rust, prebuilt per CPU), whose sync engines expect Android Components' storage rather
+  than Lax's Room database. Nextcloud backups are the open alternative in the meantime.

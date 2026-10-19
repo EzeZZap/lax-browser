@@ -1041,6 +1041,41 @@
     <string name="widget_config_current_summary">El espacio que está abierto en Lax</string>
     <string name="widget_config_container">Contenedor: %1$s</string>
 
+    <!-- Copias de seguridad en Nextcloud -->
+    <string name="nextcloud_header">Nextcloud</string>
+    <string name="nextcloud_connect">Conectar con Nextcloud</string>
+    <string name="nextcloud_connect_summary">Guarda una copia de Lax en tu propio servidor Nextcloud</string>
+    <string name="nextcloud_server">Dirección del servidor</string>
+    <string name="nextcloud_log_in">Iniciar sesión</string>
+    <string name="nextcloud_connect_note">La página de inicio de sesión de tu Nextcloud se abre en una pestaña nueva. Cuando concedas el acceso, Lax se conecta solo.</string>
+    <string name="nextcloud_use_app_password">Usar una contraseña de aplicación</string>
+    <string name="nextcloud_use_login">Iniciar sesión desde el navegador</string>
+    <string name="nextcloud_username">Usuario</string>
+    <string name="nextcloud_app_password">Contraseña de aplicación</string>
+    <string name="nextcloud_waiting">Esperando a que concedas el acceso en tu Nextcloud…</string>
+    <string name="nextcloud_connected_as">Conectado como %1$s en %2$s</string>
+    <string name="nextcloud_backup_now">Hacer una copia ahora</string>
+    <string name="nextcloud_working">Trabajando…</string>
+    <string name="nextcloud_last_backup">Última copia: %1$s</string>
+    <string name="nextcloud_never_backed_up">Todavía no hay copias</string>
+    <string name="nextcloud_auto">Hacer copias automáticamente</string>
+    <string name="nextcloud_auto_summary">Una vez al día, cuando usas Lax</string>
+    <string name="nextcloud_include_logins">Inicios de sesión en las copias de Nextcloud</string>
+    <string name="nextcloud_logins_on">Incluidos, cifrados con tu contraseña de copia</string>
+    <string name="nextcloud_logins_off">No incluidos</string>
+    <string name="nextcloud_restore">Restaurar desde Nextcloud</string>
+    <string name="nextcloud_restore_summary">Reemplaza los datos actuales por la copia de tu Nextcloud</string>
+    <string name="nextcloud_disconnect">Desconectar</string>
+    <string name="nextcloud_disconnect_summary">Lax olvida esta cuenta. La copia se queda en tu Nextcloud, y puedes quitarle el acceso a Lax en los ajustes de seguridad de Nextcloud.</string>
+    <string name="nextcloud_note">Las copias se guardan como %1$s en tus archivos de Nextcloud.</string>
+    <string name="msg_nextcloud_bad_address">Escribe la dirección https:// de tu Nextcloud</string>
+    <string name="msg_nextcloud_unreachable">No se pudo conectar con tu Nextcloud</string>
+    <string name="msg_nextcloud_unauthorized">Nextcloud no aceptó el inicio de sesión</string>
+    <string name="msg_nextcloud_connected">Conectado con Nextcloud</string>
+    <string name="msg_nextcloud_login_timeout">No se terminó de iniciar sesión en Nextcloud a tiempo</string>
+    <string name="msg_nextcloud_backed_up">Copia guardada en Nextcloud</string>
+    <string name="msg_nextcloud_no_backup">Todavía no hay ninguna copia de Lax en tu Nextcloud</string>
+
     <!-- Deslizamientos sobre la dirección de la barra -->
     <string name="settings_address_swipes">Deslizar sobre la dirección</string>
     <string name="settings_swipe_left">Deslizar a la izquierda</string>

@@ -71,23 +71,6 @@ class SuggestionsAndHelpersTest {
     }
 
     @Test
-    fun `bundled icons match a host or its closest parent domain`() {
-        val icons = com.javzzap.laxbrowser.ui.common.BundledIcons
-        assertEquals(com.javzzap.laxbrowser.R.drawable.site_gmail, icons.forUrl("https://mail.google.com/mail/u/0/"))
-        assertEquals(com.javzzap.laxbrowser.R.drawable.site_google, icons.forUrl("https://www.google.com/search?q=x"))
-        assertEquals(com.javzzap.laxbrowser.R.drawable.site_wikipedia, icons.forUrl("https://en.m.wikipedia.org/wiki/Kotlin"))
-        assertEquals(com.javzzap.laxbrowser.R.drawable.site_duckduckgo, icons.forUrl("https://duckduckgo.com/?q=%s"))
-        assertNull(icons.forUrl("https://example.com/"))
-        assertNull(icons.forUrl("about:blank"))
-        com.javzzap.laxbrowser.domain.SearchEngines.builtIn.forEach { engine ->
-            assertTrue("${engine.name} has a bundled icon", icons.forUrl(engine.template) != null)
-        }
-        com.javzzap.laxbrowser.ui.onboarding.essentialPresets.forEach { preset ->
-            assertTrue("${preset.title} has a bundled icon", icons.forUrl(preset.url) != null)
-        }
-    }
-
-    @Test
     fun `emoji search matches every word and puts word starts first`() {
         val search = com.javzzap.laxbrowser.ui.common.EmojiSearch
         val entries = listOf(

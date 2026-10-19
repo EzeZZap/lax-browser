@@ -110,14 +110,20 @@ different key is refused, so keep using `lax-release.jks`.
     `[Convert]::ToBase64String([IO.File]::ReadAllBytes("lax-release.jks"))`
   - `LAX_KEYSTORE_PASSWORD`, `LAX_KEY_ALIAS` (`lax`), `LAX_KEY_PASSWORD`: from `keystore.properties`.
 
-The app shows `CHANGELOG.md` (and `CHANGELOG.es.md` in Spanish) under Settings > About > What's
-new, and the installed version's section once after an update. Rename the "Unreleased" heading to
-the new `versionName` when releasing, and keep both files listing the same versions (a unit test
-checks this).
+`CHANGELOG.md` and `CHANGELOG.es.md` are the only release notes you edit:
 
-To release: update `versionCode`, `versionName`, `CHANGELOG.md`, `CHANGELOG.es.md`, and the
-`fastlane/metadata/android/*/changelogs/<versionCode * 10 + 1..3>.txt` files, commit, then
-`git tag v0.2.0 && git push origin v0.2.0`.
+- The app shows them under Settings > About > What's new, and the installed version's section once
+  after an update.
+- Every build writes the F-Droid notes from the current version's section
+  (`fastlane/metadata/android/<locale>/changelogs/<versionCode * 10 + 1..3>.txt`, task
+  `fastlaneChangelogs`). F-Droid allows 500 characters; a longer section uses its opening note
+  (like "Initial release.") or fails the build. Commit the generated files with the release.
+- A unit test fails if either file has no section for the version being built, and if the two
+  files list different versions.
+
+To release: update `versionCode` and `versionName`, add a `## <versionName>` section to both
+changelogs, build once (so the F-Droid notes are written), commit, then
+`git tag v0.3.0 && git push origin v0.3.0`.
 
 ## F-Droid
 
@@ -129,6 +135,16 @@ To release: update `versionCode`, `versionName`, `CHANGELOG.md`, `CHANGELOG.es.m
   proprietary libraries. GeckoView comes from Mozilla's Maven repository, which F-Droid allows.
 - The per-ABI version codes follow F-Droid's convention, so its metadata can use
   `VercodeOperation` with `10 * %c + 1/2/3`.
-- The store listing lives in `fastlane/metadata/android/` (English and Spanish), which F-Droid
-  reads from the repository. Add screenshots to `images/phoneScreenshots/` (and optionally
-  `images/icon.png`, 512 × 512, and `images/featureGraphic.png`, 1024 × 500).
+- The store listing lives in `fastlane/metadata/android/` (English and Spanish, with
+  `images/icon.png` and five screenshots), which F-Droid reads from the repository.
+- F-Droid builds leave out the bundled site and add-on logos, which are not freely licensed: they
+  live in `app/src/github/res/drawable-nodpi`, and `src/fdroid` has an empty `BrandIcons`.
+- `-PlaxAbi=<abi>` builds one APK, so each F-Droid build block builds only its own.
+- `REQUEST_INSTALL_PACKAGES` stays in both builds: Android needs it to open APKs downloaded in the
+  browser. Only GitHub builds use it for their own updates.
+- The build metadata to submit is in [`docs/fdroid/com.javzzap.laxbrowser.yml`](fdroid/com.javzzap.laxbrowser.yml).
+  Fork https://gitlab.com/fdroid/fdroiddata, copy it to `metadata/`, replace each `commit: v0.3.0`
+  with the full commit hash of that tag, run `fdroid lint` and `fdroid rewritemeta` if you have
+  fdroidserver, and open a merge request titled "New App: com.javzzap.laxbrowser". Their CI builds
+  it; reviewers may ask about GeckoView (downloaded prebuilt from Mozilla's Maven repository) and
+  list Safe Browsing (a Google service GeckoView uses) as an anti-feature.

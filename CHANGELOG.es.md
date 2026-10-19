@@ -1,5 +1,12 @@
 # Registro de cambios
 
+## 0.3.0
+
+- Copias de seguridad en tu propio Nextcloud, a mano o automáticamente una vez al día, y
+  restauración desde ahí. Se pueden incluir los inicios de sesión, cifrados con una contraseña que elijas
+- Las copias hechas desde los ajustes ahora avisan cuando se guardan o se restauran
+- Las versiones de F-Droid no incluyen los logotipos de sitios y complementos
+
 ## 0.2.0
 
 - Desliza sobre la dirección de la barra para cambiar de pestaña (izquierda y derecha) o de espacio

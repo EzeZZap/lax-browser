@@ -51,6 +51,10 @@ import com.javzzap.laxbrowser.platform.UpdateProgress
 import com.javzzap.laxbrowser.platform.Versions
 import com.javzzap.laxbrowser.domain.WhatsNew
 import com.javzzap.laxbrowser.domain.PrivateTabsLock
+import com.javzzap.laxbrowser.domain.Nextcloud
+import com.javzzap.laxbrowser.domain.NextcloudAccount
+import com.javzzap.laxbrowser.domain.NextcloudConfig
+import com.javzzap.laxbrowser.platform.NextcloudClient
 import com.javzzap.laxbrowser.BuildConfig
 import androidx.core.content.edit
 import android.provider.DocumentsContract
@@ -100,6 +104,9 @@ data class InstallCandidate(
 )
 
 data class FindState(val query: String = "", val current: Int = 0, val total: Int = 0)
+
+/** Nextcloud backups as shown in Settings > Data. */
+data class NextcloudStatus(val config: NextcloudConfig = NextcloudConfig(), val connecting: Boolean = false, val busy: Boolean = false)
 
 enum class UiEvent { FOCUS_ADDRESS }
 
@@ -913,27 +920,29 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
      * [loginsPassword], also the saved logins encrypted with it. The password array is cleared.
      */
     fun exportBackup(uri: Uri, loginsPassword: CharArray? = null) {
+        viewModelScope.launch {
+            val json = backupJson(loginsPassword)
+            val ok = json != null && withContext(Dispatchers.IO) { writeText(uri, json) }
+            // Toasts: backups are made from Settings, where the browser's snackbars are not shown.
+            toast(if (ok) R.string.msg_backup_saved else R.string.msg_file_failed)
+        }
+    }
+
+    /** The backup file's text; with [loginsPassword], saved logins encrypted with it (the array is cleared). */
+    private suspend fun backupJson(loginsPassword: CharArray?): String? {
         val version = runCatching {
             getApplication<Application>().packageManager.getPackageInfo(getApplication<Application>().packageName, 0).versionName
         }.getOrNull().orEmpty()
         val data = state.value.data
-        viewModelScope.launch {
-            val logins = if (loginsPassword != null) {
-                val saved = runCatching { container.logins.load() }.getOrNull()
-                val section = saved?.let { withContext(Dispatchers.Default) { runCatching { LoginBackup.encrypt(it, loginsPassword) }.getOrNull() } }
-                loginsPassword.fill('\u0000')
-                if (section == null) {
-                    message(R.string.msg_file_failed)
-                    return@launch
-                }
-                section
-            } else {
-                null
-            }
-            val json = Backup.encode(data, version, System.currentTimeMillis(), logins)
-            val ok = withContext(Dispatchers.IO) { writeText(uri, json) }
-            message(if (ok) R.string.msg_backup_saved else R.string.msg_file_failed)
+        val logins = if (loginsPassword != null) {
+            val saved = runCatching { container.logins.load() }.getOrNull()
+            val section = saved?.let { withContext(Dispatchers.Default) { runCatching { LoginBackup.encrypt(it, loginsPassword) }.getOrNull() } }
+            loginsPassword.fill('\u0000')
+            section ?: return null
+        } else {
+            null
         }
+        return withContext(Dispatchers.Default) { Backup.encode(data, version, System.currentTimeMillis(), logins) }
     }
 
     /** Encrypted logins from a restored backup, waiting for the user's password. */
@@ -945,16 +954,17 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     /** Replaces browser data with a backup. The caller has confirmed the replacement. */
     fun restoreBackup(uri: Uri) {
         viewModelScope.launch {
-            val text = withContext(Dispatchers.IO) { readText(uri) }
-            val data = text?.let { withContext(Dispatchers.Default) { runCatching { Backup.decode(it) }.getOrNull() } }
-            if (text == null || data == null) {
-                message(R.string.msg_backup_invalid)
-                return@launch
-            }
-            controller.replaceData(data)
-            message(R.string.msg_backup_restored)
-            Backup.encryptedLogins(text)?.let { mutableLoginRestore.value = PendingLoginRestore(it, LoginBackup.count(it)) }
+            val restored = restoreText(withContext(Dispatchers.IO) { readText(uri) })
+            toast(if (restored) R.string.msg_backup_restored else R.string.msg_backup_invalid)
         }
+    }
+
+    /** Replaces browser data with the backup in [text]; its logins wait for their password. */
+    private suspend fun restoreText(text: String?): Boolean {
+        val data = text?.let { withContext(Dispatchers.Default) { runCatching { Backup.decode(it) }.getOrNull() } } ?: return false
+        controller.replaceData(data)
+        Backup.encryptedLogins(text)?.let { mutableLoginRestore.value = PendingLoginRestore(it, LoginBackup.count(it)) }
+        return true
     }
 
     /**
@@ -986,6 +996,154 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
 
     fun skipLoginRestore() {
         mutableLoginRestore.value = null
+    }
+
+    // endregion
+
+    // region Nextcloud backups
+
+    private val mutableNextcloud = MutableStateFlow(NextcloudStatus())
+
+    /** The Nextcloud account, its backup settings, and whether a login or backup is running. */
+    val nextcloud: StateFlow<NextcloudStatus> = mutableNextcloud.asStateFlow()
+    private var nextcloudLogin: Job? = null
+
+    init {
+        viewModelScope.launch {
+            val config = container.nextcloudStore.load()
+            mutableNextcloud.value = mutableNextcloud.value.copy(config = config)
+            state.first { it.isLoaded }
+            if (Nextcloud.isAutoBackupDue(config, System.currentTimeMillis())) backUpToNextcloud(manual = false)
+        }
+    }
+
+    private suspend fun saveNextcloud(config: NextcloudConfig) {
+        mutableNextcloud.value = mutableNextcloud.value.copy(config = config)
+        runCatching { container.nextcloudStore.save(config) }
+    }
+
+    /**
+     * Connects with Nextcloud's Login Flow v2: the server's login page opens in a tab, and once
+     * the user approves access Nextcloud hands Lax its own app password.
+     */
+    fun connectNextcloud(serverInput: String) {
+        val server = Nextcloud.normalizeServer(serverInput) ?: return toast(R.string.msg_nextcloud_bad_address)
+        nextcloudLogin?.cancel()
+        nextcloudLogin = viewModelScope.launch {
+            mutableNextcloud.value = mutableNextcloud.value.copy(connecting = true)
+            try {
+                val flow = runCatching { container.nextcloudClient.startLogin(server) }.getOrElse {
+                    toast(R.string.msg_nextcloud_unreachable)
+                    return@launch
+                }
+                if (report(controller.openLinkInNewTab(flow.loginUrl, background = false))) mutableShowBrowser.tryEmit(Unit)
+                val deadline = System.currentTimeMillis() + NEXTCLOUD_LOGIN_TIMEOUT_MS
+                var account: NextcloudAccount? = null
+                while (account == null && System.currentTimeMillis() < deadline) {
+                    delay(NEXTCLOUD_POLL_MS)
+                    account = runCatching { container.nextcloudClient.pollLogin(flow) }.getOrNull()
+                }
+                if (account == null) {
+                    toast(R.string.msg_nextcloud_login_timeout)
+                } else {
+                    saveNextcloud(mutableNextcloud.value.config.copy(account = account))
+                    toast(R.string.msg_nextcloud_connected)
+                }
+            } finally {
+                mutableNextcloud.value = mutableNextcloud.value.copy(connecting = false)
+            }
+        }
+    }
+
+    /** Connects with an app password created in Nextcloud's security settings. */
+    fun connectNextcloudWithPassword(serverInput: String, user: String, appPassword: String) {
+        val server = Nextcloud.normalizeServer(serverInput) ?: return toast(R.string.msg_nextcloud_bad_address)
+        val account = NextcloudAccount(server, user.trim(), appPassword.trim())
+        if (account.user.isEmpty() || account.appPassword.isEmpty()) return
+        viewModelScope.launch {
+            mutableNextcloud.value = mutableNextcloud.value.copy(connecting = true)
+            runCatching { container.nextcloudClient.verify(account) }.fold(
+                onSuccess = {
+                    saveNextcloud(mutableNextcloud.value.config.copy(account = account))
+                    toast(R.string.msg_nextcloud_connected)
+                },
+                onFailure = { toast(nextcloudError(it)) },
+            )
+            mutableNextcloud.value = mutableNextcloud.value.copy(connecting = false)
+        }
+    }
+
+    fun cancelNextcloudLogin() {
+        nextcloudLogin?.cancel()
+        mutableNextcloud.value = mutableNextcloud.value.copy(connecting = false)
+    }
+
+    /** Forgets the account and its settings; the backup stays on the server. */
+    fun disconnectNextcloud() {
+        cancelNextcloudLogin()
+        viewModelScope.launch { saveNextcloud(NextcloudConfig()) }
+    }
+
+    fun setNextcloudAutoBackup(enabled: Boolean) {
+        viewModelScope.launch { saveNextcloud(mutableNextcloud.value.config.copy(autoBackup = enabled)) }
+    }
+
+    /** With a password, Nextcloud backups include saved logins encrypted with it; null leaves them out. */
+    fun setNextcloudLoginsPassword(password: String?) {
+        viewModelScope.launch { saveNextcloud(mutableNextcloud.value.config.copy(loginsPassword = password)) }
+    }
+
+    /** Uploads a backup; automatic backups ([manual] false) fail quietly and try again next time. */
+    fun backUpToNextcloud(manual: Boolean = true) {
+        val config = mutableNextcloud.value.config
+        val account = config.account ?: return
+        if (mutableNextcloud.value.busy) return
+        viewModelScope.launch {
+            mutableNextcloud.value = mutableNextcloud.value.copy(busy = true)
+            try {
+                val json = backupJson(config.loginsPassword?.toCharArray())
+                if (json == null) {
+                    if (manual) toast(R.string.msg_file_failed)
+                    return@launch
+                }
+                runCatching { container.nextcloudClient.upload(account, json) }.fold(
+                    onSuccess = {
+                        saveNextcloud(mutableNextcloud.value.config.copy(lastBackupAt = System.currentTimeMillis()))
+                        if (manual) toast(R.string.msg_nextcloud_backed_up)
+                    },
+                    onFailure = { if (manual) toast(nextcloudError(it)) },
+                )
+            } finally {
+                mutableNextcloud.value = mutableNextcloud.value.copy(busy = false)
+            }
+        }
+    }
+
+    /** Replaces browser data with the backup on Nextcloud. The caller has confirmed the replacement. */
+    fun restoreFromNextcloud() {
+        val account = mutableNextcloud.value.config.account ?: return
+        viewModelScope.launch {
+            mutableNextcloud.value = mutableNextcloud.value.copy(busy = true)
+            try {
+                val text = runCatching { container.nextcloudClient.download(account) }.getOrElse {
+                    toast(nextcloudError(it))
+                    return@launch
+                }
+                when {
+                    text == null -> toast(R.string.msg_nextcloud_no_backup)
+                    restoreText(text) -> toast(R.string.msg_backup_restored)
+                    else -> toast(R.string.msg_backup_invalid)
+                }
+            } finally {
+                mutableNextcloud.value = mutableNextcloud.value.copy(busy = false)
+            }
+        }
+    }
+
+    @StringRes
+    private fun nextcloudError(error: Throwable): Int = when ((error as? NextcloudClient.HttpException)?.code) {
+        401, 403 -> R.string.msg_nextcloud_unauthorized
+        else -> R.string.msg_nextcloud_unreachable
     }
 
     private fun writeText(uri: Uri, text: String): Boolean = runCatching {
@@ -1210,6 +1368,8 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         private const val SUGGESTION_DELAY_MS = 150L
         private const val HISTORY_SUGGESTIONS = 6
         private const val MAX_IMPORT_BYTES = 20 * 1024 * 1024
+        private const val NEXTCLOUD_LOGIN_TIMEOUT_MS = 20 * 60 * 1000L
+        private const val NEXTCLOUD_POLL_MS = 2_000L
         private const val WHATS_NEW_PREFS = "whats_new"
         private const val KEY_LAST_VERSION = "last_version"
 

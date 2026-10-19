@@ -109,6 +109,14 @@ import com.javzzap.laxbrowser.ui.browser.icon
 import com.javzzap.laxbrowser.ui.browser.label
 import com.javzzap.laxbrowser.ui.common.ColorDot
 import com.javzzap.laxbrowser.domain.SwipeAction
+import com.javzzap.laxbrowser.domain.Nextcloud
+import com.javzzap.laxbrowser.ui.NextcloudStatus
+import com.javzzap.laxbrowser.ui.common.ConfirmDialog
+import androidx.compose.material.icons.filled.Cloud
+import androidx.compose.material.icons.filled.CloudDownload
+import androidx.compose.material.icons.filled.CloudOff
+import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material.icons.filled.SwipeDown
 import androidx.compose.material.icons.filled.SwipeLeft
 import androidx.compose.material.icons.filled.SwipeRight
@@ -161,6 +169,17 @@ interface SettingsActions {
     /** [loginsPassword] encrypts saved logins into the backup; null leaves them out. */
     fun exportBackup(uri: Uri, loginsPassword: CharArray?)
     fun restoreBackup(uri: Uri)
+
+    fun connectNextcloud(server: String)
+    fun connectNextcloudWithPassword(server: String, user: String, appPassword: String)
+    fun cancelNextcloudLogin()
+    fun disconnectNextcloud()
+    fun setNextcloudAutoBackup(enabled: Boolean)
+
+    /** Null stops including saved logins in Nextcloud backups. */
+    fun setNextcloudLoginsPassword(password: String?)
+    fun backUpToNextcloud()
+    fun restoreFromNextcloud()
     val canCheckForUpdates: Boolean
     fun checkForUpdates()
     suspend fun crashLogs(): List<CrashLog.Entry>
@@ -182,6 +201,7 @@ fun SettingsScreen(
     onBack: () -> Unit,
     linkSpaces: List<Pair<Space, String?>> = emptyList(),
     newerVersion: String? = null,
+    nextcloud: NextcloudStatus = NextcloudStatus(),
 ) {
     var page by rememberSaveable { mutableStateOf(SettingsPage.MAIN) }
     BackHandler(enabled = page != SettingsPage.MAIN) { page = SettingsPage.MAIN }
@@ -222,7 +242,10 @@ fun SettingsScreen(
                 SettingsPage.THEME -> ThemeSection(settings, actions)
                 SettingsPage.TOOLBAR -> ToolbarSection(settings, actions)
                 SettingsPage.TABS -> TabsSection(settings, actions, linkSpaces)
-                SettingsPage.DATA -> DataSection(actions)
+                SettingsPage.DATA -> {
+                    DataSection(actions)
+                    NextcloudSection(nextcloud, actions)
+                }
                 SettingsPage.WEBSITES -> WebsitesSection(settings, actions)
                 SettingsPage.PRIVACY -> PrivacySection(settings, actions)
                 SettingsPage.PRIVATE_BROWSING -> PrivateBrowsingSection(settings, actions)
@@ -707,6 +730,223 @@ private fun DataSection(actions: SettingsActions) {
             dismissButton = { TextButton(onClick = { restoring = null }) { Text(stringResource(R.string.cancel)) } },
         )
     }
+}
+
+/** Backing up to the user's own Nextcloud server: connect, back up (by hand or daily), restore. */
+@Composable
+private fun NextcloudSection(status: NextcloudStatus, actions: SettingsActions) {
+    val config = status.config
+    val account = config.account
+    var connecting by remember { mutableStateOf(false) }
+    var restoring by remember { mutableStateOf(false) }
+    var choosingLogins by remember { mutableStateOf(false) }
+    var disconnecting by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val activity = LocalActivity.current as? FragmentActivity
+    val authTitle = stringResource(R.string.backup_logins_auth_title)
+
+    Header(stringResource(R.string.nextcloud_header))
+    if (account == null) {
+        ActionRow(Icons.Default.Cloud, stringResource(R.string.nextcloud_connect), stringResource(R.string.nextcloud_connect_summary)) { connecting = true }
+        if (status.connecting) {
+            Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                Spacer(Modifier.width(16.dp))
+                Text(stringResource(R.string.nextcloud_waiting), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                TextButton(onClick = actions::cancelNextcloudLogin) { Text(stringResource(R.string.cancel)) }
+            }
+        }
+    } else {
+        Text(
+            stringResource(R.string.nextcloud_connected_as, account.user, account.server.removePrefix("https://")),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        )
+        val last = config.lastBackupAt?.let {
+            stringResource(R.string.nextcloud_last_backup, java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT).format(java.util.Date(it)))
+        } ?: stringResource(R.string.nextcloud_never_backed_up)
+        ActionRow(Icons.Default.CloudUpload, stringResource(R.string.nextcloud_backup_now), if (status.busy) stringResource(R.string.nextcloud_working) else last) {
+            if (!status.busy) actions.backUpToNextcloud()
+        }
+        SwitchRow(stringResource(R.string.nextcloud_auto), stringResource(R.string.nextcloud_auto_summary), config.autoBackup) { actions.setNextcloudAutoBackup(it) }
+        ActionRow(
+            Icons.Default.Key,
+            stringResource(R.string.nextcloud_include_logins),
+            stringResource(if (config.loginsPassword != null) R.string.nextcloud_logins_on else R.string.nextcloud_logins_off),
+        ) { choosingLogins = true }
+        ActionRow(Icons.Default.CloudDownload, stringResource(R.string.nextcloud_restore), stringResource(R.string.nextcloud_restore_summary)) {
+            if (!status.busy) restoring = true
+        }
+        ActionRow(Icons.Default.CloudOff, stringResource(R.string.nextcloud_disconnect), stringResource(R.string.nextcloud_disconnect_summary)) { disconnecting = true }
+        Text(
+            stringResource(R.string.nextcloud_note, Nextcloud.BACKUP_FILE),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(16.dp),
+        )
+    }
+
+    if (connecting) NextcloudConnectDialog(actions, onDismiss = { connecting = false })
+    if (restoring) {
+        ConfirmDialog(
+            title = stringResource(R.string.backup_restore_title),
+            message = stringResource(R.string.backup_restore_message),
+            confirmLabel = stringResource(R.string.backup_restore_confirm),
+            onConfirm = actions::restoreFromNextcloud,
+            onDismiss = { restoring = false },
+        )
+    }
+    if (disconnecting) {
+        ConfirmDialog(
+            title = stringResource(R.string.nextcloud_disconnect),
+            message = stringResource(R.string.nextcloud_disconnect_summary),
+            confirmLabel = stringResource(R.string.nextcloud_disconnect),
+            onConfirm = actions::disconnectNextcloud,
+            onDismiss = { disconnecting = false },
+        )
+    }
+    if (choosingLogins) {
+        NextcloudLoginsDialog(
+            including = config.loginsPassword != null,
+            canProtect = remember { DeviceAuth.isAvailable(context) },
+            onSave = { password ->
+                choosingLogins = false
+                if (password == null) {
+                    actions.setNextcloudLoginsPassword(null)
+                } else {
+                    // Uploading every password needs the screen lock, like showing one.
+                    activity?.let { DeviceAuth.authenticate(it, authTitle) { actions.setNextcloudLoginsPassword(password) } }
+                }
+            },
+            onDismiss = { choosingLogins = false },
+        )
+    }
+}
+
+/** The Nextcloud address, then either the browser login (recommended) or a username and app password. */
+@Composable
+private fun NextcloudConnectDialog(actions: SettingsActions, onDismiss: () -> Unit) {
+    var server by remember { mutableStateOf("") }
+    var withPassword by remember { mutableStateOf(false) }
+    var user by remember { mutableStateOf("") }
+    var appPassword by remember { mutableStateOf("") }
+    val canConnect = server.isNotBlank() && (!withPassword || (user.isNotBlank() && appPassword.isNotBlank()))
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        icon = { Icon(Icons.Default.Cloud, contentDescription = null) },
+        title = { Text(stringResource(R.string.nextcloud_connect)) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                OutlinedTextField(
+                    value = server,
+                    onValueChange = { server = it },
+                    label = { Text(stringResource(R.string.nextcloud_server)) },
+                    placeholder = { Text("cloud.example.com") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, imeAction = ImeAction.Next),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                if (withPassword) {
+                    OutlinedTextField(
+                        value = user,
+                        onValueChange = { user = it },
+                        label = { Text(stringResource(R.string.nextcloud_username)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    )
+                    OutlinedTextField(
+                        value = appPassword,
+                        onValueChange = { appPassword = it },
+                        label = { Text(stringResource(R.string.nextcloud_app_password)) },
+                        singleLine = true,
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    )
+                } else {
+                    Text(
+                        stringResource(R.string.nextcloud_connect_note),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
+                }
+                TextButton(onClick = { withPassword = !withPassword }) {
+                    Text(stringResource(if (withPassword) R.string.nextcloud_use_login else R.string.nextcloud_use_app_password))
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(enabled = canConnect, onClick = {
+                if (withPassword) actions.connectNextcloudWithPassword(server, user, appPassword) else actions.connectNextcloud(server)
+                onDismiss()
+            }) { Text(stringResource(R.string.nextcloud_log_in)) }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
+    )
+}
+
+/** Turns saved logins in Nextcloud backups on (with a password) or off. */
+@Composable
+private fun NextcloudLoginsDialog(including: Boolean, canProtect: Boolean, onSave: (String?) -> Unit, onDismiss: () -> Unit) {
+    var include by remember { mutableStateOf(including) }
+    var password by remember { mutableStateOf("") }
+    var confirmation by remember { mutableStateOf("") }
+    val tooShort = password.length < LoginBackup.MIN_PASSWORD_LENGTH
+    val mismatch = confirmation.isNotEmpty() && confirmation != password
+    val changed = include != including || include
+    val valid = !include || (!tooShort && confirmation == password)
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.nextcloud_include_logins)) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                CheckRow(
+                    stringResource(R.string.backup_include_logins),
+                    stringResource(if (canProtect) R.string.backup_include_logins_summary else R.string.logins_need_lock),
+                    include && canProtect,
+                ) { if (canProtect) include = it }
+                if (include && canProtect) {
+                    OutlinedTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        label = { Text(stringResource(R.string.backup_password)) },
+                        singleLine = true,
+                        isError = password.isNotEmpty() && tooShort,
+                        supportingText = {
+                            Text(pluralStringResource(R.plurals.backup_password_hint, LoginBackup.MIN_PASSWORD_LENGTH, LoginBackup.MIN_PASSWORD_LENGTH))
+                        },
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Next),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    OutlinedTextField(
+                        value = confirmation,
+                        onValueChange = { confirmation = it },
+                        label = { Text(stringResource(R.string.backup_password_confirm)) },
+                        singleLine = true,
+                        isError = mismatch,
+                        supportingText = if (mismatch) ({ Text(stringResource(R.string.backup_password_mismatch)) }) else null,
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Text(
+                        stringResource(R.string.backup_password_warning),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(enabled = changed && valid, onClick = { onSave(if (include && canProtect) password else null) }) {
+                Text(stringResource(R.string.save))
+            }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
+    )
 }
 
 /** Whether to include saved logins in a backup, and the password that encrypts them. */

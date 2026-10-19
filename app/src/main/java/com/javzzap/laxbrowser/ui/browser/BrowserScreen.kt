@@ -357,6 +357,15 @@ fun BrowserApp(vm: BrowserViewModel, screen: Screen, navigator: Navigator) {
                 override fun importBookmarks(uri: Uri) = vm.importBookmarks(uri)
                 override fun exportBackup(uri: Uri, loginsPassword: CharArray?) = vm.exportBackup(uri, loginsPassword)
                 override fun restoreBackup(uri: Uri) = vm.restoreBackup(uri)
+                override fun connectNextcloud(server: String) = vm.connectNextcloud(server)
+                override fun connectNextcloudWithPassword(server: String, user: String, appPassword: String) =
+                    vm.connectNextcloudWithPassword(server, user, appPassword)
+                override fun cancelNextcloudLogin() = vm.cancelNextcloudLogin()
+                override fun disconnectNextcloud() = vm.disconnectNextcloud()
+                override fun setNextcloudAutoBackup(enabled: Boolean) = vm.setNextcloudAutoBackup(enabled)
+                override fun setNextcloudLoginsPassword(password: String?) = vm.setNextcloudLoginsPassword(password)
+                override fun backUpToNextcloud() = vm.backUpToNextcloud()
+                override fun restoreFromNextcloud() = vm.restoreFromNextcloud()
                 override val canCheckForUpdates: Boolean get() = vm.canCheckForUpdates
                 override fun checkForUpdates() = vm.checkForUpdatesNow()
                 override suspend fun crashLogs() = vm.crashLogs()
@@ -369,6 +378,7 @@ fun BrowserApp(vm: BrowserViewModel, screen: Screen, navigator: Navigator) {
             onBack = navigator::back,
             linkSpaces = state.sortedSpaces.map { it to state.container(it.containerId)?.name },
             newerVersion = vm.newerVersion.collectAsStateWithLifecycle().value,
+            nextcloud = vm.nextcloud.collectAsStateWithLifecycle().value,
         )
     }
 

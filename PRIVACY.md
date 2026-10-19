@@ -27,6 +27,10 @@ Apart from the websites you visit, Lax connects to:
 - **api.github.com**, once a day, to check for a new release. Only in builds from GitHub; can be
   turned off in Settings > About. When you choose to update, the APK is downloaded from
   github.com. F-Droid builds do not check for updates.
+- **Your Nextcloud server**, only if you connect one in Settings > Data: to log in (your
+  Nextcloud's login page opens in a tab and gives Lax its own app password), and to upload or
+  download the backup file `Lax-backup.json`. The app password is stored on the device encrypted
+  with a key in the Android Keystore, and only sent to that server over HTTPS.
 - **Websites' icon files**, to show favicons. These requests are sent without cookies.
 - **addons.mozilla.org**, when you install an add-on. GeckoView and installed add-ons may also
   contact Mozilla services such as the add-on blocklist and Safe Browsing.
