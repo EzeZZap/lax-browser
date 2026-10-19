@@ -5,7 +5,6 @@
 - Back up to your own Nextcloud, by hand or automatically once a day, and restore from it.
   Saved logins can be included, encrypted with a password you choose
 - Backups made from Settings now say when they are saved or restored
-- F-Droid builds leave out the bundled site and add-on logos
 
 ## 0.2.0
 
