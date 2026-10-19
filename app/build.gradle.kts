@@ -138,8 +138,8 @@ android {
         targetSdk = 37
         // Release tags on GitHub should match versionName ("v0.1.0"); update checks compare them.
         // Each ABI's APK gets versionCode * 10 + an ABI digit (see androidComponents below).
-        versionCode = 4
-        versionName = "0.3.1"
+        versionCode = 5
+        versionName = "0.3.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

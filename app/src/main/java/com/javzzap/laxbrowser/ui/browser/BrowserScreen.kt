@@ -1608,7 +1608,7 @@ private const val DOCKED_SIDEBAR_MIN_WIDTH_DP = 840
 private val DRAWER_WIDTH = 320.dp
 
 /** "Buy me a coffee!" in Settings. */
-private const val SUPPORT_URL = "https://ko-fi.com/javzzap"
+private const val SUPPORT_URL = "https://ko-fi.com/ezezzap"
 private val PAGE_SHIFT = 28.dp
 
 /** How far the address follows a swipe before snapping back. */

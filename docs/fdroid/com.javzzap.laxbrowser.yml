@@ -6,7 +6,7 @@ WebSite: https://github.com/EzeZZap/lax-browser
 SourceCode: https://github.com/EzeZZap/lax-browser
 IssueTracker: https://github.com/EzeZZap/lax-browser/issues
 Changelog: https://github.com/EzeZZap/lax-browser/blob/HEAD/CHANGELOG.md
-Donate: https://ko-fi.com/javzzap
+Donate: https://ko-fi.com/ezezzap
 
 AutoName: Lax
 
@@ -14,9 +14,9 @@ RepoType: git
 Repo: https://github.com/EzeZZap/lax-browser.git
 
 Builds:
-  - versionName: 0.3.1
-    versionCode: 41
-    commit: v0.3.1
+  - versionName: 0.3.2
+    versionCode: 51
+    commit: v0.3.2
     subdir: app
     gradle:
       - fdroid
@@ -24,9 +24,9 @@ Builds:
       - laxAbi=armeabi-v7a
     output: build/outputs/apk/fdroid/release/app-fdroid-armeabi-v7a-release-unsigned.apk
 
-  - versionName: 0.3.1
-    versionCode: 42
-    commit: v0.3.1
+  - versionName: 0.3.2
+    versionCode: 52
+    commit: v0.3.2
     subdir: app
     gradle:
       - fdroid
@@ -34,9 +34,9 @@ Builds:
       - laxAbi=arm64-v8a
     output: build/outputs/apk/fdroid/release/app-fdroid-arm64-v8a-release-unsigned.apk
 
-  - versionName: 0.3.1
-    versionCode: 43
-    commit: v0.3.1
+  - versionName: 0.3.2
+    versionCode: 53
+    commit: v0.3.2
     subdir: app
     gradle:
       - fdroid
@@ -50,5 +50,5 @@ VercodeOperation:
   - 10 * %c + 1
   - 10 * %c + 2
   - 10 * %c + 3
-CurrentVersion: 0.3.1
-CurrentVersionCode: 43
+CurrentVersion: 0.3.2
+CurrentVersionCode: 53

@@ -1,5 +1,10 @@
 # Registro de cambios
 
+## 0.3.2
+
+- Se reorganizaron los nombres de autor en el código fuente. El botón de donar ahora abre
+  ko-fi.com/ezezzap
+
 ## 0.3.1
 
 - Los sitios sin HTTPS vuelven a abrirse: una dirección escrita sin "https://" pasa a "http://" si

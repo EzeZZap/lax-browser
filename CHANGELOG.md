@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Reorganized author names in source code. The donate button now opens ko-fi.com/ezezzap
+
 ## 0.3.1
 
 - Sites without HTTPS open again: an address typed without "https://" falls back to "http://"

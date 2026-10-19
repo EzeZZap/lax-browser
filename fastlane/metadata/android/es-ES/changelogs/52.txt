@@ -1,0 +1,1 @@
+- Se reorganizaron los nombres de autor en el código fuente. El botón de donar ahora abre ko-fi.com/ezezzap
