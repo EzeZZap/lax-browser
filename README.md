@@ -19,11 +19,11 @@
 ## Screenshots
 
 <p align="center">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="The sidebar with Essentials, pinned tabs, and open tabs in the Personal Space" width="180">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="The Work Space, with its own tabs, container, and color" width="180">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="A web page with the address toolbar" width="180">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="First-run setup: adding a second Space from a preset" width="180">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="First-run setup: picking Essentials" width="180">
+  <img src="docs/screenshots/1.png" alt="The sidebar with Essentials, pinned tabs, and open tabs in the Personal Space" width="180">
+  <img src="docs/screenshots/2.png" alt="The Work Space, with its own tabs, container, and color" width="180">
+  <img src="docs/screenshots/3.png" alt="A web page with the address toolbar" width="180">
+  <img src="docs/screenshots/4.png" alt="First-run setup: adding a second Space from a preset" width="180">
+  <img src="docs/screenshots/5.png" alt="First-run setup: picking Essentials" width="180">
 </p>
 
 ## Features

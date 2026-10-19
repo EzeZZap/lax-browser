@@ -16,6 +16,7 @@ data class OnboardingChoices(
     val httpsOnly: Boolean = false,
     val autoUnloadMinutes: Int = AutoUnload.DEFAULT_MINUTES,
     val privateTabsLock: Boolean = false,
+    val checkForUpdates: Boolean = false,
     val space: SpaceSetup? = null,
     val essentials: List<EssentialPick> = emptyList(),
 ) {
@@ -30,6 +31,7 @@ data class OnboardingChoices(
             httpsOnly = settings.httpsOnly,
             autoUnloadMinutes = settings.autoUnloadMinutes,
             privateTabsLock = settings.privateTabsLock,
+            checkForUpdates = settings.checkForUpdates,
         )
     }
 }

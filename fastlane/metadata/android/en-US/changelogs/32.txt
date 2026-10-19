@@ -1,2 +1,0 @@
-- Back up to your own Nextcloud, by hand or automatically once a day, and restore from it. Saved logins can be included, encrypted with a password you choose
-- Backups made from Settings now say when they are saved or restored

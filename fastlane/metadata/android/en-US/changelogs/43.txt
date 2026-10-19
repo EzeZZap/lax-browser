@@ -1,1 +1,0 @@
-- Sites without HTTPS open again: an address typed without "https://" falls back to "http://" when the secure connection fails, unless HTTPS-only mode is on

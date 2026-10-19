@@ -21,6 +21,7 @@ class OnboardingTest {
         httpsOnly = true,
         autoUnloadMinutes = 15,
         privateTabsLock = true,
+        checkForUpdates = true,
         space = SpaceSetup("Work", "💼", 0xFF1E88E5.toInt()),
         essentials = listOf(EssentialPick("https://mail.google.com/", "Gmail"), EssentialPick("https://www.youtube.com/", "YouTube")),
     )
@@ -38,6 +39,15 @@ class OnboardingTest {
         assertTrue(s.httpsOnly)
         assertEquals(15, s.autoUnloadMinutes)
         assertTrue(s.privateTabsLock)
+        assertTrue(s.checkForUpdates)
+    }
+
+    @Test
+    fun `update checks stay off unless chosen`() {
+        val start = initialState(ops)
+        assertFalse(start.data.settings.checkForUpdates)
+        val skipped = ops.applyOnboarding(start, OnboardingChoices.from(start.data.settings)).state
+        assertFalse(skipped.data.settings.checkForUpdates)
     }
 
     @Test

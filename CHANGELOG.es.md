@@ -1,5 +1,11 @@
 # Registro de cambios
 
+## 0.3.3
+
+- La búsqueda de actualizaciones ahora es opcional: la última página de la configuración inicial
+  tiene un interruptor para activarla, y queda desactivada si no lo haces. Las instalaciones
+  existentes mantienen su ajuste actual
+
 ## 0.3.2
 
 - Se reorganizaron los nombres de autor en el código fuente. El botón de donar ahora abre

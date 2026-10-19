@@ -114,13 +114,8 @@ different key is refused, so keep using `lax-release.jks`.
 
 - The app shows them under Settings > About > What's new, and the installed version's section once
   after an update.
-- Every build writes the F-Droid notes from the current version's section
-  (`fastlane/metadata/android/<locale>/changelogs/<versionCode * 10 + 1..3>.txt`, task
-  `fastlaneChangelogs`). F-Droid allows 500 characters; a longer section uses its opening note
-  (like "Initial release.") or fails the build. Commit the generated files with the release.
 - A unit test fails if either file has no section for the version being built, and if the two
   files list different versions.
 
 To release: update `versionCode` and `versionName`, add a `## <versionName>` section to both
-changelogs, build once (so the F-Droid notes are written), commit, then
-`git tag v0.3.0 && git push origin v0.3.0`.
+changelogs, commit, then `git tag v0.3.0 && git push origin v0.3.0`.

@@ -114,7 +114,7 @@ private val introPages = mapOf(
 
 /**
  * First launch: a short introduction, then quick setup (layout, a second Space, Essentials,
- * search and privacy, extensions, default browser, bookmark import). Choices are applied together
+ * search and privacy, extensions, default browser, bookmark import, update checks). Choices are applied together
  * when the user finishes or skips; extensions and imports happen right away.
  */
 @Composable
@@ -132,6 +132,7 @@ fun OnboardingScreen(vm: BrowserViewModel, state: BrowserState, onDone: (Onboard
         onImportLogins = vm::importLogins,
         onDone = onDone,
         canLockPrivateTabs = remember { DeviceAuth.isAvailable(context) },
+        canCheckForUpdates = vm.canCheckForUpdates,
     )
 }
 
@@ -148,6 +149,7 @@ internal fun OnboardingContent(
     initialPage: Int = 0,
     onImportLogins: (Uri, (LoginImportSummary?) -> Unit) -> Unit = { _, _ -> },
     canLockPrivateTabs: Boolean = false,
+    canCheckForUpdates: Boolean = false,
 ) {
     var choices by remember { mutableStateOf(initialChoices) }
     val steps = Step.entries
@@ -174,7 +176,7 @@ internal fun OnboardingContent(
                     Step.ESSENTIALS -> EssentialsStep(choices) { choices = it }
                     Step.SEARCH -> SearchStep(choices, canLockPrivateTabs) { choices = it }
                     Step.EXTENSIONS -> ExtensionsStep(installedExtensionIds, installingExtensionIds, onInstallExtension)
-                    Step.FINISH -> FinishStep(choices, onImportBookmarks, onImportLogins)
+                    Step.FINISH -> FinishStep(choices, canCheckForUpdates, onImportBookmarks, onImportLogins) { choices = it }
                 }
             }
             Row(Modifier.fillMaxWidth().widthIn(max = 480.dp).padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -645,8 +647,10 @@ private fun ExtensionsStep(installedIds: Set<String>, installingIds: Set<String>
 @Composable
 private fun FinishStep(
     choices: OnboardingChoices,
+    canCheckForUpdates: Boolean,
     onImportBookmarks: (Uri, (ImportSummary?) -> Unit) -> Unit,
     onImportLogins: (Uri, (LoginImportSummary?) -> Unit) -> Unit,
+    onChange: (OnboardingChoices) -> Unit,
 ) {
     val context = LocalContext.current
     // Not available in previews, where there is no real package manager.
@@ -711,6 +715,14 @@ private fun FinishStep(
             Text(stringResource(R.string.onboarding_import_logins))
         }
         Note(loginsResult ?: stringResource(R.string.onboarding_import_logins_summary))
+        if (canCheckForUpdates) {
+            SectionLabel(stringResource(R.string.updates_header))
+            SwitchLine(
+                stringResource(R.string.updates_auto),
+                stringResource(R.string.updates_auto_summary),
+                choices.checkForUpdates,
+            ) { onChange(choices.copy(checkForUpdates = it)) }
+        }
     }
 }
 

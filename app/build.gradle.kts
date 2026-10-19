@@ -37,86 +37,6 @@ abstract class ChangelogResourcesTask : DefaultTask() {
     }
 }
 
-/**
- * Writes the F-Droid release notes (fastlane/metadata/android/<locale>/changelogs/<code>.txt, one
- * per APK) from the current version's section of CHANGELOG.md and CHANGELOG.es.md, so the Markdown
- * files are the only ones edited. F-Droid allows 500 characters; a longer section falls back to
- * its opening note (like "Initial release.") or fails the build.
- */
-abstract class FastlaneChangelogsTask : DefaultTask() {
-    @get:InputFile
-    abstract val english: RegularFileProperty
-
-    @get:InputFile
-    abstract val spanish: RegularFileProperty
-
-    @get:Input
-    abstract val versionName: Property<String>
-
-    @get:Input
-    abstract val versionCode: Property<Int>
-
-    @get:Internal
-    abstract val fastlaneDir: DirectoryProperty
-
-    @get:OutputFiles
-    abstract val notes: ConfigurableFileCollection
-
-    @TaskAction
-    fun write() {
-        listOf("en-US" to english, "es-ES" to spanish).forEach { (locale, changelog) ->
-            val file = changelog.get().asFile
-            val text = notesFor(file.readText(), versionName.get())
-                ?: throw GradleException("${file.name} has no \"## ${versionName.get()}\" section")
-            if (text.length > MAX_LENGTH) {
-                throw GradleException("The ${versionName.get()} notes in ${file.name} are ${text.length} characters; F-Droid allows $MAX_LENGTH")
-            }
-            val dir = fastlaneDir.get().dir("$locale/changelogs").asFile.apply { mkdirs() }
-            (1..3).forEach { abi -> File(dir, "${versionCode.get() * 10 + abi}.txt").writeText(text + "\n") }
-        }
-    }
-
-    private fun notesFor(markdown: String, version: String): String? {
-        val lines = markdown.lines()
-        val start = lines.indexOfFirst { it.trim().removePrefix("## ").removePrefix("v").trim() == version && it.startsWith("## ") }
-        if (start < 0) return null
-        val section = lines.drop(start + 1).takeWhile { !it.startsWith("## ") }
-        val notes = mutableListOf<String>()
-        val items = mutableListOf<String>()
-        var inItem = false
-        section.forEach { raw ->
-            val line = raw.trim()
-            when {
-                line.isEmpty() -> inItem = false
-                line.startsWith("### ") -> inItem = false
-                line.startsWith("- ") -> {
-                    items += line.removePrefix("- ")
-                    inItem = true
-                }
-                inItem -> items[items.lastIndex] = items.last() + " " + line
-                else -> notes += line
-            }
-        }
-        val full = (notes + items.map { "- $it" }).joinToString("\n")
-        return if (full.length > MAX_LENGTH && notes.isNotEmpty()) notes.joinToString(" ") else full
-    }
-
-    private companion object {
-        const val MAX_LENGTH = 500
-    }
-}
-
-val fastlaneChangelogs = tasks.register<FastlaneChangelogsTask>("fastlaneChangelogs") {
-    val code = android.defaultConfig.versionCode ?: 1
-    val fastlane = rootProject.layout.projectDirectory.dir("fastlane/metadata/android")
-    english.set(rootProject.layout.projectDirectory.file("CHANGELOG.md"))
-    spanish.set(rootProject.layout.projectDirectory.file("CHANGELOG.es.md"))
-    versionName.set(android.defaultConfig.versionName ?: "")
-    versionCode.set(code)
-    fastlaneDir.set(fastlane)
-    notes.from(listOf("en-US", "es-ES").flatMap { locale -> (1..3).map { fastlane.file("$locale/changelogs/${code * 10 + it}.txt") } })
-}
-
 val changelogResources = tasks.register<ChangelogResourcesTask>("changelogResources") {
     english.set(rootProject.layout.projectDirectory.file("CHANGELOG.md"))
     spanish.set(rootProject.layout.projectDirectory.file("CHANGELOG.es.md"))
@@ -138,8 +58,8 @@ android {
         targetSdk = 37
         // Release tags on GitHub should match versionName ("v0.1.0"); update checks compare them.
         // Each ABI's APK gets versionCode * 10 + an ABI digit (see androidComponents below).
-        versionCode = 5
-        versionName = "0.3.2"
+        versionCode = 6
+        versionName = "0.3.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -226,11 +146,8 @@ ksp {
     arg("room.schemaLocation", "$projectDir/schemas")
 }
 
-// Per-ABI version codes (F-Droid's convention), so a device always gets the APK for its CPU:
+// Per-ABI version codes, so a device always gets the APK for its CPU:
 // armeabi-v7a = x1, arm64-v8a = x2, x86_64 = x3.
-// Every build refreshes the F-Droid notes for the version being built.
-tasks.named("preBuild") { dependsOn(fastlaneChangelogs) }
-
 androidComponents {
     val baseVersionCode = android.defaultConfig.versionCode ?: 1
     onVariants { variant ->

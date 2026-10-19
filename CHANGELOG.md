@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3
+
+- Update checks are now opt-in: the last page of the first-run setup has a switch for them, and
+  they stay off unless you turn them on. Existing installs keep their current setting
+
 ## 0.3.2
 
 - Reorganized author names in source code. The donate button now opens ko-fi.com/ezezzap

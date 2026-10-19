@@ -217,7 +217,8 @@ data class BrowserSettings(
     /** Unload tabs hidden for this many minutes; 0 never unloads automatically. */
     val autoUnloadMinutes: Int = AutoUnload.DEFAULT_MINUTES,
     val onboardingDone: Boolean = false,
-    val checkForUpdates: Boolean = true,
+    /** Opt-in: chosen on the last onboarding page or in Settings. */
+    val checkForUpdates: Boolean = false,
     /** Offer to save logins and fill them in (Lax's own encrypted storage). */
     val saveLogins: Boolean = true,
     /** Ask for the screen lock before showing private tabs again after leaving the app. */

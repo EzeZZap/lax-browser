@@ -197,6 +197,7 @@ class BrowserOperations(
                     httpsOnly = choices.httpsOnly,
                     autoUnloadMinutes = choices.autoUnloadMinutes.coerceIn(0, AutoUnload.MAX_MINUTES),
                     privateTabsLock = choices.privateTabsLock,
+                    checkForUpdates = choices.checkForUpdates,
                     onboardingDone = true,
                 ),
             )

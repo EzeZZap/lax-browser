@@ -1,3 +1,0 @@
-- Swipe on the toolbar's address to switch tabs (left and right) or Spaces (up and down). Each direction can do something else instead, in Settings > Toolbar & gestures
-- The search widget can be set to a Space, so its tabs open in that Space's container
-- "Check for updates now" says when Lax is already up to date
