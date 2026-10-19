@@ -51,6 +51,12 @@ contacts.
 
 ## Download
 
+<p align="center">
+  <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/EzeZZap/lax-browser">
+    <img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="80">
+  </a>
+</p>
+
 Signed APKs are attached to each [GitHub release](../../releases):
 
 - `arm64-v8a` for most phones
@@ -58,8 +64,8 @@ Signed APKs are attached to each [GitHub release](../../releases):
 - `x86_64` for emulators and Chromebooks
 
 Builds from GitHub check this repository for new releases once a day and can download and
-install them (Android asks you to confirm). This can be turned off in Settings > About.
-Android 8.0 or newer is required.
+install them (Android asks you to confirm). If you use Obtainium, you can turn this off in
+Settings > About. Android 8.0 or newer is required.
 
 ## Building
 
