@@ -586,6 +586,11 @@ private fun PrivacySection(settings: BrowserSettings, actions: SettingsActions) 
     var clearing by remember { mutableStateOf(false) }
     var clearingAll by remember { mutableStateOf(false) }
     Header(stringResource(R.string.settings_browsing_data))
+    SwitchRow(
+        stringResource(R.string.settings_clear_on_exit),
+        stringResource(R.string.settings_clear_on_exit_summary),
+        settings.clearDataOnExit,
+    ) { checked -> actions.update { it.copy(clearDataOnExit = checked) } }
     ActionRow(Icons.Default.DeleteSweep, stringResource(R.string.clear_history), stringResource(R.string.settings_clear_history_summary)) { clearing = true }
     ActionRow(Icons.Default.DeleteForever, stringResource(R.string.settings_clear_data), stringResource(R.string.settings_clear_data_summary)) { clearingAll = true }
     if (clearing) ClearHistoryDialog(onClear = actions::clearHistory, onDismiss = { clearing = false })

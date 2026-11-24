@@ -227,6 +227,11 @@ data class BrowserSettings(
     val saveLogins: Boolean = true,
     /** Ask for the screen lock before showing private tabs again after leaving the app. */
     val privateTabsLock: Boolean = false,
+    /**
+     * When leaving the app, unload open sessions and clear history, cookies, site data, and
+     * caches. Tabs and bookmarks stay; pages reload without signed-in state next time.
+     */
+    val clearDataOnExit: Boolean = false,
     /** Swipes on the toolbar's address (the part that shows the site and opens the address bar). */
     val swipeLeft: SwipeAction = SwipeAction.PREVIOUS_TAB,
     val swipeRight: SwipeAction = SwipeAction.NEXT_TAB,

@@ -81,6 +81,7 @@ class GeckoEngine(
         ).also { created ->
             runtimeInstance = created
             iconExtension.install(created)
+            savePageExtension.install(created)
             extensions.start(created)
             created.webNotificationDelegate = notifications
             created.autocompleteStorageDelegate = LoginStorageDelegate(loginStore, scope) { desiredSettings?.saveLogins != false }
@@ -150,6 +151,8 @@ class GeckoEngine(
         },
         zoomFor = { pageUrl -> listener?.zoomFor(pageUrl) ?: 100 },
     )
+
+    private val savePageExtension = SavePageExtension()
 
     override var listener: EngineListener? = null
 
@@ -453,6 +456,12 @@ class GeckoEngine(
         return runCatching { session.saveAsPdf().await() }.getOrNull()
     }
 
+    /** Collects the page HTML and linked resources for an offline ZIP archive. */
+    suspend fun savePage(tabId: String): SavedPageArchive? {
+        val session = entries[tabId]?.session ?: return null
+        return savePageExtension.collect(session)
+    }
+
     /**
      * Downloads [url] (for example "Save image"). The request sends no cookies or credentials, so
      * nothing from any container is shared with the server.
@@ -712,6 +721,7 @@ class GeckoEngine(
     private fun attachDelegates(entry: Entry) {
         val session = entry.session
         iconExtension.attach(session)
+        savePageExtension.attach(session)
         extensions.attach(session)
         session.navigationDelegate = object : GeckoSession.NavigationDelegate {
             override fun onLocationChange(

@@ -311,6 +311,21 @@ class BrowserDatabaseTest {
     }
 
     @Test
+    fun migration13To14AddsClearDataOnExit() {
+        migrationHelper.createDatabase(MIGRATION_DB, 13).apply {
+            execSQL("INSERT INTO browser_settings (id, active_space_id, last_background_at) VALUES (0, 's1', 42)")
+            close()
+        }
+        val db = migrationHelper.runMigrationsAndValidate(MIGRATION_DB, 14, true, MIGRATION_13_14)
+        db.query("SELECT active_space_id, clear_data_on_exit FROM browser_settings").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+            assertEquals("s1", cursor.getString(0))
+            assertEquals(0, cursor.getInt(1))
+        }
+        db.close()
+    }
+
+    @Test
     fun historyMergesQuickRevisitsSearchesAndClears() = runBlocking {
         BrowserDatabase.create(context, TEST_DB).use { db ->
             val history = RoomHistoryStore(db.historyDao())

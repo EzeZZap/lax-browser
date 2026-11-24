@@ -601,6 +601,8 @@
     <string name="menu_translate">Traducir página…</string>
     <string name="menu_show_original">Mostrar original</string>
     <string name="menu_print">Imprimir o guardar como PDF…</string>
+    <string name="menu_save_page">Guardar página…</string>
+    <string name="msg_save_page_failed">No se ha podido guardar esta página</string>
     <string name="menu_add_to_home">Añadir a la pantalla de inicio</string>
     <string name="menu_site_permissions">Permisos de sitios</string>
     <string name="menu_split_view">Vista dividida…</string>
@@ -655,6 +657,8 @@
     <string name="settings_autoplay_summary">Al cambiar esto se restablece la decisión de cada sitio sobre la reproducción automática.</string>
     <string name="settings_clear_data">Borrar datos de navegación</string>
     <string name="settings_clear_data_summary">Historial, cookies y datos de sitios, archivos en caché y permisos de sitios</string>
+    <string name="settings_clear_on_exit">Borrar datos al salir</string>
+    <string name="settings_clear_on_exit_summary">Al salir de Lax, descarga las páginas abiertas y borra el historial, las cookies, los datos de sitios y la caché. Las pestañas y marcadores se conservan.</string>
     <string name="clear_data_history">Historial de navegación</string>
     <string name="clear_data_cookies">Cookies y datos de sitios</string>
     <string name="clear_data_cookies_summary">Cierra tu sesión en la mayoría de los sitios, en todos los contenedores.</string>

@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Lax save page",
+  "version": "1.0",
+  "description": "Collects the current page and its resources so Lax can save an offline ZIP archive.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "savepage@laxbrowser.javzzap.com"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["save.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "permissions": ["nativeMessaging", "nativeMessagingFromContent", "geckoViewAddons", "mozillaAddons"]
+}

@@ -223,6 +223,9 @@ class BrowserController(
     fun openUrl(url: String) = dispatch { ops.openUrlInActiveSpace(it, url) }
     fun selectTab(tabId: String) = dispatch { ops.selectTab(it, tabId) }
     fun unloadTab(tabId: String) = dispatch { ops.unloadTab(it, tabId) }
+
+    /** Closes every open session while keeping tab records (used before clear-on-exit). */
+    fun unloadAllLoaded() = dispatch { ops.unloadAllLoaded(it) }
     fun pinTab(tabId: String) = dispatch { ops.pinTab(it, tabId) }
     fun unpinTab(tabId: String) = dispatch { ops.unpinTab(it, tabId) }
     fun addToEssentials(tabId: String) = dispatch { ops.addToEssentials(it, tabId) }

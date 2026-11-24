@@ -406,6 +406,16 @@ class BrowserOperations(
         return Reduction(s.setRuntime(tab.id) { it.copy(loaded = false, isLoading = false, progress = 0) })
     }
 
+    /** Unloads every loaded tab so Gecko sessions close before a site-data clear on exit. */
+    fun unloadAllLoaded(state: BrowserState): Reduction {
+        var s = state
+        for (tab in state.allTabs) {
+            if (!s.runtime(tab.id).loaded) continue
+            s = unloadTab(s, tab.id).state
+        }
+        return Reduction(s)
+    }
+
     fun pinTab(state: BrowserState, tabId: String): Reduction {
         val tab = state.tab(tabId) ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
         if (tab.isEssential || tab.isPrivate || tab.spaceId == null) return Reduction.reject(state, RejectReason.NOT_ALLOWED)

@@ -149,3 +149,10 @@ val MIGRATION_12_13 = object : Migration(12, 13) {
         db.execSQL("ALTER TABLE `spaces` ADD COLUMN `tracking_protection` TEXT DEFAULT NULL")
     }
 }
+
+/** Version 14: clear history and site data when leaving the app (opt-in). */
+val MIGRATION_13_14 = object : Migration(13, 14) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `clear_data_on_exit` INTEGER NOT NULL DEFAULT 0")
+    }
+}

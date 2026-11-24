@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.AddToPhotos
 import androidx.compose.material.icons.filled.DashboardCustomize
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Print
+import androidx.compose.material.icons.filled.SaveAlt
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material.icons.filled.VerticalSplit
@@ -200,6 +201,9 @@ fun BrowserMenuSheet(
                     MenuItem(Icons.Default.Translate, stringResource(R.string.menu_translate), enabled = loaded) { run { onMenuDialog(MenuDialog.TRANSLATE) } }
                 }
                 MenuItem(Icons.Default.Print, stringResource(R.string.menu_print), enabled = loaded) { run { activity?.let(vm::print) } }
+                if (UrlInput.isWebUrl(webTab.url)) {
+                    MenuItem(Icons.Default.SaveAlt, stringResource(R.string.menu_save_page), enabled = loaded) { run { vm.savePage() } }
+                }
                 if (UrlInput.isWebUrl(webTab.url)) ZoomItem(vm.zoomFor(webTab.url), onChange = vm::changeZoom)
                 if (!webTab.isPrivate && UrlInput.isWebUrl(webTab.url) && state.data.spaces.size > 1) {
                     val ruled = SiteRules.spaceFor(state, webTab.url)

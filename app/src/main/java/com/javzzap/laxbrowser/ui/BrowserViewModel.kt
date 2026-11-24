@@ -69,6 +69,8 @@ import com.javzzap.laxbrowser.domain.SearchEngines
 import com.javzzap.laxbrowser.domain.Space
 import com.javzzap.laxbrowser.domain.TabFolder
 import com.javzzap.laxbrowser.downloads.DownloadEvent
+import com.javzzap.laxbrowser.downloads.DownloadRequest
+import com.javzzap.laxbrowser.engine.gecko.PageArchive
 import com.javzzap.laxbrowser.engine.gecko.SitePermissionEntry
 import com.javzzap.laxbrowser.ui.sidebar.Suggestion
 import com.javzzap.laxbrowser.ui.sidebar.SuggestionMatcher
@@ -387,6 +389,22 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     fun onAppBackground() {
         val current = state.value
         if (PrivateTabsLock.locksOnLeave(current.data.settings, current.privateTabs.size)) mutablePrivateLocked.value = true
+        if (current.data.settings.clearDataOnExit) clearDataOnExit()
+    }
+
+    /**
+     * Unloads sessions, then clears history, cookies, site storage, and caches. Silent — no toast —
+     * because it runs every time the user leaves with the setting on. Tabs and bookmarks stay.
+     */
+    private fun clearDataOnExit() {
+        controller.unloadAllLoaded()
+        controller.clearHistory(HistoryPolicy.since(HistoryRange.ALL, System.currentTimeMillis()))
+        engine.runtime.storageController.clearData(
+            StorageController.ClearFlags.COOKIES or
+                StorageController.ClearFlags.DOM_STORAGES or
+                StorageController.ClearFlags.AUTH_SESSIONS or
+                StorageController.ClearFlags.ALL_CACHES,
+        )
     }
 
     fun unlockPrivateTabs() {
@@ -836,6 +854,44 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
                 return@launch
             }
             PdfPrinter.print(activity, file, tab.title.ifBlank { UrlInput.displayHost(tab.url) })
+        }
+    }
+
+    /**
+     * Saves the current page as a ZIP (`index.html` + resources) into Downloads via the
+     * downloader. GeckoView has no MHTML API; a built-in extension collects the page.
+     */
+    fun savePage() {
+        val tab = state.value.activeTab?.takeIf { it.kind == TabKind.WEB && UrlInput.isWebUrl(it.url) } ?: return
+        viewModelScope.launch {
+            val archive = engine.savePage(tab.id)
+            if (archive == null) {
+                message(R.string.msg_save_page_failed)
+                return@launch
+            }
+            val zip = withContext(Dispatchers.IO) {
+                runCatching { PageArchive.zip(archive) }.getOrNull()
+            }
+            if (zip == null) {
+                message(R.string.msg_save_page_failed)
+                return@launch
+            }
+            val base = tab.title.ifBlank { UrlInput.displayHost(tab.url) }
+                .replace(Regex("[\\\\/:*?\"<>|]"), "_")
+                .trim()
+                .take(80)
+                .ifBlank { "page" }
+            val fileName = "$base.zip"
+            container.downloader.start(
+                DownloadRequest(
+                    url = tab.url,
+                    contentType = "application/zip",
+                    contentDisposition = "attachment; filename=\"$fileName\"",
+                    contentLength = zip.size.toLong(),
+                    body = java.io.ByteArrayInputStream(zip),
+                    isPrivate = tab.isPrivate,
+                ),
+            )
         }
     }
 

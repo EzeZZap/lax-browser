@@ -87,6 +87,7 @@ object Backup {
                 .put("swapToolbarButtons", s.swapToolbarButtons).put("sidebarOnRight", s.sidebarOnRight)
                 .put("wallpaperColors", s.wallpaperColors).put("spaceAccent", s.spaceAccent).put("externalLinks", s.externalLinks.key)
                 .put("saveLogins", s.saveLogins).put("privateTabsLock", s.privateTabsLock)
+                .put("clearDataOnExit", s.clearDataOnExit)
                 .put("swipeLeft", s.swipeLeft.name).put("swipeRight", s.swipeRight.name)
                 .put("swipeUp", s.swipeUp.name).put("swipeDown", s.swipeDown.name),
         )
@@ -189,6 +190,7 @@ object Backup {
             externalLinks = LinkTarget.parse(s.str("externalLinks")),
             saveLogins = s.optBoolean("saveLogins", defaults.saveLogins),
             privateTabsLock = s.optBoolean("privateTabsLock", defaults.privateTabsLock),
+            clearDataOnExit = s.optBoolean("clearDataOnExit", defaults.clearDataOnExit),
             swipeLeft = enumOf(SwipeAction.entries.toTypedArray(), "swipeLeft", defaults.swipeLeft),
             swipeRight = enumOf(SwipeAction.entries.toTypedArray(), "swipeRight", defaults.swipeRight),
             swipeUp = enumOf(SwipeAction.entries.toTypedArray(), "swipeUp", defaults.swipeUp),
