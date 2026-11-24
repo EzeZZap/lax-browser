@@ -13,6 +13,7 @@ import com.javzzap.laxbrowser.domain.BrowserSettings
 import com.javzzap.laxbrowser.domain.Container
 import com.javzzap.laxbrowser.domain.DataDiff
 import com.javzzap.laxbrowser.domain.Shortcut
+import com.javzzap.laxbrowser.domain.ShortcutFolder
 import com.javzzap.laxbrowser.domain.Space
 import com.javzzap.laxbrowser.domain.Tab
 import com.javzzap.laxbrowser.domain.TabFolder
