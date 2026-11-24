@@ -1,5 +1,6 @@
 package com.javzzap.laxbrowser.domain
 
+import com.javzzap.laxbrowser.platform.GitHubReleases
 import com.javzzap.laxbrowser.platform.Versions
 import com.javzzap.laxbrowser.testing.FakeClock
 import com.javzzap.laxbrowser.testing.SequentialIds
@@ -196,5 +197,32 @@ class ReleaseFeaturesTest {
         assertTrue(Versions.isNewer("1.0.1", "1.0"))
         assertFalse(Versions.isNewer("1.0.0", "1.0.0"))
         assertFalse(Versions.isNewer("0.9", "1.0.0-beta"))
+    }
+
+    @Test
+    fun `prerelease versions follow SemVer ordering`() {
+        assertTrue(Versions.isNewer("1.0.0", "1.0.0-testing.1"))
+        assertTrue(Versions.isNewer("1.0.0-testing.2", "1.0.0-testing.1"))
+        assertTrue(Versions.isNewer("1.0.1-testing.1", "1.0.0"))
+        assertFalse(Versions.isNewer("1.0.0-testing.1", "1.0.0"))
+        assertFalse(Versions.isNewer("1.0.0-testing.1", "1.0.0-testing.1"))
+    }
+
+    @Test
+    fun `GitHub release list prefers the newest including prereleases`() {
+        val json = """
+            [
+              {"tag_name":"v0.3.3","draft":false,"prerelease":false,"html_url":"https://github.com/EzeZZap/lax-browser/releases/tag/v0.3.3","body":"stable","assets":[]},
+              {"tag_name":"v0.3.4-testing.2","draft":false,"prerelease":true,"html_url":"https://github.com/EzeZZap/lax-browser/releases/tag/v0.3.4-testing.2","body":"test","assets":[
+                {"name":"lax-v0.3.4-testing.2-arm64-v8a.apk","browser_download_url":"https://github.com/EzeZZap/lax-browser/releases/download/v0.3.4-testing.2/lax-v0.3.4-testing.2-arm64-v8a.apk"}
+              ]},
+              {"tag_name":"v0.3.4-testing.1","draft":false,"prerelease":true,"html_url":"https://github.com/EzeZZap/lax-browser/releases/tag/v0.3.4-testing.1","body":"older","assets":[]}
+            ]
+        """.trimIndent()
+        val newest = GitHubReleases.newestFromList(json, "arm64-v8a")!!
+        assertEquals("0.3.4-testing.2", newest.version)
+        assertTrue(newest.isPrerelease)
+        assertTrue(newest.apkUrl!!.contains("arm64-v8a"))
+        assertNull(GitHubReleases.fromLatest("""{"tag_name":"v0.3.4-testing.1","draft":false,"prerelease":true,"html_url":"https://github.com/EzeZZap/lax-browser/releases/tag/v0.3.4-testing.1","body":"","assets":[]}""", "arm64-v8a"))
     }
 }

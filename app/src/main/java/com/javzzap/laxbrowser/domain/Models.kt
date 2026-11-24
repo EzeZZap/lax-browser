@@ -233,6 +233,11 @@ data class BrowserSettings(
     val onboardingDone: Boolean = false,
     /** Opt-in: chosen on the last onboarding page or in Settings. */
     val checkForUpdates: Boolean = false,
+    /**
+     * Opt-in: when update checks are on, also consider GitHub prereleases (testing builds).
+     * Stable releases remain preferred when they are newer.
+     */
+    val preferTestingUpdates: Boolean = false,
     /** Offer to save logins and fill them in (Lax's own encrypted storage). */
     val saveLogins: Boolean = true,
     /** Ask for the screen lock before showing private tabs again after leaving the app. */

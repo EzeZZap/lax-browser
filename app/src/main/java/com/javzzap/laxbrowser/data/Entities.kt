@@ -180,6 +180,7 @@ data class SettingsEntity(
     @ColumnInfo(name = "auto_unload_minutes", defaultValue = "30") val autoUnloadMinutes: Int = 30,
     @ColumnInfo(name = "onboarding_done", defaultValue = "0") val onboardingDone: Boolean = false,
     @ColumnInfo(name = "check_for_updates", defaultValue = "1") val checkForUpdates: Boolean = true,
+    @ColumnInfo(name = "prefer_testing_updates", defaultValue = "0") val preferTestingUpdates: Boolean = false,
     @ColumnInfo(name = "toolbar_action", defaultValue = "RELOAD") val toolbarAction: String = "RELOAD",
     @ColumnInfo(name = "swap_toolbar_buttons", defaultValue = "0") val swapToolbarButtons: Boolean = false,
     @ColumnInfo(name = "sidebar_on_right", defaultValue = "0") val sidebarOnRight: Boolean = false,

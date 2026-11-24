@@ -30,6 +30,10 @@ root). Without a key file the release APKs are built unsigned.
   (version 1 gives 11, 12, 13).
 - Tag GitHub releases as `v<versionName>` (e.g. `v0.1.0`). The update checker compares the tag
   with the installed `versionName`.
+- **Testing builds:** use a SemVer prerelease in `versionName`, e.g. `0.3.4-testing.1`, tag
+  `v0.3.4-testing.1`, and bump `versionCode`. The release workflow marks any tag that contains
+  `-` as a GitHub prerelease. In the app, Settings → About → **Get testing versions** (opt-in)
+  includes those prereleases in update checks; see [design/testing-updates.md](../design/testing-updates.md).
 
 ## Building
 
@@ -95,11 +99,13 @@ different key is refused, so keep using `lax-release.jks`.
     smoke test), then runs the instrumented tests with `connectedDebugAndroidTest`: Gecko
     container isolation, database migrations, encrypted logins, the sidebar, activity recreation,
     and the search widget. Reports and the R8 mapping are uploaded as artifacts.
-- `.github/workflows/release.yml` runs when you push a tag like `v0.1.0`: it checks the tag
-  matches `versionName`, runs the unit tests (including one that requires a changelog section for
-  the version), builds signed APKs with `laxUpdateRepo` set to the GitHub repository, starts the
-  x86_64 APK on an emulator, names them `lax-v0.1.0-arm64-v8a.apk` (and so on), and publishes a
-  GitHub release with them. The R8 mapping is kept as a workflow artifact for 90 days.
+- `.github/workflows/release.yml` runs when you push a tag like `v0.1.0` or `v0.3.4-testing.1`:
+  it checks the tag matches `versionName`, runs the unit tests (including one that requires a
+  changelog section for the version, or the core version for a `-testing` build), builds signed
+  APKs with `laxUpdateRepo` set to the GitHub repository, starts the x86_64 APK on an emulator,
+  names them `lax-v0.1.0-arm64-v8a.apk` (and so on), and publishes a GitHub release with them.
+  Tags that contain `-` are published as **prereleases**. The R8 mapping is kept as a workflow
+  artifact for 90 days.
   Add these repository secrets first (Settings → Secrets and variables → Actions):
   - `LAX_KEYSTORE_BASE64`: in PowerShell,
     `[Convert]::ToBase64String([IO.File]::ReadAllBytes("lax-release.jks"))`

@@ -56,7 +56,8 @@ android {
         applicationId = "com.javzzap.laxbrowser"
         minSdk = 26
         targetSdk = 37
-        // Release tags on GitHub should match versionName ("v0.1.0"); update checks compare them.
+        // Release tags on GitHub should match versionName ("v0.1.0" or "v0.1.0-testing.1");
+        // update checks compare them. Tags with a '-' become GitHub prereleases.
         // Each ABI's APK gets versionCode * 10 + an ABI digit (see androidComponents below).
         versionCode = 6
         versionName = "0.3.3"

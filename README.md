@@ -68,7 +68,8 @@ Signed APKs are attached to each [GitHub release](../../releases):
 
 Lax can check this repository for new releases once a day and download and install them
 (Android asks you to confirm). It's off until you turn it on during setup or in Settings > About;
-leave it off if you use Obtainium. Android 8.0 or newer is required.
+leave it off if you use Obtainium. An optional **Get testing versions** switch in the same place
+also offers GitHub prereleases (tags like `v0.3.4-testing.1`). Android 8.0 or newer is required.
 
 ## Building
 

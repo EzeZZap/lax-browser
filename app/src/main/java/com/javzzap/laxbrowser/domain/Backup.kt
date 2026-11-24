@@ -99,7 +99,8 @@ object Backup {
                 .put("trackingProtection", s.trackingProtection.name).put("privateBlockScreenshots", s.privateBlockScreenshots)
                 .put("privateHideInRecents", s.privateHideInRecents).put("searchSuggestions", s.searchSuggestions)
                 .put("globalPrivacyControl", s.globalPrivacyControl).put("autoplay", s.autoplay.name).put("autoUnloadMinutes", s.autoUnloadMinutes)
-                .put("checkForUpdates", s.checkForUpdates).put("toolbarAction", s.toolbarAction.name)
+                .put("checkForUpdates", s.checkForUpdates).put("preferTestingUpdates", s.preferTestingUpdates)
+                .put("toolbarAction", s.toolbarAction.name)
                 .put("swapToolbarButtons", s.swapToolbarButtons).put("sidebarOnRight", s.sidebarOnRight)
                 .put("wallpaperColors", s.wallpaperColors).put("spaceAccent", s.spaceAccent).put("externalLinks", s.externalLinks.key)
                 .put("saveLogins", s.saveLogins).put("privateTabsLock", s.privateTabsLock)
@@ -241,6 +242,7 @@ object Backup {
             autoUnloadMinutes = s.optInt("autoUnloadMinutes", defaults.autoUnloadMinutes).coerceIn(0, AutoUnload.MAX_MINUTES),
             onboardingDone = true,
             checkForUpdates = s.optBoolean("checkForUpdates", defaults.checkForUpdates),
+            preferTestingUpdates = s.optBoolean("preferTestingUpdates", defaults.preferTestingUpdates),
         ).let { if (it.searchEngineId == SearchEngines.CUSTOM_ID && !SearchEngines.isValidCustomTemplate(it.customSearchUrl)) it.copy(searchEngineId = defaults.searchEngineId) else it }
 
         if (spaces.isEmpty()) throw InvalidBackupException("No Spaces")

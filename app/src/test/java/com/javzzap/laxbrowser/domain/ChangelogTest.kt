@@ -59,9 +59,15 @@ class ChangelogTest {
     @Test
     fun `the version being built has release notes in both languages`() {
         val root = generateSequence(File("").absoluteFile) { it.parentFile }.first { File(it, "CHANGELOG.md").exists() }
-        listOf("CHANGELOG.md", "CHANGELOG.es.md").forEach { name ->
-            val versions = Changelog.parse(File(root, name).readText()).map { it.version }
-            assertTrue("$name needs a \"## ${BuildConfig.VERSION_NAME}\" section", BuildConfig.VERSION_NAME in versions)
+        // Testing builds (0.3.4-testing.1) may share notes with the core version (0.3.4).
+        val name = BuildConfig.VERSION_NAME
+        val acceptable = listOf(name, name.substringBefore('-')).distinct()
+        listOf("CHANGELOG.md", "CHANGELOG.es.md").forEach { fileName ->
+            val versions = Changelog.parse(File(root, fileName).readText()).map { it.version }
+            assertTrue(
+                "$fileName needs a \"## $name\" section (or \"## ${name.substringBefore('-')}\" for a testing build)",
+                acceptable.any { it in versions },
+            )
         }
     }
 

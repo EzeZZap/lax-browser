@@ -1,4 +1,8 @@
-# Builds signed release APKs for a version tag (v0.1.0, ...) and attaches them to a GitHub release.
+# Builds signed release APKs for a version tag and attaches them to a GitHub release.
+#
+# Stable:     tag v0.3.4            → full release (matches versionName 0.3.4)
+# Testing:    tag v0.3.4-testing.1  → GitHub prerelease (matches versionName 0.3.4-testing.1)
+#             Users with "Get testing versions" on can download these from the app.
 #
 # Repository secrets (Settings → Secrets and variables → Actions):
 #   LAX_KEYSTORE_BASE64    base64 of lax-release.jks   (PowerShell: [Convert]::ToBase64String([IO.File]::ReadAllBytes("lax-release.jks")))
@@ -34,6 +38,11 @@ jobs:
           if [ "v$version" != "${GITHUB_REF_NAME}" ]; then
             echo "Tag ${GITHUB_REF_NAME} does not match versionName $version" >&2
             exit 1
+          fi
+          if [[ "$version" == *-* ]]; then
+            echo "Publishing as a GitHub prerelease (testing channel): $version"
+          else
+            echo "Publishing as a stable release: $version"
           fi
 
       - name: Restore the signing key
@@ -102,3 +111,5 @@ jobs:
         with:
           files: dist/*.apk
           generate_release_notes: true
+          # Tags with a SemVer prerelease suffix (v0.3.4-testing.1) are testing builds.
+          prerelease: ${{ contains(github.ref_name, '-') }}

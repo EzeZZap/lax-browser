@@ -351,6 +351,21 @@ class BrowserDatabaseTest {
     }
 
     @Test
+    fun migration15To16AddsPreferTestingUpdates() {
+        migrationHelper.createDatabase(MIGRATION_DB, 15).apply {
+            execSQL("INSERT INTO browser_settings (id, active_space_id, last_background_at) VALUES (0, 's1', 42)")
+            close()
+        }
+        val db = migrationHelper.runMigrationsAndValidate(MIGRATION_DB, 16, true, MIGRATION_15_16)
+        db.query("SELECT active_space_id, prefer_testing_updates FROM browser_settings").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+            assertEquals("s1", cursor.getString(0))
+            assertEquals(0, cursor.getInt(1))
+        }
+        db.close()
+    }
+
+    @Test
     fun historyMergesQuickRevisitsSearchesAndClears() = runBlocking {
         BrowserDatabase.create(context, TEST_DB).use { db ->
             val history = RoomHistoryStore(db.historyDao())

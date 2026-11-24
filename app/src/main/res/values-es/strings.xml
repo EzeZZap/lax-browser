@@ -869,10 +869,13 @@
     <string name="updates_header">Actualizaciones</string>
     <string name="updates_auto">Buscar actualizaciones automáticamente</string>
     <string name="updates_auto_summary">Una vez al día pregunta a GitHub si hay una versión más reciente. No se envía nada sobre ti.</string>
+    <string name="updates_testing">Recibir versiones de prueba</string>
+    <string name="updates_testing_summary">También ofrece prereleases de GitHub (etiquetas como v0.3.4-testing.1). Desactivado por defecto; las versiones de prueba pueden ser menos estables.</string>
     <string name="updates_check_now">Buscar actualizaciones ahora</string>
     <string name="updates_check_now_summary">Busca una versión más reciente en GitHub</string>
     <string name="update_available_title">Lax %1$s está disponible</string>
     <string name="update_available_body">Se ha publicado una versión más reciente de Lax.</string>
+    <string name="update_available_body_testing">Se ha publicado una versión de prueba más reciente de Lax. Las versiones de prueba pueden cambiar a menudo y ser menos estables que una versión final.</string>
     <string name="update_install">Instalar</string>
     <string name="update_downloading_title">Descargando Lax %1$s</string>
     <string name="update_ready_title">Lax %1$s está listo para instalar</string>

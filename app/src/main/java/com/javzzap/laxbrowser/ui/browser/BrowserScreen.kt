@@ -437,7 +437,11 @@ private fun UpdateDialog(info: UpdateInfo, onDownload: () -> Unit, onLater: () -
         title = { Text(stringResource(R.string.update_available_title, info.version)) },
         text = {
             Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState())) {
-                Text(stringResource(R.string.update_available_body))
+                Text(
+                    stringResource(
+                        if (info.isPrerelease) R.string.update_available_body_testing else R.string.update_available_body,
+                    ),
+                )
                 if (info.notes.isNotBlank()) {
                     Spacer(Modifier.height(12.dp))
                     Text(info.notes, style = MaterialTheme.typography.bodySmall)

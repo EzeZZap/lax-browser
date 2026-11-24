@@ -1083,6 +1083,11 @@ private fun AboutSection(settings: BrowserSettings, version: String, newerVersio
             stringResource(R.string.updates_auto_summary),
             settings.checkForUpdates,
         ) { checked -> actions.update { it.copy(checkForUpdates = checked) } }
+        SwitchRow(
+            stringResource(R.string.updates_testing),
+            stringResource(R.string.updates_testing_summary),
+            settings.preferTestingUpdates,
+        ) { checked -> actions.update { it.copy(preferTestingUpdates = checked) } }
         ActionRow(Icons.Default.SystemUpdate, stringResource(R.string.updates_check_now), stringResource(R.string.updates_check_now_summary), actions::checkForUpdates)
     }
     Header(stringResource(R.string.about_more))

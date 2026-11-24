@@ -201,6 +201,7 @@ internal fun SettingsEntity.toDomain(): BrowserSettings {
         autoUnloadMinutes = autoUnloadMinutes.coerceIn(0, AutoUnload.MAX_MINUTES),
         onboardingDone = onboardingDone,
         checkForUpdates = checkForUpdates,
+        preferTestingUpdates = preferTestingUpdates,
     )
 }
 
@@ -224,6 +225,7 @@ internal fun BrowserSettings.toEntity() = SettingsEntity(
     autoUnloadMinutes = autoUnloadMinutes,
     onboardingDone = onboardingDone,
     checkForUpdates = checkForUpdates,
+    preferTestingUpdates = preferTestingUpdates,
     toolbarAction = toolbarAction.name,
     swapToolbarButtons = swapToolbarButtons,
     sidebarOnRight = sidebarOnRight,

@@ -862,10 +862,13 @@
     <string name="updates_header">Updates</string>
     <string name="updates_auto">Check for updates automatically</string>
     <string name="updates_auto_summary">Once a day, asks GitHub whether a newer release exists. Nothing about you is sent.</string>
+    <string name="updates_testing">Get testing versions</string>
+    <string name="updates_testing_summary">Also offer GitHub prereleases (builds tagged like v0.3.4-testing.1). Off by default; testing builds may be less stable.</string>
     <string name="updates_check_now">Check for updates now</string>
     <string name="updates_check_now_summary">Look for a newer release on GitHub</string>
     <string name="update_available_title">Lax %1$s is available</string>
     <string name="update_available_body">A newer version of Lax has been released.</string>
+    <string name="update_available_body_testing">A newer testing build of Lax has been published. Testing builds can change often and may be less stable than a full release.</string>
     <string name="update_install">Install</string>
     <string name="update_downloading_title">Downloading Lax %1$s</string>
     <string name="update_ready_title">Lax %1$s is ready to install</string>

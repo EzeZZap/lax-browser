@@ -1284,7 +1284,8 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
             val checker = container.updateChecker
             val now = System.currentTimeMillis()
             if (loaded.data.settings.checkForUpdates && withContext(Dispatchers.IO) { checker.isDue(now) }) {
-                checker.check(now).getOrNull()?.let { mutableUpdate.value = it }
+                checker.check(now, includePrereleases = loaded.data.settings.preferTestingUpdates)
+                    .getOrNull()?.let { mutableUpdate.value = it }
                 refreshNewerVersion()
             }
         }
@@ -1301,7 +1302,12 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
     fun checkForUpdatesNow() {
         viewModelScope.launch {
             // A toast, not a snackbar: this runs from Settings, where the browser's snackbars are not shown.
-            container.updateChecker.check(System.currentTimeMillis(), includeDismissed = true).fold(
+            val preferTesting = state.value.data.settings.preferTestingUpdates
+            container.updateChecker.check(
+                System.currentTimeMillis(),
+                includeDismissed = true,
+                includePrereleases = preferTesting,
+            ).fold(
                 onSuccess = { info -> if (info != null) mutableUpdate.value = info else toast(R.string.msg_up_to_date) },
                 onFailure = { toast(R.string.msg_update_check_failed) },
             )
