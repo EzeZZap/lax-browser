@@ -183,8 +183,18 @@ fun LoginsScreen(vm: BrowserViewModel, saveLogins: Boolean, onSaveLoginsChange: 
             }
             item(key = "passkeys") {
                 PasskeysCard(onOpenSettings = {
-                    val intent = Intent(Settings.ACTION_AUTOFILL_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    // Public Settings has no ACTION_AUTOFILL_SETTINGS constant on current SDKs;
+                    // this action still opens the system Autofill / passwords screen.
+                    val intent = Intent("android.settings.AUTOFILL_SETTINGS")
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     runCatching { context.startActivity(intent) }
+                        .recoverCatching {
+                            context.startActivity(
+                                Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE)
+                                    .setData(Uri.parse("package:${context.packageName}"))
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                            )
+                        }
                 })
             }
             if (!canProtect) {
