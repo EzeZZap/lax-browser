@@ -295,6 +295,22 @@ class BrowserDatabaseTest {
     }
 
     @Test
+    fun migration12To13AddsSpaceTrackingProtection() {
+        migrationHelper.createDatabase(MIGRATION_DB, 12).apply {
+            execSQL("INSERT INTO containers (id, name, color, created_at) VALUES ('c1', 'Personal', 1, 1)")
+            execSQL("INSERT INTO spaces (id, name, container_id, position, color, selected_tab_id, emoji) VALUES ('s1', 'Personal', 'c1', 0, 1, null, null)")
+            close()
+        }
+        val db = migrationHelper.runMigrationsAndValidate(MIGRATION_DB, 13, true, MIGRATION_12_13)
+        db.query("SELECT id, tracking_protection FROM spaces").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+            assertEquals("s1", cursor.getString(0))
+            assertTrue(cursor.isNull(1))
+        }
+        db.close()
+    }
+
+    @Test
     fun historyMergesQuickRevisitsSearchesAndClears() = runBlocking {
         BrowserDatabase.create(context, TEST_DB).use { db ->
             val history = RoomHistoryStore(db.historyDao())

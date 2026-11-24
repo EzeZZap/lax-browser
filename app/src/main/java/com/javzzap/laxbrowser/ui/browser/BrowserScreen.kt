@@ -185,6 +185,7 @@ import com.javzzap.laxbrowser.domain.BookmarkFolder
 import com.javzzap.laxbrowser.domain.Outcome
 import com.javzzap.laxbrowser.domain.Shortcut
 import com.javzzap.laxbrowser.domain.Space
+import com.javzzap.laxbrowser.domain.TrackingProtection
 import com.javzzap.laxbrowser.domain.Tab
 import com.javzzap.laxbrowser.domain.TabKind
 import com.javzzap.laxbrowser.domain.ToolbarPosition
@@ -486,6 +487,12 @@ private fun spacesActions(vm: BrowserViewModel) = object : SpacesActions {
     override fun renameSpace(space: Space, name: String) { vm.report(c.renameSpace(space.id, name)) }
     override fun setSpaceColor(space: Space, color: Int) { vm.report(c.setSpaceColor(space.id, color)) }
     override fun setSpaceEmoji(space: Space, emoji: String?) { vm.setSpaceEmoji(space, emoji) }
+    override fun setSpaceTrackingProtection(space: Space, level: TrackingProtection?) {
+        vm.report(c.setSpaceTrackingProtection(space.id, level))
+    }
+    override fun clearSpaceSiteData(space: Space) {
+        vm.report(c.clearSpaceSiteData(space.id), R.string.msg_space_data_cleared, space.name)
+    }
     override fun moveSpace(space: Space, delta: Int) { vm.report(c.moveSpace(space.id, delta)) }
     override fun deleteSpace(space: Space) { vm.report(c.deleteSpace(space.id), R.string.msg_space_deleted, space.name) }
     override fun changeSpaceContainer(space: Space, choice: ContainerChoice) {

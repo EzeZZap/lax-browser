@@ -30,6 +30,7 @@ object Backup {
                 data.spaces.map {
                     JSONObject().put("id", it.id).put("name", it.name).put("containerId", it.containerId).put("position", it.position)
                         .put("color", it.color).putOpt("selectedTabId", it.selectedTabId).putOpt("emoji", it.emoji)
+                        .putOpt("trackingProtection", it.trackingProtection?.name)
                 },
             ),
         )
@@ -117,6 +118,9 @@ object Backup {
                 color = o.optInt("color"),
                 selectedTabId = o.str("selectedTabId"),
                 emoji = o.str("emoji")?.take(16),
+                trackingProtection = o.str("trackingProtection")?.let { name ->
+                    TrackingProtection.entries.firstOrNull { it.name == name }
+                },
             )
         }.distinctBy { it.id }
         val tabs = rows("tabs").mapNotNull { o ->

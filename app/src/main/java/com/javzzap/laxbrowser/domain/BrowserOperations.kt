@@ -929,6 +929,30 @@ class BrowserOperations(
         return Reduction(state.updateSpace(spaceId) { it.copy(emoji = value) })
     }
 
+    /**
+     * Sets a Space-only tracking-protection level, or null to inherit the global setting from
+     * Settings. Changing it triggers a reconcile so open sessions pick up the new level.
+     */
+    fun setSpaceTrackingProtection(state: BrowserState, spaceId: String, level: TrackingProtection?): Reduction {
+        if (state.space(spaceId) == null) return Reduction.reject(state, RejectReason.NOT_FOUND)
+        return Reduction(state.updateSpace(spaceId) { it.copy(trackingProtection = level) })
+    }
+
+    /**
+     * Clears cookies and site data for the Space's container (Gecko session context). Other Spaces
+     * that share the same container are cleared too. Loaded tabs in that container are reloaded.
+     */
+    fun clearSpaceSiteData(state: BrowserState, spaceId: String): Reduction {
+        val space = state.space(spaceId) ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
+        val reloads = state.allTabs
+            .filter { it.containerId == space.containerId && state.runtime(it.id).loaded }
+            .map { EngineCommand.Reload(it.id) }
+        return Reduction(
+            state,
+            commands = listOf(EngineCommand.ClearContainerData(space.containerId)) + reloads,
+        )
+    }
+
     /** The Space after (delta = 1) or before (delta = -1) the active one, wrapping around. */
     fun switchSpaceBy(state: BrowserState, delta: Int): Reduction {
         val ordered = state.sortedSpaces

@@ -22,6 +22,8 @@ data class SpaceEntity(
     val color: Int,
     @ColumnInfo(name = "selected_tab_id") val selectedTabId: String?,
     val emoji: String? = null,
+    /** Null means inherit the global tracking-protection setting. */
+    @ColumnInfo(name = "tracking_protection") val trackingProtection: String? = null,
 )
 
 @Entity(tableName = "tab_folders", indices = [Index("space_id")])

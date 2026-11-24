@@ -13,12 +13,13 @@ class GeckoSessionFactory {
         containerId: String,
         displayMode: Int = GeckoSessionSettings.DISPLAY_MODE_BROWSER,
         desktopMode: Boolean = false,
+        useTrackingProtection: Boolean = true,
     ): GeckoSession {
         require(containerId.isNotBlank()) { "A container ID is required for every session" }
         val settings = GeckoSessionSettings.Builder()
             .contextId(containerId)
             .usePrivateMode(false)
-            .useTrackingProtection(true)
+            .useTrackingProtection(useTrackingProtection)
             .displayMode(displayMode)
             .userAgentMode(userAgentMode(desktopMode))
             .viewportMode(viewportMode(desktopMode))
@@ -31,10 +32,10 @@ class GeckoSessionFactory {
      * cache, and discards everything when the last private session closes. Private sessions never
      * use a container.
      */
-    fun createPrivate(desktopMode: Boolean = false): GeckoSession {
+    fun createPrivate(desktopMode: Boolean = false, useTrackingProtection: Boolean = true): GeckoSession {
         val settings = GeckoSessionSettings.Builder()
             .usePrivateMode(true)
-            .useTrackingProtection(true)
+            .useTrackingProtection(useTrackingProtection)
             .userAgentMode(userAgentMode(desktopMode))
             .viewportMode(viewportMode(desktopMode))
             .build()

@@ -97,6 +97,19 @@ data class BrowserState(
 
     fun container(id: String?): Container? = data.containers.firstOrNull { it.id == id }
 
+    /**
+     * Tracking protection for [tab]: the tab's Space override when set, otherwise the global
+     * setting. Essentials and private tabs always use the global setting.
+     */
+    fun effectiveTrackingProtection(tab: Tab): TrackingProtection {
+        val override = tab.spaceId?.let { space(it)?.trackingProtection }
+        return override ?: data.settings.trackingProtection
+    }
+
+    /** Tracking protection for the active Space (or global when none / private browsing). */
+    fun activeTrackingProtection(): TrackingProtection =
+        activeSpace?.trackingProtection ?: data.settings.trackingProtection
+
     fun runtime(tabId: String): TabRuntime = runtime[tabId] ?: TabRuntime()
 
     fun lifecycle(tab: Tab): TabLifecycle = when {

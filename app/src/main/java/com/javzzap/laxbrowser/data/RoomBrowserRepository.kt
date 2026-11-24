@@ -117,8 +117,26 @@ class RoomBrowserRepository(private val dao: BrowserDao) : BrowserRepository {
 internal fun ContainerEntity.toDomain() = Container(id, name, color, createdAt)
 internal fun Container.toEntity() = ContainerEntity(id, name, color, createdAt)
 
-internal fun SpaceEntity.toDomain() = Space(id, name, containerId, position, color, selectedTabId, emoji?.takeIf { it.isNotBlank() })
-internal fun Space.toEntity() = SpaceEntity(id, name, containerId, position, color, selectedTabId, emoji)
+internal fun SpaceEntity.toDomain() = Space(
+    id = id,
+    name = name,
+    containerId = containerId,
+    position = position,
+    color = color,
+    selectedTabId = selectedTabId,
+    emoji = emoji?.takeIf { it.isNotBlank() },
+    trackingProtection = trackingProtection?.let { name -> TrackingProtection.entries.firstOrNull { it.name == name } },
+)
+internal fun Space.toEntity() = SpaceEntity(
+    id = id,
+    name = name,
+    containerId = containerId,
+    position = position,
+    color = color,
+    selectedTabId = selectedTabId,
+    emoji = emoji,
+    trackingProtection = trackingProtection?.name,
+)
 
 internal fun TabFolderEntity.toDomain() = TabFolder(id, spaceId, name, position, collapsed, createdAt)
 internal fun TabFolder.toEntity() = TabFolderEntity(id, spaceId, name, position, collapsed, createdAt)

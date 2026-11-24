@@ -142,3 +142,10 @@ val MIGRATION_11_12 = object : Migration(11, 12) {
         db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `swipe_down` TEXT NOT NULL DEFAULT 'PREVIOUS_SPACE'")
     }
 }
+
+/** Version 13: optional per-Space tracking-protection override (null = use global). */
+val MIGRATION_12_13 = object : Migration(12, 13) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `spaces` ADD COLUMN `tracking_protection` TEXT DEFAULT NULL")
+    }
+}

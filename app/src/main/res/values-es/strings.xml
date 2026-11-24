@@ -583,6 +583,16 @@
     <string name="split_focus_cd">Enfocar este lado de la vista dividida</string>
     <string name="close_split_view">Cerrar vista dividida</string>
     <string name="space_icon_emoji">Usar un emoji…</string>
+    <string name="space_tracking_protection">Protección contra rastreo…</string>
+    <string name="space_tracking_protection_title">Protección contra rastreo de %1$s</string>
+    <string name="space_tracking_protection_summary">Sustituye el ajuste global para las pestañas de este espacio. Los esenciales siguen usando el ajuste global.</string>
+    <string name="space_tp_use_global">Usar el global (%1$s)</string>
+    <string name="clear_space_data">Borrar cookies y datos del sitio…</string>
+    <string name="clear_space_data_title">¿Borrar datos del sitio?</string>
+    <string name="clear_space_data_message">Se borrarán las cookies y los datos del sitio del contenedor de %1$s. Las páginas abiertas en ese contenedor se recargarán. No se puede deshacer.</string>
+    <string name="clear_space_data_shared_message">Se borrarán las cookies y los datos del sitio del contenedor de %1$s. Ese contenedor también lo usan %2$s, así que esos espacios también se limpian. Las páginas abiertas se recargarán. No se puede deshacer.</string>
+    <string name="clear_space_data_confirm">Borrar datos</string>
+    <string name="msg_space_data_cleared">Datos del sitio borrados de %1$s</string>
 
     <!-- Browser menu and page tools -->
     <string name="menu_downloads">Descargas</string>

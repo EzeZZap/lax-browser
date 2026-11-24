@@ -28,6 +28,7 @@ import com.javzzap.laxbrowser.domain.Reduction
 import com.javzzap.laxbrowser.domain.RejectReason
 import com.javzzap.laxbrowser.domain.Restoration
 import com.javzzap.laxbrowser.domain.TabRuntime
+import com.javzzap.laxbrowser.domain.TrackingProtection
 import com.javzzap.laxbrowser.domain.WebApp
 import com.javzzap.laxbrowser.domain.WebAppManifest
 import com.javzzap.laxbrowser.engine.BrowserEngine
@@ -252,6 +253,9 @@ class BrowserController(
     fun deleteTabFolder(id: String) = dispatch(reconcile = false) { ops.deleteTabFolder(it, id) }
     fun moveTabToFolder(tabId: String, folderId: String?) = dispatch(reconcile = false) { ops.moveTabToFolder(it, tabId, folderId) }
     fun setSpaceEmoji(spaceId: String, emoji: String?) = dispatch(reconcile = false) { ops.setSpaceEmoji(it, spaceId, emoji) }
+    fun setSpaceTrackingProtection(spaceId: String, level: TrackingProtection?) =
+        dispatch { ops.setSpaceTrackingProtection(it, spaceId, level) }
+    fun clearSpaceSiteData(spaceId: String) = dispatch { ops.clearSpaceSiteData(it, spaceId) }
     fun switchSpaceBy(delta: Int) = dispatch { ops.switchSpaceBy(it, delta) }
     fun setSiteZoom(url: String, percent: Int) = dispatch(reconcile = false) { ops.setSiteZoom(it, url, percent) }
     fun setSiteSpace(host: String, spaceId: String?) = dispatch(reconcile = false) { ops.setSiteSpace(it, host, spaceId) }

@@ -580,6 +580,16 @@
     <string name="split_focus_cd">Focus this side of split view</string>
     <string name="close_split_view">Close split view</string>
     <string name="space_icon_emoji">Use an emoji…</string>
+    <string name="space_tracking_protection">Tracking protection…</string>
+    <string name="space_tracking_protection_title">Tracking protection for %1$s</string>
+    <string name="space_tracking_protection_summary">Override the global setting for tabs in this Space. Essentials still use the global setting.</string>
+    <string name="space_tp_use_global">Use global (%1$s)</string>
+    <string name="clear_space_data">Clear cookies and site data…</string>
+    <string name="clear_space_data_title">Clear site data?</string>
+    <string name="clear_space_data_message">Cookies and site data for %1$s\'s container will be deleted. Open pages in that container will reload. This can\'t be undone.</string>
+    <string name="clear_space_data_shared_message">Cookies and site data for %1$s\'s container will be deleted. That container is also used by %2$s, so those Spaces are cleared too. Open pages will reload. This can\'t be undone.</string>
+    <string name="clear_space_data_confirm">Clear data</string>
+    <string name="msg_space_data_cleared">Site data cleared for %1$s</string>
 
     <!-- Browser menu and page tools -->
     <string name="menu_downloads">Downloads</string>

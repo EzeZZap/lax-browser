@@ -285,7 +285,9 @@ class GeckoEngine(
 
     override fun reconcile(state: BrowserState) {
         lastState = state
-        val settings = state.data.settings.engineSettings
+        // Runtime ETP lists follow the active Space (or global). Per-session on/off is applied below.
+        val activeTp = state.activeTrackingProtection()
+        val settings = state.data.settings.engineSettings.copy(trackingProtection = activeTp)
         desiredSettings = settings
         runtimeInstance?.let { if (appliedSettings != settings) applySettings(it, settings) }
 
@@ -311,6 +313,13 @@ class GeckoEngine(
         // Both halves of split view are on screen, so both sessions are active.
         val visible = state.visibleTabIds
         for (entry in entries.values) {
+            val tab = state.tab(entry.tabId)
+            if (tab != null && entry.session.isOpen) {
+                val enabled = state.effectiveTrackingProtection(tab) != TrackingProtection.OFF
+                if (entry.session.settings.useTrackingProtection != enabled) {
+                    entry.session.settings.useTrackingProtection = enabled
+                }
+            }
             val active = entry.tabId in visible
             if (entry.session.isOpen && entry.activeApplied != active) {
                 entry.session.setActive(active)
@@ -640,10 +649,11 @@ class GeckoEngine(
     // endregion
 
     private fun openTab(tab: Tab, desktopMode: Boolean) {
+        val useTp = (lastState?.effectiveTrackingProtection(tab) ?: TrackingProtection.STANDARD) != TrackingProtection.OFF
         val session = if (tab.isPrivate) {
-            sessionFactory.createPrivate(desktopMode)
+            sessionFactory.createPrivate(desktopMode, useTrackingProtection = useTp)
         } else {
-            sessionFactory.create(tab.containerId, desktopMode = desktopMode)
+            sessionFactory.create(tab.containerId, desktopMode = desktopMode, useTrackingProtection = useTp)
         }
         val entry = Entry(tab.id, tab.containerId, session)
         attachDelegates(entry)

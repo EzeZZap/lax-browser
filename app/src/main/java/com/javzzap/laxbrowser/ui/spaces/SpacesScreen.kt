@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -49,6 +50,7 @@ import com.javzzap.laxbrowser.domain.Container
 import com.javzzap.laxbrowser.domain.ContainerChoice
 import com.javzzap.laxbrowser.domain.ContainerUsage
 import com.javzzap.laxbrowser.domain.Space
+import com.javzzap.laxbrowser.domain.TrackingProtection
 import com.javzzap.laxbrowser.ui.common.ColorDot
 import com.javzzap.laxbrowser.ui.common.ColorPickerDialog
 import com.javzzap.laxbrowser.ui.common.EmojiPickerDialog
@@ -62,6 +64,8 @@ interface SpacesActions {
     fun renameSpace(space: Space, name: String)
     fun setSpaceColor(space: Space, color: Int)
     fun setSpaceEmoji(space: Space, emoji: String?)
+    fun setSpaceTrackingProtection(space: Space, level: TrackingProtection?)
+    fun clearSpaceSiteData(space: Space)
     fun moveSpace(space: Space, delta: Int)
     fun deleteSpace(space: Space)
     fun changeSpaceContainer(space: Space, choice: ContainerChoice)
@@ -76,6 +80,8 @@ private sealed interface SpacesDialog {
     data class RenameSpace(val space: Space) : SpacesDialog
     data class SpaceColor(val space: Space) : SpacesDialog
     data class SpaceEmoji(val space: Space) : SpacesDialog
+    data class SpaceTrackingProtection(val space: Space) : SpacesDialog
+    data class ClearSpaceData(val space: Space) : SpacesDialog
     data class DeleteSpace(val space: Space) : SpacesDialog
     data class ChangeContainer(val space: Space) : SpacesDialog
     data object NewContainer : SpacesDialog
@@ -157,6 +163,31 @@ fun SpacesScreen(state: BrowserState, actions: SpacesActions, onBack: () -> Unit
             onRemove = d.space.emoji?.let { { actions.setSpaceEmoji(d.space, null) } },
             onDismiss = { dialog = null },
         )
+        is SpacesDialog.SpaceTrackingProtection -> SpaceTrackingProtectionDialog(
+            space = d.space,
+            global = state.data.settings.trackingProtection,
+            onPick = { actions.setSpaceTrackingProtection(d.space, it); dialog = null },
+            onDismiss = { dialog = null },
+        )
+        is SpacesDialog.ClearSpaceData -> {
+            val shared = state.data.spaces.filter { it.containerId == d.space.containerId && it.id != d.space.id }
+            val message = if (shared.isEmpty()) {
+                stringResource(R.string.clear_space_data_message, d.space.name)
+            } else {
+                stringResource(
+                    R.string.clear_space_data_shared_message,
+                    d.space.name,
+                    shared.joinToString { it.name },
+                )
+            }
+            ConfirmDialog(
+                title = stringResource(R.string.clear_space_data_title),
+                message = message,
+                confirmLabel = stringResource(R.string.clear_space_data_confirm),
+                onConfirm = { actions.clearSpaceSiteData(d.space) },
+                onDismiss = { dialog = null },
+            )
+        }
         is SpacesDialog.ChangeContainer -> ChangeContainerDialog(state, d.space, { actions.changeSpaceContainer(d.space, it) }) { dialog = null }
         is SpacesDialog.DeleteSpace -> {
             val tabs = state.data.tabs.filter { it.spaceId == d.space.id }
@@ -261,7 +292,9 @@ private fun SpaceItem(state: BrowserState, space: Space, actions: SpacesActions,
                 DropdownMenuItem(text = { Text(stringResource(R.string.rename)) }, onClick = { menu = false; onDialog(SpacesDialog.RenameSpace(space)) })
                 DropdownMenuItem(text = { Text(stringResource(R.string.change_color)) }, onClick = { menu = false; onDialog(SpacesDialog.SpaceColor(space)) })
                 DropdownMenuItem(text = { Text(stringResource(R.string.space_icon_emoji)) }, onClick = { menu = false; onDialog(SpacesDialog.SpaceEmoji(space)) })
+                DropdownMenuItem(text = { Text(stringResource(R.string.space_tracking_protection)) }, onClick = { menu = false; onDialog(SpacesDialog.SpaceTrackingProtection(space)) })
                 DropdownMenuItem(text = { Text(stringResource(R.string.change_container)) }, onClick = { menu = false; onDialog(SpacesDialog.ChangeContainer(space)) })
+                DropdownMenuItem(text = { Text(stringResource(R.string.clear_space_data)) }, onClick = { menu = false; onDialog(SpacesDialog.ClearSpaceData(space)) })
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.delete_ellipsis), color = MaterialTheme.colorScheme.error) },
                     enabled = state.data.spaces.size > 1,
@@ -312,6 +345,60 @@ private fun ColorDialog(initial: Int, onConfirm: (Int) -> Unit, onDismiss: () ->
         title = { Text(stringResource(R.string.space_color)) },
         text = { ColorPicker(color) { color = it } },
         confirmButton = { TextButton(onClick = { onConfirm(color); onDismiss() }) { Text(stringResource(R.string.save)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
+    )
+}
+
+@Composable
+private fun SpaceTrackingProtectionDialog(
+    space: Space,
+    global: TrackingProtection,
+    onPick: (TrackingProtection?) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val globalLabel = when (global) {
+        TrackingProtection.STANDARD -> stringResource(R.string.settings_tp_standard)
+        TrackingProtection.STRICT -> stringResource(R.string.settings_tp_strict)
+        TrackingProtection.OFF -> stringResource(R.string.settings_tp_off)
+    }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.space_tracking_protection_title, space.name)) },
+        text = {
+            Column {
+                Text(
+                    stringResource(R.string.space_tracking_protection_summary),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.height(8.dp))
+                TextButton(onClick = { onPick(null) }) {
+                    Text(
+                        stringResource(R.string.space_tp_use_global, globalLabel),
+                        color = if (space.trackingProtection == null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                TextButton(onClick = { onPick(TrackingProtection.STANDARD) }) {
+                    Text(
+                        stringResource(R.string.settings_tp_standard),
+                        color = if (space.trackingProtection == TrackingProtection.STANDARD) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                TextButton(onClick = { onPick(TrackingProtection.STRICT) }) {
+                    Text(
+                        stringResource(R.string.settings_tp_strict),
+                        color = if (space.trackingProtection == TrackingProtection.STRICT) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                TextButton(onClick = { onPick(TrackingProtection.OFF) }) {
+                    Text(
+                        stringResource(R.string.settings_tp_off),
+                        color = if (space.trackingProtection == TrackingProtection.OFF) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+            }
+        },
+        confirmButton = {},
         dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
     )
 }

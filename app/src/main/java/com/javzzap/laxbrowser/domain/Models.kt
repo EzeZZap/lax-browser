@@ -8,7 +8,10 @@ data class Container(
     val createdAt: Long,
 )
 
-/** [color] is a preset or custom ARGB color; [emoji], when set, replaces the color dot as the icon. */
+/**
+ * [color] is a preset or custom ARGB color; [emoji], when set, replaces the color dot as the icon.
+ * [trackingProtection] overrides the global setting when non-null; null means use Settings.
+ */
 data class Space(
     val id: String,
     val name: String,
@@ -17,6 +20,7 @@ data class Space(
     val color: Int,
     val selectedTabId: String?,
     val emoji: String? = null,
+    val trackingProtection: TrackingProtection? = null,
 )
 
 /** A folder of pinned tabs inside one Space (like Zen's folders). */
