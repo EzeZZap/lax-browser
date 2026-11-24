@@ -759,8 +759,9 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
 
     /** Saves a link or image from a page, without sending the page's cookies. */
     fun saveLink(url: String) {
-        val isPrivate = state.value.activeTab?.isPrivate == true
-        engine.saveUrl(url, isPrivate) { message(R.string.msg_download_failed, UrlInput.displayHost(url)) }
+        val tab = state.value.activeTab
+        val isPrivate = tab?.isPrivate == true
+        engine.saveUrl(url, isPrivate, tab?.spaceId) { message(R.string.msg_download_failed, UrlInput.displayHost(url)) }
     }
 
     /**
@@ -894,6 +895,7 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
                     contentLength = zip.size.toLong(),
                     body = java.io.ByteArrayInputStream(zip),
                     isPrivate = tab.isPrivate,
+                    spaceId = tab.spaceId.takeUnless { tab.isPrivate },
                 ),
             )
         }

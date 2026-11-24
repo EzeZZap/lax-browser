@@ -50,6 +50,7 @@ data class DownloadRequest(
     val contentLength: Long?,
     val body: InputStream,
     val isPrivate: Boolean,
+    val spaceId: String? = null,
 )
 
 /** A download in progress, for the ongoing notification. */
@@ -108,6 +109,7 @@ class Downloader(context: Context, private val store: DownloadStore, private val
             status = DownloadStatus.IN_PROGRESS,
             contentUri = null,
             createdAt = System.currentTimeMillis(),
+            spaceId = request.spaceId,
         )
         mutableEvents.tryEmit(DownloadEvent.Started(name))
         updateActive(download.id) { ActiveDownload(download.id, name, 0, download.totalBytes, request.isPrivate) }

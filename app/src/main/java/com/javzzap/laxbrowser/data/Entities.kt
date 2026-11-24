@@ -55,7 +55,7 @@ data class TabEntity(
 )
 
 /** A file download. Stored apart from browser data; [contentUri] points to the saved file. */
-@Entity(tableName = "downloads", indices = [Index("created_at")])
+@Entity(tableName = "downloads", indices = [Index("created_at"), Index("space_id")])
 data class DownloadEntity(
     @PrimaryKey val id: String,
     val url: String,
@@ -66,6 +66,7 @@ data class DownloadEntity(
     val status: String,
     @ColumnInfo(name = "content_uri") val contentUri: String?,
     @ColumnInfo(name = "created_at") val createdAt: Long,
+    @ColumnInfo(name = "space_id") val spaceId: String? = null,
 )
 
 @Entity(tableName = "site_settings")
@@ -121,13 +122,23 @@ data class HistoryEntity(
     @ColumnInfo(name = "visited_at") val visitedAt: Long,
 )
 
-@Entity(tableName = "shortcuts")
+@Entity(tableName = "shortcut_folders")
+data class ShortcutFolderEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val position: Int,
+    @ColumnInfo(defaultValue = "0") val collapsed: Boolean,
+    @ColumnInfo(name = "created_at") val createdAt: Long,
+)
+
+@Entity(tableName = "shortcuts", indices = [Index("folder_id")])
 data class ShortcutEntity(
     @PrimaryKey val id: String,
     val url: String,
     val title: String,
     @ColumnInfo(name = "icon_url") val iconUrl: String?,
     val position: Int,
+    @ColumnInfo(name = "folder_id") val folderId: String? = null,
 )
 
 @Entity(tableName = "web_apps", indices = [Index("container_id")])

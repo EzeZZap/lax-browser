@@ -36,6 +36,7 @@ class RoomBrowserRepository(private val dao: BrowserDao) : BrowserRepository {
             bookmarks = dao.bookmarks().mapSafely { it.toDomain() },
             bookmarkFolders = dao.bookmarkFolders().mapSafely { it.toDomain() },
             shortcuts = dao.shortcuts().mapSafely { it.toDomain() },
+            shortcutFolders = dao.shortcutFolders().mapSafely { it.toDomain() },
             webApps = dao.webApps().mapSafely { it.toDomain() },
             siteSettings = dao.siteSettings().mapSafely { it.toDomain() },
             settings = settings?.toDomain() ?: BrowserSettings(),
@@ -60,6 +61,8 @@ class RoomBrowserRepository(private val dao: BrowserDao) : BrowserRepository {
                 deleteBookmarkFolderIds = diff.deleteBookmarkFolderIds,
                 shortcuts = diff.upsertShortcuts.map { it.toEntity() },
                 deleteShortcutIds = diff.deleteShortcutIds,
+                shortcutFolders = diff.upsertShortcutFolders.map { it.toEntity() },
+                deleteShortcutFolderIds = diff.deleteShortcutFolderIds,
                 webApps = diff.upsertWebApps.map { it.toEntity() },
                 deleteWebAppIds = diff.deleteWebAppIds,
                 siteSettings = diff.upsertSiteSettings.map { it.toEntity() },
@@ -80,6 +83,7 @@ class RoomBrowserRepository(private val dao: BrowserDao) : BrowserRepository {
                 bookmarks = data.bookmarks.map { it.toEntity() },
                 bookmarkFolders = data.bookmarkFolders.map { it.toEntity() },
                 shortcuts = data.shortcuts.map { it.toEntity() },
+                shortcutFolders = data.shortcutFolders.map { it.toEntity() },
                 siteSettings = data.siteSettings.map { it.toEntity() },
                 settings = data.settings.toEntity(),
             ),
@@ -239,8 +243,11 @@ private fun swipeAction(name: String, fallback: SwipeAction) = SwipeAction.entri
 internal fun SiteSettingEntity.toDomain() = SiteSetting(host, zoomPercent.coerceIn(SiteRules.MIN_ZOOM, SiteRules.MAX_ZOOM), spaceId)
 internal fun SiteSetting.toEntity() = SiteSettingEntity(host, zoomPercent, spaceId)
 
-internal fun ShortcutEntity.toDomain() = Shortcut(id, url, title, iconUrl, position)
-internal fun Shortcut.toEntity() = ShortcutEntity(id, url, title, iconUrl, position)
+internal fun ShortcutEntity.toDomain() = Shortcut(id, url, title, iconUrl, position, folderId)
+internal fun Shortcut.toEntity() = ShortcutEntity(id, url, title, iconUrl, position, folderId)
+
+internal fun ShortcutFolderEntity.toDomain() = ShortcutFolder(id, name, position, collapsed, createdAt)
+internal fun ShortcutFolder.toEntity() = ShortcutFolderEntity(id, name, position, collapsed, createdAt)
 
 internal fun WebAppEntity.toDomain() = WebApp(
     id, name, shortName, startUrl, scope, display, themeColor, backgroundColor, iconFile, manifestUrl, containerId, installedAt, updatedAt,

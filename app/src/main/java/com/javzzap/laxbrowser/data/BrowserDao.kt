@@ -14,6 +14,7 @@ abstract class BrowserDao {
     @Query("SELECT * FROM bookmarks") abstract suspend fun bookmarks(): List<BookmarkEntity>
     @Query("SELECT * FROM bookmark_folders") abstract suspend fun bookmarkFolders(): List<BookmarkFolderEntity>
     @Query("SELECT * FROM shortcuts") abstract suspend fun shortcuts(): List<ShortcutEntity>
+    @Query("SELECT * FROM shortcut_folders") abstract suspend fun shortcutFolders(): List<ShortcutFolderEntity>
     @Query("SELECT * FROM web_apps") abstract suspend fun webApps(): List<WebAppEntity>
     @Query("SELECT * FROM site_settings") abstract suspend fun siteSettings(): List<SiteSettingEntity>
     @Query("SELECT * FROM browser_settings WHERE id = 0") abstract suspend fun settings(): SettingsEntity?
@@ -25,6 +26,7 @@ abstract class BrowserDao {
     @Upsert abstract suspend fun upsertBookmarks(items: List<BookmarkEntity>)
     @Upsert abstract suspend fun upsertBookmarkFolders(items: List<BookmarkFolderEntity>)
     @Upsert abstract suspend fun upsertShortcuts(items: List<ShortcutEntity>)
+    @Upsert abstract suspend fun upsertShortcutFolders(items: List<ShortcutFolderEntity>)
     @Upsert abstract suspend fun upsertWebApps(items: List<WebAppEntity>)
     @Upsert abstract suspend fun upsertSiteSettings(items: List<SiteSettingEntity>)
     @Upsert abstract suspend fun upsertSettings(item: SettingsEntity)
@@ -37,6 +39,7 @@ abstract class BrowserDao {
     @Query("DELETE FROM bookmarks WHERE id IN (:ids)") abstract suspend fun deleteBookmarks(ids: List<String>)
     @Query("DELETE FROM bookmark_folders WHERE id IN (:ids)") abstract suspend fun deleteBookmarkFolders(ids: List<String>)
     @Query("DELETE FROM shortcuts WHERE id IN (:ids)") abstract suspend fun deleteShortcuts(ids: List<String>)
+    @Query("DELETE FROM shortcut_folders WHERE id IN (:ids)") abstract suspend fun deleteShortcutFolders(ids: List<String>)
     @Query("DELETE FROM web_apps WHERE id IN (:ids)") abstract suspend fun deleteWebApps(ids: List<String>)
     @Query("DELETE FROM site_settings WHERE host IN (:hosts)") abstract suspend fun deleteSiteSettings(hosts: List<String>)
     @Query("DELETE FROM tab_session_state WHERE tab_id IN (:ids)") abstract suspend fun deleteSessionStates(ids: List<String>)
@@ -48,6 +51,7 @@ abstract class BrowserDao {
     @Query("DELETE FROM bookmarks") abstract suspend fun clearBookmarks()
     @Query("DELETE FROM bookmark_folders") abstract suspend fun clearBookmarkFolders()
     @Query("DELETE FROM shortcuts") abstract suspend fun clearShortcuts()
+    @Query("DELETE FROM shortcut_folders") abstract suspend fun clearShortcutFolders()
     @Query("DELETE FROM site_settings") abstract suspend fun clearSiteSettings()
     @Query("DELETE FROM tab_session_state") abstract suspend fun clearSessionStates()
 
@@ -61,6 +65,7 @@ abstract class BrowserDao {
         clearBookmarks()
         clearBookmarkFolders()
         clearShortcuts()
+        clearShortcutFolders()
         clearSiteSettings()
         clearContainers()
         applyChanges(changes)
@@ -79,6 +84,7 @@ abstract class BrowserDao {
         if (changes.deleteBookmarkIds.isNotEmpty()) deleteBookmarks(changes.deleteBookmarkIds)
         if (changes.deleteBookmarkFolderIds.isNotEmpty()) deleteBookmarkFolders(changes.deleteBookmarkFolderIds)
         if (changes.deleteShortcutIds.isNotEmpty()) deleteShortcuts(changes.deleteShortcutIds)
+        if (changes.deleteShortcutFolderIds.isNotEmpty()) deleteShortcutFolders(changes.deleteShortcutFolderIds)
         if (changes.deleteWebAppIds.isNotEmpty()) deleteWebApps(changes.deleteWebAppIds)
         if (changes.deleteSiteHosts.isNotEmpty()) deleteSiteSettings(changes.deleteSiteHosts)
         if (changes.deleteContainerIds.isNotEmpty()) deleteContainers(changes.deleteContainerIds)
@@ -89,6 +95,7 @@ abstract class BrowserDao {
         if (changes.bookmarkFolders.isNotEmpty()) upsertBookmarkFolders(changes.bookmarkFolders)
         if (changes.bookmarks.isNotEmpty()) upsertBookmarks(changes.bookmarks)
         if (changes.shortcuts.isNotEmpty()) upsertShortcuts(changes.shortcuts)
+        if (changes.shortcutFolders.isNotEmpty()) upsertShortcutFolders(changes.shortcutFolders)
         if (changes.webApps.isNotEmpty()) upsertWebApps(changes.webApps)
         if (changes.siteSettings.isNotEmpty()) upsertSiteSettings(changes.siteSettings)
         changes.settings?.let { upsertSettings(it) }
@@ -110,6 +117,8 @@ data class EntityChanges(
     val deleteBookmarkFolderIds: List<String> = emptyList(),
     val shortcuts: List<ShortcutEntity> = emptyList(),
     val deleteShortcutIds: List<String> = emptyList(),
+    val shortcutFolders: List<ShortcutFolderEntity> = emptyList(),
+    val deleteShortcutFolderIds: List<String> = emptyList(),
     val webApps: List<WebAppEntity> = emptyList(),
     val deleteWebAppIds: List<String> = emptyList(),
     val siteSettings: List<SiteSettingEntity> = emptyList(),

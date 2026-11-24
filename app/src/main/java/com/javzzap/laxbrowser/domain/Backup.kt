@@ -72,7 +72,23 @@ object Backup {
                 },
             ),
         )
-        put("shortcuts", JSONArray(data.shortcuts.map { JSONObject().put("id", it.id).put("url", it.url).put("title", it.title).put("position", it.position) }))
+        put(
+            "shortcuts",
+            JSONArray(
+                data.shortcuts.map {
+                    JSONObject().put("id", it.id).put("url", it.url).put("title", it.title).put("position", it.position).putOpt("folderId", it.folderId)
+                },
+            ),
+        )
+        put(
+            "shortcutFolders",
+            JSONArray(
+                data.shortcutFolders.map {
+                    JSONObject().put("id", it.id).put("name", it.name).put("position", it.position)
+                        .put("collapsed", it.collapsed).put("createdAt", it.createdAt)
+                },
+            ),
+        )
         put("siteSettings", JSONArray(data.siteSettings.map { JSONObject().put("host", it.host).put("zoom", it.zoomPercent).putOpt("spaceId", it.spaceId) }))
         val s = data.settings
         put(
@@ -164,9 +180,26 @@ object Backup {
                 o.optInt("position"), o.optLong("createdAt"), o.optLong("updatedAt"),
             )
         }.distinctBy { it.id }
+        val shortcutFolders = rows("shortcutFolders").mapNotNull { o ->
+            ShortcutFolder(
+                o.req("id") ?: return@mapNotNull null,
+                o.req("name") ?: return@mapNotNull null,
+                o.optInt("position"),
+                o.optBoolean("collapsed"),
+                o.optLong("createdAt"),
+            )
+        }.distinctBy { it.id }
+        val shortcutFolderIds = shortcutFolders.map { it.id }.toSet()
         val shortcuts = rows("shortcuts").mapNotNull { o ->
             val url = o.str("url")?.let(UrlInput::normalizeWebUrl) ?: return@mapNotNull null
-            Shortcut(o.req("id") ?: return@mapNotNull null, url, o.optString("title").take(200).ifBlank { UrlInput.displayHost(url) }, null, o.optInt("position"))
+            Shortcut(
+                o.req("id") ?: return@mapNotNull null,
+                url,
+                o.optString("title").take(200).ifBlank { UrlInput.displayHost(url) },
+                null,
+                o.optInt("position"),
+                o.str("folderId")?.takeIf { it in shortcutFolderIds },
+            )
         }.distinctBy { it.id }
         val siteSettings = rows("siteSettings").mapNotNull { o ->
             val host = o.req("host")?.lowercase()?.takeIf { SiteRules.hostKey("https://$it") == it } ?: return@mapNotNull null
@@ -219,6 +252,7 @@ object Backup {
             bookmarks = bookmarks,
             bookmarkFolders = bookmarkFolders,
             shortcuts = shortcuts,
+            shortcutFolders = shortcutFolders,
             siteSettings = siteSettings,
             settings = settings,
         )

@@ -156,3 +156,16 @@ val MIGRATION_13_14 = object : Migration(13, 14) {
         db.execSQL("ALTER TABLE `browser_settings` ADD COLUMN `clear_data_on_exit` INTEGER NOT NULL DEFAULT 0")
     }
 }
+
+/** Version 15: download Space attribution and NTP shortcut folders. */
+val MIGRATION_14_15 = object : Migration(14, 15) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `downloads` ADD COLUMN `space_id` TEXT DEFAULT NULL")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_downloads_space_id` ON `downloads` (`space_id`)")
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `shortcut_folders` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `position` INTEGER NOT NULL, `collapsed` INTEGER NOT NULL DEFAULT 0, `created_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        )
+        db.execSQL("ALTER TABLE `shortcuts` ADD COLUMN `folder_id` TEXT DEFAULT NULL")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_shortcuts_folder_id` ON `shortcuts` (`folder_id`)")
+    }
+}

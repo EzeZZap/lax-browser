@@ -32,6 +32,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CreateNewFolder
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.DropdownMenu
@@ -58,27 +62,36 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.javzzap.laxbrowser.R
 import com.javzzap.laxbrowser.domain.Shortcut
+import com.javzzap.laxbrowser.domain.ShortcutFolder
 import com.javzzap.laxbrowser.ui.common.LinkEditDialog
 import com.javzzap.laxbrowser.ui.common.SiteIcon
+import com.javzzap.laxbrowser.ui.common.TextInputDialog
 
 interface NewTabPageActions {
     /** Opens the sidebar with its address bar focused, which has search suggestions. */
     fun focusAddressBar()
     fun openShortcut(shortcut: Shortcut)
-    fun addShortcut(title: String, url: String): Boolean
+    fun addShortcut(title: String, url: String, folderId: String? = null): Boolean
     fun updateShortcut(shortcut: Shortcut, title: String, url: String): Boolean
     fun removeShortcut(shortcut: Shortcut)
     fun moveShortcut(shortcut: Shortcut, delta: Int)
+    fun moveShortcutToFolder(shortcut: Shortcut, folderId: String?)
+    fun createShortcutFolder(name: String): Boolean
+    fun renameShortcutFolder(folder: ShortcutFolder, name: String): Boolean
+    fun deleteShortcutFolder(folder: ShortcutFolder)
+    fun toggleShortcutFolder(folder: ShortcutFolder)
+    fun moveShortcutFolder(folder: ShortcutFolder, delta: Int)
 }
 
 /**
  * The new tab page: the Lax wordmark over a soft wash of the Space's color, the Space's name, a
- * search field, and shortcuts.
+ * search field, and shortcuts (optionally grouped in folders).
  */
 @Composable
 fun NewTabPage(
     space: Space?,
     shortcuts: List<Shortcut>,
+    folders: List<ShortcutFolder>,
     actions: NewTabPageActions,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
@@ -86,11 +99,19 @@ fun NewTabPage(
 ) {
     var editing by remember { mutableStateOf<Shortcut?>(null) }
     var adding by remember { mutableStateOf(false) }
+    var addFolderId by remember { mutableStateOf<String?>(null) }
+    var creatingFolder by remember { mutableStateOf(false) }
+    var renamingFolder by remember { mutableStateOf<ShortcutFolder?>(null) }
     val wash by animateColorAsState(
         if (!privateMode && space != null) Color(space.color) else MaterialTheme.colorScheme.primary,
         tween(450),
         label = "ntp_wash",
     )
+    val sortedFolders = remember(folders) { folders.sortedBy { it.position } }
+    val folderIds = remember(sortedFolders) { sortedFolders.map { it.id }.toSet() }
+    val rootShortcuts = remember(shortcuts, folderIds) {
+        shortcuts.filter { it.folderId == null || it.folderId !in folderIds }.sortedBy { it.position }
+    }
 
     // A Surface sets the content color, so text follows the light or dark theme.
     Surface(modifier.fillMaxSize(), color = MaterialTheme.colorScheme.surface) {
@@ -127,24 +148,57 @@ fun NewTabPage(
             Spacer(Modifier.height(28.dp))
             SearchButton(onClick = actions::focusAddressBar)
             Spacer(Modifier.height(36.dp))
-            Text(
-                stringResource(R.string.shortcuts),
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.fillMaxWidth().widthIn(max = 560.dp),
-            )
+            Row(
+                Modifier.fillMaxWidth().widthIn(max = 560.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    stringResource(R.string.shortcuts),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(1f),
+                )
+                if (!privateMode) {
+                    Surface(
+                        onClick = { creatingFolder = true },
+                        shape = CircleShape,
+                        color = Color.Transparent,
+                    ) {
+                        Icon(
+                            Icons.Default.CreateNewFolder,
+                            contentDescription = stringResource(R.string.add_shortcut_folder),
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(8.dp),
+                        )
+                    }
+                }
+            }
             Spacer(Modifier.height(12.dp))
+            sortedFolders.forEach { folder ->
+                ShortcutFolderSection(
+                    folder = folder,
+                    shortcuts = shortcuts.filter { it.folderId == folder.id }.sortedBy { it.position },
+                    allFolders = sortedFolders,
+                    actions = actions,
+                    onEditShortcut = { editing = it },
+                    onAddShortcut = { addFolderId = folder.id; adding = true },
+                    onRename = { renamingFolder = folder },
+                )
+                Spacer(Modifier.height(12.dp))
+            }
             FlowRow(
                 Modifier.fillMaxWidth().widthIn(max = 560.dp).testTag("ntp_shortcuts"),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                shortcuts.sortedBy { it.position }.forEach { shortcut ->
-                    ShortcutTile(shortcut, actions, onEdit = { editing = shortcut })
+                rootShortcuts.forEach { shortcut ->
+                    ShortcutTile(shortcut, sortedFolders, actions, onEdit = { editing = shortcut })
                 }
-                AddShortcutTile(onClick = { adding = true })
+                if (!privateMode) {
+                    AddShortcutTile(onClick = { addFolderId = null; adding = true })
+                }
             }
-            if (shortcuts.isEmpty()) {
+            if (rootShortcuts.isEmpty() && sortedFolders.isEmpty()) {
                 Spacer(Modifier.height(8.dp))
                 Text(
                     stringResource(R.string.shortcuts_empty),
@@ -162,7 +216,7 @@ fun NewTabPage(
             initialTitle = "",
             initialUrl = "",
             confirmLabel = stringResource(R.string.add),
-            onConfirm = actions::addShortcut,
+            onConfirm = { title, url -> actions.addShortcut(title, url, addFolderId) },
             onDismiss = { adding = false },
         )
     }
@@ -175,6 +229,85 @@ fun NewTabPage(
             onConfirm = { title, url -> actions.updateShortcut(shortcut, title, url) },
             onDismiss = { editing = null },
         )
+    }
+    if (creatingFolder) {
+        TextInputDialog(
+            title = stringResource(R.string.add_shortcut_folder),
+            label = stringResource(R.string.folder_name),
+            initial = "",
+            confirmLabel = stringResource(R.string.add),
+            onConfirm = { actions.createShortcutFolder(it) },
+            onDismiss = { creatingFolder = false },
+        )
+    }
+    renamingFolder?.let { folder ->
+        TextInputDialog(
+            title = stringResource(R.string.rename_shortcut_folder),
+            label = stringResource(R.string.folder_name),
+            initial = folder.name,
+            confirmLabel = stringResource(R.string.save),
+            onConfirm = { actions.renameShortcutFolder(folder, it) },
+            onDismiss = { renamingFolder = null },
+        )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun ShortcutFolderSection(
+    folder: ShortcutFolder,
+    shortcuts: List<Shortcut>,
+    allFolders: List<ShortcutFolder>,
+    actions: NewTabPageActions,
+    onEditShortcut: (Shortcut) -> Unit,
+    onAddShortcut: () -> Unit,
+    onRename: () -> Unit,
+) {
+    var menu by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxWidth().widthIn(max = 560.dp)) {
+        Box {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .combinedClickable(
+                        onClick = { actions.toggleShortcutFolder(folder) },
+                        onLongClick = { menu = true },
+                    )
+                    .padding(vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(Icons.Default.Folder, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.width(8.dp))
+                Text(folder.name, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Icon(
+                    if (folder.collapsed) Icons.Default.ExpandMore else Icons.Default.ExpandLess,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                DropdownMenuItem(text = { Text(stringResource(R.string.action_edit)) }, onClick = { menu = false; onRename() })
+                DropdownMenuItem(text = { Text(stringResource(R.string.move_up)) }, onClick = { menu = false; actions.moveShortcutFolder(folder, -1) })
+                DropdownMenuItem(text = { Text(stringResource(R.string.move_down)) }, onClick = { menu = false; actions.moveShortcutFolder(folder, 1) })
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.remove), color = MaterialTheme.colorScheme.error) },
+                    onClick = { menu = false; actions.deleteShortcutFolder(folder) },
+                )
+            }
+        }
+        if (!folder.collapsed) {
+            Spacer(Modifier.height(8.dp))
+            FlowRow(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                shortcuts.forEach { shortcut ->
+                    ShortcutTile(shortcut, allFolders, actions, onEdit = { onEditShortcut(shortcut) })
+                }
+                AddShortcutTile(onClick = onAddShortcut)
+            }
+        }
     }
 }
 
@@ -222,7 +355,12 @@ private fun SearchButton(onClick: () -> Unit) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ShortcutTile(shortcut: Shortcut, actions: NewTabPageActions, onEdit: () -> Unit) {
+private fun ShortcutTile(
+    shortcut: Shortcut,
+    folders: List<ShortcutFolder>,
+    actions: NewTabPageActions,
+    onEdit: () -> Unit,
+) {
     var menu by remember { mutableStateOf(false) }
     val description = stringResource(R.string.shortcut_cd, shortcut.title)
     Box {
@@ -254,6 +392,18 @@ private fun ShortcutTile(shortcut: Shortcut, actions: NewTabPageActions, onEdit:
             DropdownMenuItem(text = { Text(stringResource(R.string.action_edit)) }, onClick = { menu = false; onEdit() })
             DropdownMenuItem(text = { Text(stringResource(R.string.move_left)) }, onClick = { menu = false; actions.moveShortcut(shortcut, -1) })
             DropdownMenuItem(text = { Text(stringResource(R.string.move_right)) }, onClick = { menu = false; actions.moveShortcut(shortcut, 1) })
+            if (shortcut.folderId != null) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.shortcut_move_to_root)) },
+                    onClick = { menu = false; actions.moveShortcutToFolder(shortcut, null) },
+                )
+            }
+            folders.filter { it.id != shortcut.folderId }.forEach { folder ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.shortcut_move_to_folder, folder.name)) },
+                    onClick = { menu = false; actions.moveShortcutToFolder(shortcut, folder.id) },
+                )
+            }
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.remove), color = MaterialTheme.colorScheme.error) },
                 onClick = { menu = false; actions.removeShortcut(shortcut) },

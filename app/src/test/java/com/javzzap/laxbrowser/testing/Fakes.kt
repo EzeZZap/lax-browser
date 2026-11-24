@@ -50,6 +50,7 @@ class InMemoryRepository(var data: BrowserData = BrowserData()) : BrowserReposit
             bookmarks = merge(data.bookmarks, diff.upsertBookmarks, diff.deleteBookmarkIds) { it.id },
             bookmarkFolders = merge(data.bookmarkFolders, diff.upsertBookmarkFolders, diff.deleteBookmarkFolderIds) { it.id },
             shortcuts = merge(data.shortcuts, diff.upsertShortcuts, diff.deleteShortcutIds) { it.id },
+            shortcutFolders = merge(data.shortcutFolders, diff.upsertShortcutFolders, diff.deleteShortcutFolderIds) { it.id },
             webApps = merge(data.webApps, diff.upsertWebApps, diff.deleteWebAppIds) { it.id },
             siteSettings = merge(data.siteSettings, diff.upsertSiteSettings, diff.deleteSiteHosts) { it.host },
             settings = diff.settings ?: data.settings,

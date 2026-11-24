@@ -189,6 +189,10 @@
     <string name="shortcut_options">Shortcut options</string>
     <string name="add_shortcut">Add shortcut</string>
     <string name="edit_shortcut">Edit shortcut</string>
+    <string name="add_shortcut_folder">New shortcut folder</string>
+    <string name="rename_shortcut_folder">Rename folder</string>
+    <string name="shortcut_move_to_folder">Move to %1$s</string>
+    <string name="shortcut_move_to_root">Move out of folder</string>
 
     <!-- Bookmarks -->
     <string name="bookmarks">Bookmarks</string>
@@ -634,6 +638,8 @@
 
     <!-- Downloads -->
     <string name="downloads_empty">No downloads yet. Files you save will land here.</string>
+    <string name="downloads_filter_all">All Spaces</string>
+    <string name="downloads_filter_other">No Space</string>
     <string name="download_failed">Failed</string>
     <string name="download_cancelled">Canceled</string>
     <string name="download_cancel">Cancel download</string>

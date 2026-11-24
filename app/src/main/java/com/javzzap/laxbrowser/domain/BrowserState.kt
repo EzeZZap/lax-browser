@@ -50,6 +50,19 @@ data class BrowserState(
 
     fun tabFolder(id: String?): TabFolder? = data.tabFolders.firstOrNull { it.id == id }
 
+    val sortedShortcutFolders: List<ShortcutFolder>
+        get() = data.shortcutFolders.sortedBy { it.position }
+
+    fun shortcutFolder(id: String?): ShortcutFolder? = data.shortcutFolders.firstOrNull { it.id == id }
+
+    /** NTP shortcuts in [folderId] (null = root). Missing folders are treated as root. */
+    fun shortcutsIn(folderId: String?): List<Shortcut> {
+        val valid = folderId?.takeIf { shortcutFolder(it) != null }
+        return data.shortcuts
+            .filter { (it.folderId?.takeIf { id -> shortcutFolder(id) != null }) == valid }
+            .sortedBy { it.position }
+    }
+
     /** Pinned tabs of [spaceId] that are not in a folder. */
     fun loosePinnedTabs(spaceId: String?): List<Tab> {
         val folderIds = tabFolders(spaceId).map { it.id }.toSet()

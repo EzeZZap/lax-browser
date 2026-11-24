@@ -326,6 +326,31 @@ class BrowserDatabaseTest {
     }
 
     @Test
+    fun migration14To15AddsDownloadSpaceAndShortcutFolders() {
+        migrationHelper.createDatabase(MIGRATION_DB, 14).apply {
+            execSQL(
+                "INSERT INTO downloads (id, url, file_name, mime_type, total_bytes, downloaded_bytes, status, content_uri, created_at) " +
+                    "VALUES ('d1', 'https://example.com/a', 'a.bin', null, null, 0, 'COMPLETED', null, 1)",
+            )
+            execSQL("INSERT INTO shortcuts (id, url, title, icon_url, position) VALUES ('sc1', 'https://example.com/', 'Example', null, 0)")
+            close()
+        }
+        val db = migrationHelper.runMigrationsAndValidate(MIGRATION_DB, 15, true, MIGRATION_14_15)
+        db.query("SELECT space_id FROM downloads").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+            assertTrue(cursor.isNull(0))
+        }
+        db.query("SELECT folder_id FROM shortcuts").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+            assertTrue(cursor.isNull(0))
+        }
+        db.query("SELECT name FROM sqlite_master WHERE type='table' AND name='shortcut_folders'").use { cursor ->
+            assertTrue(cursor.moveToFirst())
+        }
+        db.close()
+    }
+
+    @Test
     fun historyMergesQuickRevisitsSearchesAndClears() = runBlocking {
         BrowserDatabase.create(context, TEST_DB).use { db ->
             val history = RoomHistoryStore(db.historyDao())

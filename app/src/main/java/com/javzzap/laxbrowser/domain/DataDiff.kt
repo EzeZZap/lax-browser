@@ -16,6 +16,8 @@ data class DataDiff(
     val deleteBookmarkFolderIds: List<String> = emptyList(),
     val upsertShortcuts: List<Shortcut> = emptyList(),
     val deleteShortcutIds: List<String> = emptyList(),
+    val upsertShortcutFolders: List<ShortcutFolder> = emptyList(),
+    val deleteShortcutFolderIds: List<String> = emptyList(),
     val upsertWebApps: List<WebApp> = emptyList(),
     val deleteWebAppIds: List<String> = emptyList(),
     val upsertSiteSettings: List<SiteSetting> = emptyList(),
@@ -31,6 +33,7 @@ data class DataDiff(
             upsertBookmarks.isEmpty() && deleteBookmarkIds.isEmpty() &&
             upsertBookmarkFolders.isEmpty() && deleteBookmarkFolderIds.isEmpty() &&
             upsertShortcuts.isEmpty() && deleteShortcutIds.isEmpty() &&
+            upsertShortcutFolders.isEmpty() && deleteShortcutFolderIds.isEmpty() &&
             upsertWebApps.isEmpty() && deleteWebAppIds.isEmpty() &&
             upsertSiteSettings.isEmpty() && deleteSiteHosts.isEmpty() &&
             settings == null && discardSessionStateTabIds.isEmpty()
@@ -44,6 +47,7 @@ data class DataDiff(
             val bookmarks = diffBy(old.bookmarks, new.bookmarks) { it.id }
             val folders = diffBy(old.bookmarkFolders, new.bookmarkFolders) { it.id }
             val shortcuts = diffBy(old.shortcuts, new.shortcuts) { it.id }
+            val shortcutFolders = diffBy(old.shortcutFolders, new.shortcutFolders) { it.id }
             val webApps = diffBy(old.webApps, new.webApps) { it.id }
             val sites = diffBy(old.siteSettings, new.siteSettings) { it.host }
             return DataDiff(
@@ -61,6 +65,8 @@ data class DataDiff(
                 deleteBookmarkFolderIds = folders.second,
                 upsertShortcuts = shortcuts.first,
                 deleteShortcutIds = shortcuts.second,
+                upsertShortcutFolders = shortcutFolders.first,
+                deleteShortcutFolderIds = shortcutFolders.second,
                 upsertWebApps = webApps.first,
                 deleteWebAppIds = webApps.second,
                 upsertSiteSettings = sites.first,

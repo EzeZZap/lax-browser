@@ -13,6 +13,8 @@ data class Download(
     val status: DownloadStatus,
     val contentUri: String?,
     val createdAt: Long,
+    /** Space the download started from; null for Essentials, private (unlistable), or unknown. */
+    val spaceId: String? = null,
 )
 
 object DownloadNames {

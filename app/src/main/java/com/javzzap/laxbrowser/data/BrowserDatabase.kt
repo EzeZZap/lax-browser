@@ -16,6 +16,7 @@ import androidx.room.migration.Migration
         BookmarkEntity::class,
         BookmarkFolderEntity::class,
         ShortcutEntity::class,
+        ShortcutFolderEntity::class,
         WebAppEntity::class,
         SettingsEntity::class,
         HistoryEntity::class,
@@ -33,13 +34,13 @@ abstract class BrowserDatabase : RoomDatabase() {
     abstract fun extensionPrefDao(): ExtensionPrefDao
 
     companion object {
-        const val VERSION = 14
+        const val VERSION = 15
         const val NAME = "browser.db"
 
         /** Every schema change must add a migration here and a test in `BrowserDatabaseTest`. */
         val MIGRATIONS: Array<Migration> = arrayOf(
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10,
-            MIGRATION_10_11, MIGRATION_11_12, MIGRATION_12_13, MIGRATION_13_14,
+            MIGRATION_10_11, MIGRATION_11_12, MIGRATION_12_13, MIGRATION_13_14, MIGRATION_14_15,
         )
 
         fun create(context: Context, name: String? = NAME): BrowserDatabase {

@@ -184,6 +184,7 @@ import com.javzzap.laxbrowser.domain.Bookmark
 import com.javzzap.laxbrowser.domain.BookmarkFolder
 import com.javzzap.laxbrowser.domain.Outcome
 import com.javzzap.laxbrowser.domain.Shortcut
+import com.javzzap.laxbrowser.domain.ShortcutFolder
 import com.javzzap.laxbrowser.domain.Space
 import com.javzzap.laxbrowser.domain.TrackingProtection
 import com.javzzap.laxbrowser.domain.Tab
@@ -1548,6 +1549,7 @@ private fun TabContent(
         tab == null || tab.kind == TabKind.NEW_TAB -> NewTabPage(
             space = state.activeSpace,
             shortcuts = state.data.shortcuts,
+            folders = state.data.shortcutFolders,
             actions = remember(vm, onFocusAddressBar) { newTabPageActions(vm, onFocusAddressBar) },
             contentPadding = staticPadding,
             privateMode = state.privateMode,
@@ -1588,10 +1590,16 @@ private fun newTabPageActions(vm: BrowserViewModel, onFocusAddressBar: () -> Uni
     private val c = vm.controller
     override fun focusAddressBar() = onFocusAddressBar()
     override fun openShortcut(shortcut: Shortcut) { vm.report(c.openShortcut(shortcut.id)) }
-    override fun addShortcut(title: String, url: String) = vm.report(c.addShortcut(url, title))
+    override fun addShortcut(title: String, url: String, folderId: String?) = vm.report(c.addShortcut(url, title, folderId = folderId))
     override fun updateShortcut(shortcut: Shortcut, title: String, url: String) = vm.report(c.updateShortcut(shortcut.id, title, url))
     override fun removeShortcut(shortcut: Shortcut) { vm.report(c.removeShortcut(shortcut.id), R.string.msg_shortcut_removed) }
     override fun moveShortcut(shortcut: Shortcut, delta: Int) { vm.report(c.moveShortcut(shortcut.id, delta)) }
+    override fun moveShortcutToFolder(shortcut: Shortcut, folderId: String?) { vm.report(c.moveShortcutToFolder(shortcut.id, folderId)) }
+    override fun createShortcutFolder(name: String) = vm.report(c.createShortcutFolder(name))
+    override fun renameShortcutFolder(folder: ShortcutFolder, name: String) = vm.report(c.renameShortcutFolder(folder.id, name))
+    override fun deleteShortcutFolder(folder: ShortcutFolder) { vm.report(c.deleteShortcutFolder(folder.id)) }
+    override fun toggleShortcutFolder(folder: ShortcutFolder) { vm.report(c.setShortcutFolderCollapsed(folder.id, !folder.collapsed)) }
+    override fun moveShortcutFolder(folder: ShortcutFolder, delta: Int) { vm.report(c.moveShortcutFolder(folder.id, delta)) }
 }
 
 @Composable

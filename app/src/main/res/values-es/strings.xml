@@ -188,6 +188,10 @@
     <string name="shortcut_options">Opciones del acceso directo</string>
     <string name="add_shortcut">Añadir acceso directo</string>
     <string name="edit_shortcut">Editar acceso directo</string>
+    <string name="add_shortcut_folder">Nueva carpeta de accesos</string>
+    <string name="rename_shortcut_folder">Renombrar carpeta</string>
+    <string name="shortcut_move_to_folder">Mover a %1$s</string>
+    <string name="shortcut_move_to_root">Sacar de la carpeta</string>
 
     <!-- Bookmarks -->
     <string name="bookmarks">Marcadores</string>
@@ -637,6 +641,8 @@
 
     <!-- Downloads -->
     <string name="downloads_empty">Aún no hay descargas. Los archivos que guardes aparecerán aquí.</string>
+    <string name="downloads_filter_all">Todos los Spaces</string>
+    <string name="downloads_filter_other">Sin Space</string>
     <string name="download_failed">Error</string>
     <string name="download_cancelled">Cancelada</string>
     <string name="download_cancel">Cancelar descarga</string>

@@ -99,13 +99,23 @@ data class SiteSetting(
     val spaceId: String? = null,
 )
 
-/** A website shortcut shown on the new-tab page. Not a tab. */
+/** A folder of NTP shortcuts (browser-wide, not Space-scoped). */
+data class ShortcutFolder(
+    val id: String,
+    val name: String,
+    val position: Int,
+    val collapsed: Boolean,
+    val createdAt: Long,
+)
+
+/** A website shortcut shown on the new-tab page. Not a tab. [folderId] null = root of the NTP. */
 data class Shortcut(
     val id: String,
     val url: String,
     val title: String,
     val iconUrl: String?,
     val position: Int,
+    val folderId: String? = null,
 )
 
 /** An installed progressive web app. [id] is also the launcher shortcut ID. */
@@ -262,6 +272,7 @@ data class BrowserData(
     val bookmarks: List<Bookmark> = emptyList(),
     val bookmarkFolders: List<BookmarkFolder> = emptyList(),
     val shortcuts: List<Shortcut> = emptyList(),
+    val shortcutFolders: List<ShortcutFolder> = emptyList(),
     val webApps: List<WebApp> = emptyList(),
     val siteSettings: List<SiteSetting> = emptyList(),
     val settings: BrowserSettings = BrowserSettings(),

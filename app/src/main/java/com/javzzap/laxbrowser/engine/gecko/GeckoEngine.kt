@@ -467,7 +467,7 @@ class GeckoEngine(
      * nothing from any container is shared with the server.
      */
     @SuppressLint("WrongConstant")
-    fun saveUrl(url: String, isPrivate: Boolean, onFailed: () -> Unit) {
+    fun saveUrl(url: String, isPrivate: Boolean, spaceId: String? = null, onFailed: () -> Unit) {
         if (!UrlInput.isWebUrl(url)) return onFailed()
         val request = WebRequest.Builder(url).build()
         val flags = GeckoWebExecutor.FETCH_FLAGS_ANONYMOUS or (if (isPrivate) GeckoWebExecutor.FETCH_FLAGS_PRIVATE else 0)
@@ -477,7 +477,7 @@ class GeckoEngine(
                 if (response == null || body == null || response.statusCode !in 200..299) {
                     onFailed()
                 } else {
-                    downloadListener?.invoke(downloadRequest(response, body, isPrivate)) ?: onFailed()
+                    downloadListener?.invoke(downloadRequest(response, body, isPrivate, spaceId.takeUnless { isPrivate })) ?: onFailed()
                 }
             },
             { onFailed() },
@@ -554,7 +554,12 @@ class GeckoEngine(
 
     private val executor by lazy { GeckoWebExecutor(runtime) }
 
-    private fun downloadRequest(response: WebResponse, body: InputStream, isPrivate: Boolean): DownloadRequest {
+    private fun downloadRequest(
+        response: WebResponse,
+        body: InputStream,
+        isPrivate: Boolean,
+        spaceId: String? = null,
+    ): DownloadRequest {
         val headers = response.headers.mapKeys { it.key.lowercase() }
         return DownloadRequest(
             url = response.uri,
@@ -563,8 +568,11 @@ class GeckoEngine(
             contentLength = headers["content-length"]?.toLongOrNull(),
             body = body,
             isPrivate = isPrivate,
+            spaceId = spaceId,
         )
     }
+
+    private fun spaceIdFor(tabId: String): String? = lastState?.tab(tabId)?.spaceId?.takeUnless { lastState?.tab(tabId)?.isPrivate == true }
 
     // region Glance
 
@@ -610,7 +618,9 @@ class GeckoEngine(
             override fun onCloseRequest(session: GeckoSession) = closeGlance()
 
             override fun onExternalResponse(session: GeckoSession, response: WebResponse) {
-                response.body?.let { downloadListener?.invoke(downloadRequest(response, it, isPrivate)) }
+                response.body?.let {
+                    downloadListener?.invoke(downloadRequest(response, it, isPrivate, spaceIdFor(openerTabId)))
+                }
             }
         }
         session.promptDelegate = prompts.delegateFor { openerTabId }
@@ -826,7 +836,8 @@ class GeckoEngine(
             override fun onExternalResponse(session: GeckoSession, response: WebResponse) {
                 if (!isCurrent(entry)) return
                 val body = response.body ?: return
-                downloadListener?.invoke(downloadRequest(response, body, entry.containerId == PRIVATE_CONTEXT_ID))
+                val private = entry.containerId == PRIVATE_CONTEXT_ID
+                downloadListener?.invoke(downloadRequest(response, body, private, spaceIdFor(entry.tabId)))
             }
 
             override fun onCrash(session: GeckoSession) = onSessionGone(entry, crashed = true)

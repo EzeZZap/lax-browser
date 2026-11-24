@@ -1245,14 +1245,17 @@ class BrowserOperations(
 
     // region Shortcuts
 
-    fun addShortcut(state: BrowserState, url: String, title: String?, iconUrl: String? = null): Reduction {
+    fun addShortcut(state: BrowserState, url: String, title: String?, iconUrl: String? = null, folderId: String? = null): Reduction {
         val normalized = UrlInput.normalizeWebUrl(url) ?: return Reduction.reject(state, RejectReason.INVALID_URL)
+        val folder = folderId?.let { state.shortcutFolder(it) }
+        if (folderId != null && folder == null) return Reduction.reject(state, RejectReason.NOT_FOUND)
         val shortcut = Shortcut(
             id = ids.newId(),
             url = normalized,
             title = title?.trim().orEmpty().ifEmpty { UrlInput.displayHost(normalized) },
             iconUrl = iconUrl?.takeIf(UrlInput::isWebUrl),
-            position = nextPosition(state.data.shortcuts),
+            position = nextPosition(state.shortcutsIn(folderId)),
+            folderId = folderId,
         )
         return Reduction(state.withData { it.copy(shortcuts = it.shortcuts + shortcut) }, outcome = Outcome.Created(shortcut.id))
     }
@@ -1273,15 +1276,70 @@ class BrowserOperations(
     fun moveShortcut(state: BrowserState, shortcutId: String, delta: Int): Reduction {
         val shortcut = state.data.shortcuts.firstOrNull { it.id == shortcutId }
             ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
-        val reordered = state.data.shortcuts.sortedBy { it.position }.moved(shortcut, delta) ?: return Reduction(state)
+        val group = state.shortcutsIn(shortcut.folderId)
+        val reordered = group.moved(shortcut, delta) ?: return Reduction(state)
         val positions = reordered.mapIndexed { index, sc -> sc.id to index }.toMap()
-        return Reduction(state.withData { d -> d.copy(shortcuts = d.shortcuts.map { it.copy(position = positions.getValue(it.id)) }) })
+        return Reduction(state.withData { d -> d.copy(shortcuts = d.shortcuts.map { sc -> positions[sc.id]?.let { sc.copy(position = it) } ?: sc }) })
     }
 
     fun openShortcut(state: BrowserState, shortcutId: String): Reduction {
         val shortcut = state.data.shortcuts.firstOrNull { it.id == shortcutId }
             ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
         return openUrlInActiveSpace(state, shortcut.url)
+    }
+
+    fun createShortcutFolder(state: BrowserState, name: String): Reduction {
+        val trimmed = name.trim()
+        if (trimmed.isEmpty()) return Reduction.reject(state, RejectReason.INVALID_NAME)
+        val folder = ShortcutFolder(ids.newId(), trimmed, nextPosition(state.sortedShortcutFolders), collapsed = false, createdAt = clock.now())
+        return Reduction(state.withData { it.copy(shortcutFolders = it.shortcutFolders + folder) }, outcome = Outcome.Created(folder.id))
+    }
+
+    fun renameShortcutFolder(state: BrowserState, folderId: String, name: String): Reduction {
+        val trimmed = name.trim()
+        if (trimmed.isEmpty()) return Reduction.reject(state, RejectReason.INVALID_NAME)
+        if (state.shortcutFolder(folderId) == null) return Reduction.reject(state, RejectReason.NOT_FOUND)
+        return Reduction(state.updateShortcutFolder(folderId) { it.copy(name = trimmed) })
+    }
+
+    fun setShortcutFolderCollapsed(state: BrowserState, folderId: String, collapsed: Boolean): Reduction {
+        if (state.shortcutFolder(folderId) == null) return Reduction.reject(state, RejectReason.NOT_FOUND)
+        return Reduction(state.updateShortcutFolder(folderId) { it.copy(collapsed = collapsed) })
+    }
+
+    fun moveShortcutFolder(state: BrowserState, folderId: String, delta: Int): Reduction {
+        val folder = state.shortcutFolder(folderId) ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
+        val reordered = state.sortedShortcutFolders.moved(folder, delta) ?: return Reduction(state)
+        val positions = reordered.mapIndexed { index, f -> f.id to index }.toMap()
+        return Reduction(state.withData { d -> d.copy(shortcutFolders = d.shortcutFolders.map { f -> positions[f.id]?.let { f.copy(position = it) } ?: f }) })
+    }
+
+    /** Removes a folder; its shortcuts return to the NTP root. */
+    fun deleteShortcutFolder(state: BrowserState, folderId: String): Reduction {
+        val folder = state.shortcutFolder(folderId) ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
+        var position = nextPosition(state.shortcutsIn(null))
+        val members = state.shortcutsIn(folder.id).associate { it.id to position++ }
+        return Reduction(
+            state.withData { d ->
+                d.copy(
+                    shortcutFolders = d.shortcutFolders.filter { it.id != folder.id },
+                    shortcuts = d.shortcuts.map { sc -> members[sc.id]?.let { sc.copy(folderId = null, position = it) } ?: sc },
+                )
+            },
+        )
+    }
+
+    fun moveShortcutToFolder(state: BrowserState, shortcutId: String, folderId: String?): Reduction {
+        val shortcut = state.data.shortcuts.firstOrNull { it.id == shortcutId }
+            ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
+        if (folderId != null && state.shortcutFolder(folderId) == null) return Reduction.reject(state, RejectReason.NOT_FOUND)
+        if (shortcut.folderId == folderId) return Reduction(state)
+        val position = nextPosition(state.shortcutsIn(folderId))
+        return Reduction(
+            state.withData { d ->
+                d.copy(shortcuts = d.shortcuts.map { if (it.id == shortcutId) it.copy(folderId = folderId, position = position) else it })
+            },
+        )
     }
 
     // endregion
@@ -1406,6 +1464,9 @@ internal fun BrowserState.updateSpace(id: String, transform: (Space) -> Space): 
 internal fun BrowserState.updateTabFolder(id: String, transform: (TabFolder) -> TabFolder): BrowserState =
     withData { d -> d.copy(tabFolders = d.tabFolders.map { if (it.id == id) transform(it) else it }) }
 
+internal fun BrowserState.updateShortcutFolder(id: String, transform: (ShortcutFolder) -> ShortcutFolder): BrowserState =
+    withData { d -> d.copy(shortcutFolders = d.shortcutFolders.map { if (it.id == id) transform(it) else it }) }
+
 internal fun BrowserState.setRuntime(id: String, transform: (TabRuntime) -> TabRuntime): BrowserState =
     copy(runtime = runtime + (id to transform(runtime(id))))
 
@@ -1418,6 +1479,7 @@ private fun positionOf(item: Any): Int = when (item) {
     is BookmarkFolder -> item.position
     is Shortcut -> item.position
     is TabFolder -> item.position
+    is ShortcutFolder -> item.position
     else -> 0
 }
 

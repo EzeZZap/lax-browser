@@ -255,6 +255,12 @@ class BrowserController(
     fun moveTabFolder(id: String, delta: Int) = dispatch(reconcile = false) { ops.moveTabFolder(it, id, delta) }
     fun deleteTabFolder(id: String) = dispatch(reconcile = false) { ops.deleteTabFolder(it, id) }
     fun moveTabToFolder(tabId: String, folderId: String?) = dispatch(reconcile = false) { ops.moveTabToFolder(it, tabId, folderId) }
+    fun createShortcutFolder(name: String) = dispatch(reconcile = false) { ops.createShortcutFolder(it, name) }
+    fun renameShortcutFolder(id: String, name: String) = dispatch(reconcile = false) { ops.renameShortcutFolder(it, id, name) }
+    fun setShortcutFolderCollapsed(id: String, collapsed: Boolean) = dispatch(reconcile = false) { ops.setShortcutFolderCollapsed(it, id, collapsed) }
+    fun moveShortcutFolder(id: String, delta: Int) = dispatch(reconcile = false) { ops.moveShortcutFolder(it, id, delta) }
+    fun deleteShortcutFolder(id: String) = dispatch(reconcile = false) { ops.deleteShortcutFolder(it, id) }
+    fun moveShortcutToFolder(shortcutId: String, folderId: String?) = dispatch(reconcile = false) { ops.moveShortcutToFolder(it, shortcutId, folderId) }
     fun setSpaceEmoji(spaceId: String, emoji: String?) = dispatch(reconcile = false) { ops.setSpaceEmoji(it, spaceId, emoji) }
     fun setSpaceTrackingProtection(spaceId: String, level: TrackingProtection?) =
         dispatch { ops.setSpaceTrackingProtection(it, spaceId, level) }
@@ -343,7 +349,8 @@ class BrowserController(
     fun openBookmark(id: String) = dispatch { ops.openBookmark(it, id) }
     fun bookmarkFor(url: String) = ops.bookmarkFor(mutableState.value, url)
 
-    fun addShortcut(url: String, title: String?, iconUrl: String? = null) = dispatch(reconcile = false) { ops.addShortcut(it, url, title, iconUrl) }
+    fun addShortcut(url: String, title: String?, iconUrl: String? = null, folderId: String? = null) =
+        dispatch(reconcile = false) { ops.addShortcut(it, url, title, iconUrl, folderId) }
     fun updateShortcut(id: String, title: String, url: String) = dispatch(reconcile = false) { ops.updateShortcut(it, id, title, url) }
     fun removeShortcut(id: String) = dispatch(reconcile = false) { ops.removeShortcut(it, id) }
     fun moveShortcut(id: String, delta: Int) = dispatch(reconcile = false) { ops.moveShortcut(it, id, delta) }

@@ -47,11 +47,11 @@ class DownloadStore(private val dao: DownloadDao) {
 
 private fun DownloadEntity.toDomain(): Download? {
     val status = DownloadStatus.entries.firstOrNull { it.name == status } ?: return null
-    return Download(id, url, fileName, mimeType, totalBytes, downloadedBytes, status, contentUri, createdAt)
+    return Download(id, url, fileName, mimeType, totalBytes, downloadedBytes, status, contentUri, createdAt, spaceId)
 }
 
 private fun Download.toEntity() =
-    DownloadEntity(id, url, fileName, mimeType, totalBytes, downloadedBytes, status.name, contentUri, createdAt)
+    DownloadEntity(id, url, fileName, mimeType, totalBytes, downloadedBytes, status.name, contentUri, createdAt, spaceId)
 
 @Dao
 interface ExtensionPrefDao {
