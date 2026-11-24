@@ -1,6 +1,8 @@
 package com.javzzap.laxbrowser.ui.logins
 
+import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import android.view.WindowManager
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.FileUpload
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material3.DropdownMenu
@@ -28,6 +31,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.DeleteSweep
@@ -78,6 +82,9 @@ import com.javzzap.laxbrowser.ui.common.SiteIcon
  * Saved logins: turn saving on or off, find, view, copy, and delete logins, and manage sites that
  * are never saved. Showing or copying a password asks for the screen lock first, and the screen
  * cannot be captured in screenshots or the recent apps preview.
+ *
+ * Passkeys are not stored in Lax; sites use Android's Credential Manager and whatever password
+ * manager the user has enabled as a system credential provider.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -173,6 +180,12 @@ fun LoginsScreen(vm: BrowserViewModel, saveLogins: Boolean, onSaveLoginsChange: 
                     Spacer(Modifier.width(12.dp))
                     Switch(checked = saveLogins, onCheckedChange = null)
                 }
+            }
+            item(key = "passkeys") {
+                PasskeysCard(onOpenSettings = {
+                    val intent = Intent(Settings.ACTION_AUTOFILL_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    runCatching { context.startActivity(intent) }
+                })
             }
             if (!canProtect) {
                 item(key = "no_lock") {
@@ -372,5 +385,38 @@ private fun LoginDialog(
             onConfirm = onDelete,
             onDismiss = { confirmingDelete = false },
         )
+    }
+}
+
+/** Explains that passkeys live in the system Credential Manager / external password manager. */
+@Composable
+private fun PasskeysCard(onOpenSettings: () -> Unit) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.Key, contentDescription = null)
+                Spacer(Modifier.width(12.dp))
+                Text(
+                    stringResource(R.string.logins_passkeys_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.semantics { heading() },
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+            Text(
+                stringResource(R.string.logins_passkeys_summary),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(8.dp))
+            TextButton(onClick = onOpenSettings) {
+                Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.logins_manage_passkeys))
+            }
+        }
     }
 }

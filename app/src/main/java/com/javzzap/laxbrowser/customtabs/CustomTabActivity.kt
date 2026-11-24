@@ -67,6 +67,7 @@ import com.javzzap.laxbrowser.domain.UrlInput
 import com.javzzap.laxbrowser.downloads.DownloadEvent
 import com.javzzap.laxbrowser.downloads.DownloadRequest
 import com.javzzap.laxbrowser.engine.ExternalLinkHandler
+import com.javzzap.laxbrowser.engine.gecko.WebAuthnSupport
 import com.javzzap.laxbrowser.ui.prompts.WebPromptHost
 import com.javzzap.laxbrowser.ui.theme.LaxTheme
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -92,6 +93,8 @@ class CustomTabActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Passkeys from Custom Tabs use the same ActivityDelegate as the main browser.
+        WebAuthnSupport(this, appContainer.engine)
         enableEdgeToEdge()
         val url = intent.getStringExtra(EXTRA_URL)?.takeIf(UrlInput::isWebUrl)
         if (url == null) {

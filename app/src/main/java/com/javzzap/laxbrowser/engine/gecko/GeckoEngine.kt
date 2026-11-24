@@ -173,6 +173,25 @@ class GeckoEngine(
     /** The tab whose page is in fullscreen (for example a video), or null. */
     val fullScreenTabId: StateFlow<String?> = mutableFullScreen.asStateFlow()
 
+    /** Owner of the current [GeckoRuntime.ActivityDelegate] used for WebAuthn / FIDO. */
+    private var webAuthnDelegateOwner: Any? = null
+
+    /**
+     * Registers the Activity that should launch WebAuthn intents. The most recently resumed host
+     * wins so Custom Tabs and web apps can take over while they are in the foreground.
+     */
+    fun setWebAuthnActivityDelegate(owner: Any, delegate: GeckoRuntime.ActivityDelegate) {
+        webAuthnDelegateOwner = owner
+        runtime.setActivityDelegate(delegate)
+    }
+
+    /** Clears the WebAuthn ActivityDelegate only when [owner] still holds it. */
+    fun clearWebAuthnActivityDelegate(owner: Any) {
+        if (webAuthnDelegateOwner !== owner) return
+        webAuthnDelegateOwner = null
+        runtimeInstance?.setActivityDelegate(null)
+    }
+
     private val mutableTranslations = MutableStateFlow<Map<String, TranslationInfo>>(emptyMap())
 
     /** Detected language and translation state per tab. */
@@ -445,6 +464,73 @@ class GeckoEngine(
             },
             { onFailed() },
         )
+    }
+
+    /**
+     * Fetches [url] without cookies into a cache file for sharing (for example "Share image").
+     * The file is under `cacheDir/share/` and should be treated as temporary.
+     */
+    @SuppressLint("WrongConstant")
+    fun fetchToCacheFile(
+        url: String,
+        isPrivate: Boolean,
+        onSuccess: (file: java.io.File, mimeType: String) -> Unit,
+        onFailed: () -> Unit,
+    ) {
+        if (!UrlInput.isWebUrl(url)) return onFailed()
+        val request = WebRequest.Builder(url).build()
+        val flags = GeckoWebExecutor.FETCH_FLAGS_ANONYMOUS or (if (isPrivate) GeckoWebExecutor.FETCH_FLAGS_PRIVATE else 0)
+        executor.fetch(request, flags).accept(
+            { response ->
+                val body = response?.body
+                if (response == null || body == null || response.statusCode !in 200..299) {
+                    onFailed()
+                    return@accept
+                }
+                val mime = response.headers.entries
+                    .firstOrNull { it.key.equals("content-type", ignoreCase = true) }
+                    ?.value
+                    ?.substringBefore(';')
+                    ?.trim()
+                    ?.takeIf { it.isNotBlank() }
+                    ?: "application/octet-stream"
+                scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                    val written = runCatching {
+                        val dir = java.io.File(appContext.cacheDir, SHARE_CACHE_DIR).apply {
+                            if (exists()) deleteRecursively()
+                            mkdirs()
+                        }
+                        val name = shareFileName(url, mime)
+                        val file = java.io.File(dir, name)
+                        body.use { input -> file.outputStream().use { input.copyTo(it) } }
+                        file to mime
+                    }.getOrNull()
+                    mainHandler.post {
+                        if (written != null) onSuccess(written.first, written.second) else onFailed()
+                    }
+                }
+            },
+            { onFailed() },
+        )
+    }
+
+    private fun shareFileName(url: String, mime: String): String {
+        val fromUrl = url.substringAfterLast('/').substringBefore('?').substringBefore('#')
+            .takeIf { it.isNotBlank() && it.contains('.') && it.length <= 64 }
+        if (fromUrl != null) return fromUrl.filter { it.isLetterOrDigit() || it == '.' || it == '-' || it == '_' }
+        val ext = when {
+            mime == "image/png" -> "png"
+            mime == "image/gif" -> "gif"
+            mime == "image/webp" -> "webp"
+            mime == "image/svg+xml" -> "svg"
+            mime.startsWith("image/") -> "jpg"
+            else -> "bin"
+        }
+        return "share-$ext.$ext"
+    }
+
+    companion object {
+        private const val SHARE_CACHE_DIR = "share"
     }
 
     private val executor by lazy { GeckoWebExecutor(runtime) }

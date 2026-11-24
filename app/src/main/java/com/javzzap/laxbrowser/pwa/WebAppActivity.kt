@@ -52,6 +52,7 @@ import com.javzzap.laxbrowser.appContainer
 import com.javzzap.laxbrowser.domain.UrlInput
 import com.javzzap.laxbrowser.domain.WebApp
 import com.javzzap.laxbrowser.engine.ExternalLinkHandler
+import com.javzzap.laxbrowser.engine.gecko.WebAuthnSupport
 import com.javzzap.laxbrowser.ui.theme.LaxTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -83,6 +84,8 @@ class WebAppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Passkeys in standalone web apps use the same Gecko runtime ActivityDelegate.
+        WebAuthnSupport(this, appContainer.engine)
         enableEdgeToEdge()
         val appId = WebAppInstaller.appIdFrom(intent?.data)
         if (appId == null) {

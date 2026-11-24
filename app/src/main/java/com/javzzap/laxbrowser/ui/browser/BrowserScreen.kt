@@ -962,6 +962,7 @@ private fun BrowserScreen(vm: BrowserViewModel, state: BrowserState, onScreenCha
             onOpen = { url, background -> vm.openLink(url, background) },
             onCopy = vm::copyToClipboard,
             onShare = { shareUrl(context, it) },
+            onShareImage = vm::shareImage,
             onGlance = vm::openGlance,
             onOpenIn = vm::askWhereToOpen,
             onSplit = { vm.openLinkInSplit(it) },
@@ -1394,6 +1395,7 @@ private fun ContextMenuDialog(
     onOpen: (url: String, background: Boolean) -> Unit,
     onCopy: (String) -> Unit,
     onShare: (String) -> Unit,
+    onShareImage: (String) -> Unit,
     onGlance: (String) -> Unit,
     onOpenIn: (String) -> Unit,
     onSplit: (String) -> Unit,
@@ -1427,6 +1429,7 @@ private fun ContextMenuDialog(
                     if (target.linkUrl != null) HorizontalDivider()
                     MenuAction(stringResource(R.string.ctx_open_image)) { onOpen(image, false); onDismiss() }
                     MenuAction(stringResource(R.string.ctx_save_image)) { onSave(image); onDismiss() }
+                    MenuAction(stringResource(R.string.ctx_share_image)) { onShareImage(image); onDismiss() }
                     MenuAction(stringResource(R.string.ctx_copy_image)) { onCopy(image); onDismiss() }
                 }
             }

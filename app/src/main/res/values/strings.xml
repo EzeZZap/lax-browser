@@ -114,7 +114,9 @@
     <string name="ctx_copy_link">Copy link address</string>
     <string name="ctx_share_link">Share link</string>
     <string name="ctx_open_image">Open image in new tab</string>
+    <string name="ctx_share_image">Share image</string>
     <string name="ctx_copy_image">Copy image address</string>
+    <string name="msg_share_image_failed">Couldn\'t share that image</string>
 
     <!-- Web content states -->
     <string name="container_missing_title">This tab\'s container is missing</string>
@@ -709,6 +711,9 @@
     <string name="logins_summary">Passwords saved in Lax, encrypted on this device</string>
     <string name="logins_save_toggle">Save and fill logins</string>
     <string name="logins_save_toggle_summary">Offer to save logins and fill them in</string>
+    <string name="logins_passkeys_title">Passkeys</string>
+    <string name="logins_passkeys_summary">Sites can create and use passkeys through your device\'s password manager (Google Password Manager, 1Password, and others). Lax does not store passkeys itself.</string>
+    <string name="logins_manage_passkeys">Open autofill settings</string>
     <string name="logins_need_lock">Set a screen lock on this device to view or copy saved passwords.</string>
     <string name="logins_search">Search logins</string>
     <string name="logins_empty">No saved logins yet. When you sign in to a site, Lax offers to save the login.</string>

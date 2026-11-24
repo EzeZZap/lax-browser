@@ -113,7 +113,9 @@
     <string name="ctx_copy_link">Copiar dirección del enlace</string>
     <string name="ctx_share_link">Compartir enlace</string>
     <string name="ctx_open_image">Abrir imagen en una pestaña nueva</string>
+    <string name="ctx_share_image">Compartir imagen</string>
     <string name="ctx_copy_image">Copiar dirección de la imagen</string>
+    <string name="msg_share_image_failed">No se pudo compartir esa imagen</string>
 
     <!-- Web content states -->
     <string name="container_missing_title">Falta el contenedor de esta pestaña</string>
@@ -715,6 +717,9 @@
     <string name="logins_summary">Contraseñas guardadas en Lax, cifradas en este dispositivo</string>
     <string name="logins_save_toggle">Guardar y rellenar inicios de sesión</string>
     <string name="logins_save_toggle_summary">Ofrece guardar los inicios de sesión y rellenarlos</string>
+    <string name="logins_passkeys_title">Passkeys</string>
+    <string name="logins_passkeys_summary">Los sitios pueden crear y usar passkeys a través del gestor de contraseñas del dispositivo (Google Password Manager, 1Password y otros). Lax no guarda passkeys.</string>
+    <string name="logins_manage_passkeys">Abrir ajustes de autocompletar</string>
     <string name="logins_need_lock">Configura un bloqueo de pantalla en este dispositivo para ver o copiar las contraseñas guardadas.</string>
     <string name="logins_search">Buscar inicios de sesión</string>
     <string name="logins_empty">Aún no hay inicios de sesión guardados. Cuando entres en un sitio, Lax ofrecerá guardarlo.</string>

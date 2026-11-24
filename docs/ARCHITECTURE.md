@@ -73,6 +73,14 @@ unloaded and restored later.
 - CI runs both, and starts every release APK on an emulator (`.github/scripts/smoke-test.sh`)
   before it is published, since R8 problems only show up at runtime.
 
+## Passkeys
+
+Website passkeys use GeckoView’s WebAuthn stack and Android’s Credential Manager (Android 14+),
+so external password managers enabled as system credential providers can create and use them.
+The host declares `CREDENTIAL_MANAGER_SET_ORIGIN` and
+`CREDENTIAL_MANAGER_QUERY_CANDIDATE_CREDENTIALS`. `WebAuthnSupport` on browser Activities supplies
+the FIDO2 ActivityDelegate fallback. See [design/passkeys.md](../design/passkeys.md).
+
 ## Known limitations
 
 - Favicons appear once a site has been visited; until then bookmarks and shortcuts show a letter.

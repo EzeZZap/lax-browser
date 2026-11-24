@@ -39,7 +39,8 @@
 - Firefox add-ons from addons.mozilla.org.
 - Saved logins, stored encrypted on the device, with a password generator. Import them from the
   CSV file Firefox, Chrome or Bitwarden export, or export them the same way. Android autofill
-  services also work.
+  services also work. Website passkeys use Android’s Credential Manager and your chosen password
+  manager (1Password, Bitwarden, Google Password Manager, and others).
 - Bookmarks (with HTML import/export), history, downloads, reader view, translation, find in
   page, per-site zoom, installable web apps and Custom Tabs.
 - Local backups, or backups to your own Nextcloud (by hand or daily), optionally with saved

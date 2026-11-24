@@ -741,6 +741,32 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         engine.saveUrl(url, isPrivate) { message(R.string.msg_download_failed, UrlInput.displayHost(url)) }
     }
 
+    /**
+     * Fetches [url] without cookies and opens the system share sheet with the file (for images).
+     */
+    fun shareImage(url: String) {
+        val isPrivate = state.value.activeTab?.isPrivate == true
+        engine.fetchToCacheFile(
+            url = url,
+            isPrivate = isPrivate,
+            onSuccess = { file, mime ->
+                val uri = androidx.core.content.FileProvider.getUriForFile(
+                    getApplication(),
+                    "${getApplication<Application>().packageName}.files",
+                    file,
+                )
+                val send = Intent(Intent.ACTION_SEND)
+                    .setType(mime)
+                    .putExtra(Intent.EXTRA_STREAM, uri)
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                getApplication<Application>().startActivity(
+                    Intent.createChooser(send, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                )
+            },
+            onFailed = { message(R.string.msg_share_image_failed) },
+        )
+    }
+
     // endregion
 
     // region Site permissions and browsing data

@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import com.javzzap.laxbrowser.ui.KeyboardShortcuts
+import com.javzzap.laxbrowser.engine.gecko.WebAuthnSupport
 import com.javzzap.laxbrowser.engine.gecko.WebNotifications
 import com.javzzap.laxbrowser.ui.PipRatio
 import androidx.activity.compose.setContent
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splash = installSplashScreen()
         super.onCreate(savedInstanceState)
+        // Registers on this Activity's lifecycle; Credential Manager + FIDO fallback for passkeys.
+        WebAuthnSupport(this, appContainer.engine)
         // The splash stays until saved tabs are loaded (briefly capped), instead of showing an empty screen.
         val shownAt = System.currentTimeMillis()
         splash.setKeepOnScreenCondition { !viewModel.state.value.isLoaded && System.currentTimeMillis() - shownAt < SPLASH_MAX_MS }
