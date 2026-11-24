@@ -1,5 +1,22 @@
 # Registro de cambios
 
+## 0.3.4
+
+- Passkeys (WebAuthn) con Credential Manager de Android, y compartir imágenes desde el menú
+  contextual de la página
+- Las pestañas nuevas enfocan la barra de direcciones para escribir al momento; clonar una
+  pestaña desde el menú de pestañas
+- Protección contra rastreo configurable por espacio, y borrado de datos de sitios de un solo
+  espacio
+- Opción de borrar historial, cookies y datos de sitios al salir de la app; guardar una página
+  como archivo ZIP desde el menú
+- Copiar el texto del enlace desde el menú de pulsación larga; bangs al estilo DuckDuckGo (!g,
+  !w, …) en la barra de direcciones
+- Las descargas recuerdan el espacio del que salieron; los accesos directos de la página de nueva
+  pestaña pueden ir en carpetas
+- Canal opcional de versiones de prueba en Ajustes → Acerca de: si está activo, la búsqueda de
+  actualizaciones también ofrece prereleases de GitHub
+
 ## 0.3.3
 
 - La búsqueda de actualizaciones ahora es opcional: la última página de la configuración inicial

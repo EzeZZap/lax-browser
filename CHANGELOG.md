@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.4
+
+- Passkeys (WebAuthn) via Android Credential Manager, and a share action for images from the
+  page context menu
+- New tabs focus the address bar so you can type right away; clone a tab from the tab menu
+- Per-Space tracking protection overrides, and a way to wipe site data for one Space
+- Optional clear of history, cookies, and site data when leaving the app; save a page as a ZIP
+  archive from the menu
+- Copy link text from the long-press menu; DuckDuckGo-style bangs (!g, !w, …) in the address bar
+- Downloads remember which Space they came from; new-tab shortcuts can sit in folders
+- Optional testing update channel in Settings → About: when on, update checks also offer GitHub
+  prereleases
+
 ## 0.3.3
 
 - Update checks are now opt-in: the last page of the first-run setup has a switch for them, and
