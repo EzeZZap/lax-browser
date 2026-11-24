@@ -57,6 +57,75 @@ class BrowserOperations(
         return if (existing != null) selectTab(state, existing.id) else newTab(state, url = null)
     }
 
+    /**
+     * Opens a new ordinary tab that copies [tabId]'s address (and title/favicon when present).
+     * The clone is never pinned or Essential; private tabs stay private. Essentials clone into the
+     * active Space. Site rules are not applied — the clone keeps the source Space/container.
+     */
+    fun cloneTab(state: BrowserState, tabId: String): Reduction {
+        val source = state.tab(tabId) ?: return Reduction.reject(state, RejectReason.NOT_FOUND)
+        if (source.kind == TabKind.NEW_TAB && source.url.isBlank()) {
+            return openNewTabPage(state)
+        }
+        val url = source.url.takeIf { it.isNotBlank() && UrlInput.isWebUrl(it) }
+            ?: return Reduction.reject(state, RejectReason.INVALID_URL)
+
+        if (source.isPrivate || state.privateMode) {
+            val now = clock.now()
+            val tab = Tab(
+                id = ids.newId(),
+                spaceId = null,
+                containerId = PRIVATE_CONTEXT_ID,
+                url = url,
+                title = source.title,
+                faviconUrl = source.faviconUrl,
+                position = nextPosition(state.privateTabs),
+                kind = TabKind.WEB,
+                isPinned = false,
+                isEssential = false,
+                createdAt = now,
+                lastAccessedAt = now,
+                isPrivate = true,
+            )
+            var s = state.copy(privateMode = true, privateTabs = state.privateTabs + tab, privateSelectedTabId = tab.id)
+            s = s.markLoadedIfDisplayable(tab.id)
+            if (state.runtime(source.id).desktopMode) {
+                s = s.setRuntime(tab.id) { it.copy(desktopMode = true) }
+            }
+            return Reduction(s, outcome = Outcome.Created(tab.id))
+        }
+
+        val space = when {
+            source.isEssential -> state.activeSpace
+            source.spaceId != null -> state.space(source.spaceId)
+            else -> null
+        } ?: return Reduction.reject(state, RejectReason.NO_ACTIVE_SPACE)
+        if (state.isSpaceBlocked(space)) return Reduction.reject(state, RejectReason.CONTAINER_MISSING)
+
+        val now = clock.now()
+        val tab = Tab(
+            id = ids.newId(),
+            spaceId = space.id,
+            containerId = space.containerId,
+            url = url,
+            title = source.title,
+            faviconUrl = source.faviconUrl,
+            position = nextPosition(state.regularTabs(space.id)),
+            kind = TabKind.WEB,
+            isPinned = false,
+            isEssential = false,
+            createdAt = now,
+            lastAccessedAt = now,
+        )
+        var s = state.withData { it.copy(tabs = it.tabs + tab) }
+        if (state.data.settings.activeSpaceId != space.id) s = switchSpace(s, space.id).state
+        s = s.selectInSpace(space.id, tab.id)
+        if (state.runtime(source.id).desktopMode) {
+            s = s.setRuntime(tab.id) { it.copy(desktopMode = true) }
+        }
+        return Reduction(s, outcome = Outcome.Created(tab.id))
+    }
+
     // endregion
 
     // region Private browsing

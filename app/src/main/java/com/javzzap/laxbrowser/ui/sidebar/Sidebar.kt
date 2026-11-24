@@ -137,6 +137,7 @@ interface SidebarActions {
     fun unloadTab(tab: Tab)
     fun pinTab(tab: Tab)
     fun unpinTab(tab: Tab)
+    fun cloneTab(tab: Tab)
     fun addToEssentials(tab: Tab)
     fun removeEssential(tab: Tab)
     fun moveTab(tab: Tab, delta: Int)
@@ -784,6 +785,7 @@ private fun Essentials(state: BrowserState, actions: SidebarActions) {
                         enabled = !unloaded,
                         onClick = { menu = false; actions.unloadTab(tab) },
                     )
+                    DropdownMenuItem(text = { Text(stringResource(R.string.clone_tab)) }, onClick = { menu = false; actions.cloneTab(tab) })
                     PinnedUrlItems(tab, state, actions) { menu = false }
                     SplitItem(tab, state, actions) { menu = false }
                     DropdownMenuItem(text = { Text(stringResource(R.string.move_left)) }, onClick = { menu = false; actions.moveTab(tab, -1) })
@@ -953,6 +955,9 @@ private fun TabRowContent(tab: Tab, state: BrowserState, actions: SidebarActions
                     PinnedUrlItems(tab, state, actions) { menu = false }
                 } else {
                     DropdownMenuItem(text = { Text(stringResource(R.string.pin_to_space)) }, onClick = { menu = false; actions.pinTab(tab) })
+                }
+                if (tab.kind == TabKind.WEB || tab.url.isNotBlank()) {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.clone_tab)) }, onClick = { menu = false; actions.cloneTab(tab) })
                 }
                 SplitItem(tab, state, actions) { menu = false }
                 if (!tab.isPrivate && tab.spaceId != null) {

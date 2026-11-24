@@ -55,6 +55,7 @@
     <string name="pinned">Fijadas</string>
     <string name="pinned_empty">Fijadas · nada todavía</string>
     <string name="new_tab">Nueva pestaña</string>
+    <string name="clone_tab">Clonar pestaña</string>
     <string name="switch_to_tab">Cambiar a la pestaña</string>
     <string name="unloaded_host">Descargada · %1$s</string>
     <string name="container_missing">Falta el contenedor</string>

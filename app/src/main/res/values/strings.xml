@@ -56,6 +56,7 @@
     <string name="pinned">Pinned</string>
     <string name="pinned_empty">Pinned · nothing yet</string>
     <string name="new_tab">New tab</string>
+    <string name="clone_tab">Clone tab</string>
     <string name="switch_to_tab">Switch to tab</string>
     <string name="unloaded_host">Unloaded · %1$s</string>
     <string name="container_missing">Container missing</string>

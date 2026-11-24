@@ -49,6 +49,7 @@ class SidebarTest {
         override fun unloadTab(tab: Tab) = Unit
         override fun pinTab(tab: Tab) = Unit
         override fun unpinTab(tab: Tab) = Unit
+        override fun cloneTab(tab: Tab) = Unit
         override fun addToEssentials(tab: Tab) = Unit
         override fun removeEssential(tab: Tab) = Unit
         override fun moveTab(tab: Tab, delta: Int) = Unit

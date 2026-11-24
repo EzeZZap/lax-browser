@@ -203,6 +203,18 @@ class BrowserController(
 
     fun newTab(url: String? = null) = dispatch { ops.newTab(it, url) }
     fun openNewTabPage() = dispatch { ops.openNewTabPage(it) }
+
+    /**
+     * Duplicates [tabId] as a new ordinary tab. Copies saved session history when available so the
+     * clone can restore back/forward; otherwise the engine loads the stored URL.
+     */
+    fun cloneTab(tabId: String): Reduction {
+        val saved = sessionStates.peek(tabId)
+        val reduction = dispatch { ops.cloneTab(it, tabId) }
+        val newId = (reduction.outcome as? Outcome.Created)?.id
+        if (newId != null && saved != null) sessionStates.update(newId, saved)
+        return reduction
+    }
     fun navigate(tabId: String?, input: String): Reduction {
         UrlInput.upgradedAddress(input)?.let(engine::allowHttpFallback)
         return dispatch { ops.navigate(it, tabId, input) }

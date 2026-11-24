@@ -677,7 +677,8 @@ private fun BrowserScreen(vm: BrowserViewModel, state: BrowserState, onScreenCha
                 if (vm.report(controller.navigate(controller.state.value.activeTab?.id, text))) leaveAddressBar()
             }
             override fun newTab() {
-                if (vm.report(controller.openNewTabPage())) closeDrawer()
+                // Keep the sidebar open and put the caret in the URL bar for typing.
+                if (vm.report(controller.openNewTabPage())) vm.sendUiEvent(UiEvent.FOCUS_ADDRESS)
             }
             override fun selectTab(tab: Tab) {
                 if (vm.report(controller.selectTab(tab.id))) closeDrawer()
@@ -688,6 +689,9 @@ private fun BrowserScreen(vm: BrowserViewModel, state: BrowserState, onScreenCha
             override fun unloadTab(tab: Tab) {
                 haptics.performHapticFeedback(HapticFeedbackType.ToggleOff)
                 vm.unloadTab(tab)
+            }
+            override fun cloneTab(tab: Tab) {
+                if (vm.report(controller.cloneTab(tab.id))) closeDrawer()
             }
             override fun pinTab(tab: Tab) {
                 if (vm.report(controller.pinTab(tab.id))) haptics.performHapticFeedback(HapticFeedbackType.ToggleOn)

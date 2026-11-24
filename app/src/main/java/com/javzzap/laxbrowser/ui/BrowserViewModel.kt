@@ -219,7 +219,7 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
 
     fun newPrivateTab() {
         controller.setPrivateMode(true)
-        report(controller.openNewTabPage())
+        if (report(controller.openNewTabPage())) sendUiEvent(UiEvent.FOCUS_ADDRESS)
     }
 
     fun closeAllPrivateTabs() {
@@ -1347,7 +1347,9 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         val current = state.value
         val active = current.activeTab
         when (shortcut) {
-            KeyboardShortcut.NEW_TAB -> report(controller.openNewTabPage())
+            KeyboardShortcut.NEW_TAB -> {
+                if (report(controller.openNewTabPage())) sendUiEvent(UiEvent.FOCUS_ADDRESS)
+            }
             KeyboardShortcut.NEW_PRIVATE_TAB -> newPrivateTab()
             KeyboardShortcut.CLOSE_TAB -> active?.let { if (it.isPinned || it.isEssential) unloadTab(it) else closeTab(it) }
             KeyboardShortcut.REOPEN_TAB -> reopen()

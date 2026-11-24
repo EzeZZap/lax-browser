@@ -83,6 +83,7 @@ import com.javzzap.laxbrowser.domain.UrlInput
 import com.javzzap.laxbrowser.engine.gecko.ExtensionAction
 import com.javzzap.laxbrowser.pwa.Eligibility
 import com.javzzap.laxbrowser.ui.BrowserViewModel
+import com.javzzap.laxbrowser.ui.UiEvent
 import com.javzzap.laxbrowser.ui.extensions.ExtensionIcon
 import kotlinx.coroutines.launch
 
@@ -162,12 +163,19 @@ fun BrowserMenuSheet(
             HorizontalDivider(Modifier.padding(vertical = 8.dp))
 
             MenuItem(Icons.Default.Add, stringResource(if (state.privateMode) R.string.new_private_tab else R.string.new_tab)) {
-                run { vm.report(controller.openNewTabPage()) }
+                run {
+                    if (vm.report(controller.openNewTabPage())) vm.sendUiEvent(UiEvent.FOCUS_ADDRESS)
+                }
             }
             if (state.privateMode) {
                 MenuItem(Icons.Default.Visibility, stringResource(R.string.exit_private_browsing)) { run { vm.setPrivateMode(false) } }
             } else {
                 MenuItem(Icons.Default.VisibilityOff, stringResource(R.string.new_private_tab)) { run { vm.newPrivateTab() } }
+            }
+            if (webTab != null) {
+                MenuItem(Icons.Default.AddToPhotos, stringResource(R.string.clone_tab)) {
+                    run { vm.report(controller.cloneTab(webTab.id)) }
+                }
             }
             if (canReopen) {
                 MenuItem(Icons.Default.Restore, stringResource(R.string.menu_reopen_closed_tab)) { run { vm.reopen() } }
