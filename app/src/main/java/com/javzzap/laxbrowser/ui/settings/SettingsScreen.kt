@@ -100,6 +100,7 @@ import com.javzzap.laxbrowser.R
 import com.javzzap.laxbrowser.domain.BrowserSettings
 import com.javzzap.laxbrowser.domain.HistoryRange
 import com.javzzap.laxbrowser.ui.history.ClearHistoryDialog
+import com.javzzap.laxbrowser.domain.BangShortcuts
 import com.javzzap.laxbrowser.domain.SearchEngines
 import com.javzzap.laxbrowser.domain.ToolbarAction
 import com.javzzap.laxbrowser.domain.LinkTarget
@@ -1277,6 +1278,13 @@ private fun SearchSection(settings: BrowserSettings, actions: SettingsActions) {
         stringResource(R.string.settings_search_suggestions_summary),
         settings.searchSuggestions,
     ) { checked -> actions.update { it.copy(searchSuggestions = checked) } }
+    Header(stringResource(R.string.settings_search_bangs))
+    Text(
+        stringResource(R.string.settings_search_bangs_summary, BangShortcuts.helpLabels().joinToString(", ")),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(horizontal = 16.dp),
+    )
     Header(stringResource(R.string.settings_search_engine))
     Text(
         stringResource(R.string.settings_search_engine_summary),

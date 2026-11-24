@@ -1433,6 +1433,9 @@ private fun ContextMenuDialog(
                     MenuAction(stringResource(R.string.ctx_open_in)) { onOpenIn(link); onDismiss() }
                     MenuAction(stringResource(R.string.ctx_open_split)) { onSplit(link); onDismiss() }
                     MenuAction(stringResource(R.string.ctx_copy_link)) { onCopy(link); onDismiss() }
+                    target.linkText?.takeIf { it.isNotBlank() }?.let { text ->
+                        MenuAction(stringResource(R.string.ctx_copy_link_text)) { onCopy(text); onDismiss() }
+                    }
                     MenuAction(stringResource(R.string.ctx_share_link)) { onShare(link); onDismiss() }
                     MenuAction(stringResource(R.string.ctx_download_link)) { onSave(link); onDismiss() }
                 }

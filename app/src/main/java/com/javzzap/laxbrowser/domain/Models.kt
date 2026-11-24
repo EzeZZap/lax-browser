@@ -294,12 +294,14 @@ data class TabRuntime(
 /** A tab that was closed and can be reopened with its saved history. */
 data class ClosedTab(val tab: Tab, val sessionState: String?)
 
-/** What the user long-pressed in a page. URLs are untrusted page input. */
+/** What the user long-pressed in a page. URLs and text are untrusted page input. */
 data class ContextMenuTarget(
     val tabId: String,
     val linkUrl: String?,
     val imageUrl: String?,
     val title: String?,
+    /** Visible anchor text from GeckoView (`ContextElement.linkText`), when the target is a link. */
+    val linkText: String? = null,
 )
 
 /** A manifest as delivered by Gecko after its own validation and URL resolution. */

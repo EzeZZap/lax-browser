@@ -65,6 +65,7 @@ import com.javzzap.laxbrowser.domain.SiteRules
 import com.javzzap.laxbrowser.platform.CrashLog
 import com.javzzap.laxbrowser.platform.UpdateInfo
 import com.javzzap.laxbrowser.domain.Download
+import com.javzzap.laxbrowser.domain.BangShortcuts
 import com.javzzap.laxbrowser.domain.SearchEngines
 import com.javzzap.laxbrowser.domain.Space
 import com.javzzap.laxbrowser.domain.TabFolder
@@ -681,9 +682,12 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         }
         val current = state.value
         val template = SearchEngines.templateFor(current.data.settings)
+        val bangUrl = BangShortcuts.resolve(query)
         val local = buildList {
+            bangUrl?.let { add(Suggestion.Address(it)) }
             UrlInput.normalize(query, template)?.takeIf { UrlInput.toUrlOrNull(query) != null }?.let { add(Suggestion.Address(it)) }
-            add(Suggestion.Search(query, fromEngine = false))
+            // Bang queries already resolve to an engine URL; don't also offer the default search.
+            if (bangUrl == null) add(Suggestion.Search(query, fromEngine = false))
             if (!current.privateMode) addAll(SuggestionMatcher.bookmarks(current, query))
         }
         mutableSuggestions.value = local

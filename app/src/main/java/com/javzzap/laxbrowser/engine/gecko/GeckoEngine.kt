@@ -549,6 +549,7 @@ class GeckoEngine(
 
     companion object {
         private const val SHARE_CACHE_DIR = "share"
+        private const val MAX_LINK_TEXT = 500
     }
 
     private val executor by lazy { GeckoWebExecutor(runtime) }
@@ -843,7 +844,10 @@ class GeckoEngine(
                     element.type == GeckoSession.ContentDelegate.ContextElement.TYPE_IMAGE && UrlInput.isWebUrl(it)
                 }
                 if (link != null || image != null) {
-                    l.onContextMenu(ContextMenuTarget(entry.tabId, link, image, element.title ?: element.altText))
+                    val linkText = element.linkText?.trim()?.takeIf { it.isNotEmpty() }?.take(MAX_LINK_TEXT)
+                    l.onContextMenu(
+                        ContextMenuTarget(entry.tabId, link, image, element.title ?: element.altText, linkText),
+                    )
                 }
             }
         }

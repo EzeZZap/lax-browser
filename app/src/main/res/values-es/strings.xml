@@ -112,6 +112,7 @@
     <string name="ctx_open_new_tab">Abrir en una pestaña nueva</string>
     <string name="ctx_open_background">Abrir en segundo plano</string>
     <string name="ctx_copy_link">Copiar dirección del enlace</string>
+    <string name="ctx_copy_link_text">Copiar texto del enlace</string>
     <string name="ctx_share_link">Compartir enlace</string>
     <string name="ctx_open_image">Abrir imagen en una pestaña nueva</string>
     <string name="ctx_share_image">Compartir imagen</string>
@@ -330,6 +331,8 @@
     <!-- Settings -->
     <string name="settings_search_engine">Buscador</string>
     <string name="settings_search_engine_summary">Se usa cuando lo que escribes en la barra de direcciones no es una dirección web.</string>
+    <string name="settings_search_bangs">Atajos bang</string>
+    <string name="settings_search_bangs_summary">Escribe !g, !w, !b y similares antes de una búsqueda para usar ese motor en lugar del predeterminado. Ejemplos: %1$s</string>
     <string name="settings_search_custom">Personalizado</string>
     <string name="settings_search_custom_label">Dirección de búsqueda personalizada</string>
     <string name="settings_search_custom_help" formatted="false">Usa %s donde van los términos de búsqueda.</string>

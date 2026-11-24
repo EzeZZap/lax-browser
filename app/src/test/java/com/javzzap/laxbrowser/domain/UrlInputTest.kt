@@ -76,6 +76,17 @@ class UrlInputTest {
     }
 
     @Test
+    fun `bang shortcuts jump to that engine`() {
+        assertEquals("https://www.google.com/search?q=cats", UrlInput.normalize("!g cats"))
+        assertEquals("https://www.wikipedia.org/search-redirect.php?search=Einstein", UrlInput.normalize("!w Einstein"))
+        assertEquals("https://www.bing.com/search?q=news", UrlInput.normalize("!b news"))
+        assertEquals("https://duckduckgo.com/?q=privacy", UrlInput.normalize("!ddg privacy"))
+        // Unknown bang or missing query uses the default search (or host rules).
+        assertEquals(search("!zz query"), UrlInput.normalize("!zz query"))
+        assertEquals(search("!g"), UrlInput.normalize("!g"))
+    }
+
+    @Test
     fun `web url validation and normalization for bookmarks`() {
         assertEquals("https://example.com", UrlInput.normalizeWebUrl("example.com"))
         assertNull(UrlInput.normalizeWebUrl("not a url"))

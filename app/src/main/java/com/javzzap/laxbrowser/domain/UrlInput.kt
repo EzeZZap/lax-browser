@@ -14,6 +14,7 @@ object UrlInput {
     fun normalize(input: String, searchTemplate: String = SearchEngines.default.template): String? {
         val text = input.trim()
         if (text.isEmpty()) return null
+        BangShortcuts.resolve(text)?.let { return it }
         return toUrlOrNull(text) ?: SearchEngines.searchUrl(searchTemplate, text)
     }
 
